@@ -1,0 +1,149 @@
+.navbar-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding-left: 2rem;
+}
+/* Backdrop */
+/* .sidebar-panel-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+} */
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 6rem;
+  font-weight: 600;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.875rem;
+}
+
+.invite-button,
+.connect-button {
+  background-color: #1a1f25;
+  color: #ffffff;
+  border: 1px solid #88ff00;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.connect-button {
+  border-color: #5b6065;
+}
+
+.invite-button:hover,
+.connect-button:hover {
+  background-color: #88ff00;
+  color: #000;
+}
+
+.mute-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #5b6065;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.mute-icon:hover {
+  background-color: #ff6868;
+  border-color: transparent;
+}
+
+/* Enhanced Hamburger Button */
+.hamburger-button {
+  background: none;
+  border: none;
+  padding: 0.5em;
+  color: #fff;
+  font-size: 1.8rem; /* Slightly larger for better visibility */
+  cursor: pointer;
+  position: relative; /* To position hover effects */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.hamburger-button:hover {
+  transform: scale(1.2); /* Slight zoom effect */
+  color: #88ff00; /* Neon green color on hover */
+}
+
+.hamburger-button:active {
+  transform: scale(0.9); /* Press effect */
+}
+
+/* Glow Effect on Hover */
+.hamburger-button::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  /* border: 2px solid rgba(136, 255, 0, 0.5);  */
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hamburger-button:hover::after {
+  opacity: 1;
+}
+
+/* Enhanced Logo */
+.logo {
+  padding: 0.5em;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: "Space Grotesk", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px; /* Space between elements if icon is added */
+  position: relative; /* For hover effects */
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+@media (min-width: 960px) {
+  .hamburger-button {
+    display: none;
+  }
+
+  .logo {
+    display: none;
+  }
+}
+
+@media (max-width: 959px) {
+  .navbar-title {
+    display: none;
+  }
+
+  .navbar-buttons {
+    position: fixed;
+    right: 1rem;
+    gap: 10px;
+    padding-right: 0;
+    z-index: 1000;
+    font-weight: 600;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.875rem;
+  }
+
+  .logo {
+    font-size: 2em;
+  }
+}
