@@ -9,12 +9,12 @@ html {
   background-color: black;
 }
 
-.app {
+.app-container {
   display: flex;
   height: 100vh;
 }
 
-.sidebar {
+.app-sidebar {
   width: 80px;
   height: 100%; /* Full viewport height */
   background-color: #121212; /* Dark background */
@@ -31,7 +31,7 @@ html {
   scrollbar-color: #555 #1f1f1f; /* Scrollbar color */
 }
 
-.main-container {
+.app-main {
   flex: 1;
   margin-left: 80px;
   display: flex;
@@ -42,7 +42,7 @@ html {
   background-color: black;
 }
 
-.nav-bar {
+.main-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -56,23 +56,21 @@ html {
   z-index: 1000;
 }
 
-
-.main-content {
+.content-wrapper {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   background-color: #121212;
-  padding: 40px;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
   margin-top: 5em;
 }
 
 @media (max-width: 959px) {
-  .sidebar {
+  .app-sidebar {
     display: none;
   }
-  .main-container {
+  .app-main {
     margin-left: 0;
   }
 }

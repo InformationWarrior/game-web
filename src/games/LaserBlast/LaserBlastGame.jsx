@@ -1,9 +1,19 @@
 import React from "react";
+import BetOptionPanel from "./components/BetOptionPanel";
+import "./styles/LaserBlastGame.css";
 
 function LaserBlastGame(props) {
   return (
-    <div>
-      <h1>This is Laser Blast Game.</h1>
+    <div className="laserblast-container">
+      <div className="game-layout">
+        <div className="game-screen">
+          <div className="gameplay-area"></div>
+        </div>
+
+        <div className="bet-options-panel">
+          <BetOptionPanel />
+        </div>
+      </div>
     </div>
   );
 }

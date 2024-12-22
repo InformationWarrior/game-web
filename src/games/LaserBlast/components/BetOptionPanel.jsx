@@ -1,55 +1,40 @@
 import React from "react";
-import PropTypes from "prop-types";
+import "../styles/BetOptionPanel.css";
 
-function BetOptionPanel(props) {
+const BetOptionPanel = () => {
   return (
-    <div className="container">
-      <div className="game-logo"></div>
-      <div className="entry">
-        <h5>Entry</h5>
-        <div className="input-group mb-3">
-          <input
-            type="text"
-            className="form-control"
-            aria-label="Text input with dropdown button"
-          />
-          <button
-            className="btn btn-outline-secondary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Dropdown
-          </button>
-          <ul className="dropdown-menu dropdown-menu-end">
-            <li>
-              <a className="dropdown-item" href="#">
-                Action
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                Another action
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                Something else here
-              </a>
-            </li>
-            <li>
-              <hr className="dropdown-divider" />
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                Separated link
-              </a>
-            </li>
-          </ul>
+    <div className="panel-container">
+      <div className="logo-section">
+        <img
+          src="logo-placeholder.png"
+          alt="Laser Blast Logo"
+          className="logo"
+        />
+      </div>
+      <div className="entry-section">
+        <label>Entry</label>
+        <div className="entry-input">
+          <input type="text" placeholder="0.01" />
+          <button>YOLO</button>
         </div>
       </div>
+      <div className="adjustments">
+        <div className="adjustment-item">
+          <label>Risk Level</label>
+          <input type="range" min="1" max="5" />
+        </div>
+        <div className="adjustment-item">
+          <label>Rows</label>
+          <input type="number" defaultValue="8" />
+        </div>
+        <div className="adjustment-item">
+          <label>Shots</label>
+          <input type="number" defaultValue="5" />
+        </div>
+      </div>
+      <button className="connect-wallet">Connect Wallet</button>
     </div>
   );
-}
+};
 
 export default BetOptionPanel;

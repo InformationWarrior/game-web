@@ -1,0 +1,113 @@
+/* Options Panel Container */
+.panel-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  /* Logo Section */
+  .logo-section {
+    text-align: center;
+  }
+  
+  .logo {
+    width: 150px;
+    margin: 0 auto;
+  }
+  
+  /* Entry Section */
+  .entry-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .entry-input {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .entry-input input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #121212;
+    color: #fff;
+  }
+  
+  .entry-input button {
+    background-color: #ff7d1a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .entry-input button:hover {
+    background-color: #e06d15;
+  }
+  
+  /* Adjustments Section */
+  .adjustments {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .adjustment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .adjustment-item label {
+    font-size: 14px;
+  }
+  
+  .adjustment-item input[type="range"] {
+    width: 50%;
+  }
+  
+  .adjustment-item input[type="number"] {
+    width: 50%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    background-color: #121212;
+    color: #fff;
+  }
+  
+  /* Connect Wallet Button */
+  .connect-wallet {
+    background-color: #ff7d1a;
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .connect-wallet:hover {
+    background-color: #e06d15;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .panel-container {
+      gap: 15px;
+    }
+  
+    .logo {
+      width: 120px;
+    }
+  
+    .entry-input button {
+      padding: 10px 15px;
+    }
+  }
+  
