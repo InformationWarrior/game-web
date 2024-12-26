@@ -1,0 +1,154 @@
+/* Main container */
+.laser-blast {
+  background-color: #121212;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  font-family: "Arial", sans-serif;
+  padding: 20px;
+}
+
+.laser-blast__main {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Game panel */
+.laser-blast__game {
+  flex: 2;
+  background: #0b0b0f;
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.laser-blast__panel {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background: linear-gradient(to bottom, #1e1e2f, #121212);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Canvas area */
+.laser-blast__canvas {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.laser-blast__canvas canvas {
+  /* Ensure the canvas fills its container */
+  width: 100%;
+  height: 100%;
+
+  /* Add some visual flair */
+  background: linear-gradient(to bottom, #0d0d12, #1a1a2a);
+  border: 2px solid #2a2a3c;
+  border-radius: 10px;
+
+  /* Shadows for depth */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+
+  /* Maintain aspect ratio for responsiveness */
+  object-fit: contain;
+
+  /* Smooth rendering */
+  image-rendering: auto;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* For smaller screens, make the canvas responsive */
+@media (max-width: 768px) {
+  .laser-blast__canvas canvas {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+  }
+}
+
+/* Enemies (Top Multipliers) */
+.laser-blast__enemies {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  font-weight: bold;
+  color: #f55;
+}
+
+/* Stars Background */
+.laser-blast__stars {
+  position: absolute;
+  top: 20%;
+  width: 100%;
+  height: 60%;
+  /* background: url('/path/to/stars.png') repeat; */
+  opacity: 0.7;
+}
+
+/* Player Section */
+.laser-blast__player {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.laser-blast__avatar {
+  text-align: center;
+}
+
+.laser-blast__avatar img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 5px;
+}
+
+.laser-blast__player-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.laser-blast__status {
+  font-size: 14px;
+  color: #0f0;
+  font-weight: bold;
+}
+
+/* Spaceship Section */
+.laser-blast__spaceship {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.laser-blast__spaceship span {
+  font-size: 40px;
+}
+
+/* Shots Remaining */
+.laser-blast__shots {
+  font-size: 14px;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Bet Options Section */
+.laser-blast__bet-options {
+  flex: 1;
+}
+
+/* Data Table */
+.laser-blast__data {
+  margin-top: 20px;
+}

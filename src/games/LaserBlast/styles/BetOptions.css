@@ -1,0 +1,126 @@
+.laser-blast__bet-panel {
+  background-color: #121212;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  color: #fff;
+  font-family: "Arial", sans-serif;
+}
+
+.laser-blast__bet-logo img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.laser-blast__label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: bold;
+}
+
+.laser-blast__entry-input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.laser-blast__entry-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+}
+
+.laser-blast__currency-select {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.laser-blast__entry-buttons button {
+  background: #333;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.laser-blast__entry-note {
+  color: #f55;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.laser-blast__slider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.laser-blast__slider-label {
+  flex-shrink: 0;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.laser-blast__range-input {
+  flex-grow: 1;
+  width: 100%;
+  appearance: none;
+  background: #282c34;
+  height: 6px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.laser-blast__range-input::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #f55;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.laser-blast__range-input::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: #f55;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.laser-blast__connect-btn {
+  background-color: #fff;
+  color: #121212;
+  font-weight: bold;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.laser-blast__connect-btn:hover {
+  background-color: #f55;
+  color: #fff;
+}
+
+.laser-blast__bet-shots {
+  margin-top: 20px;
+}

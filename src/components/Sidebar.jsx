@@ -4,6 +4,41 @@ import "../styles/Sidebar.css";
 import Logo from "./Logo";
 
 function Sidebar({ showGamesPanel, setShowGamesPanel }) {
+  const toggleGamesPanel = () => {
+    setShowGamesPanel(!showGamesPanel);
+  };
+
+  const openGamesPanel = () => {
+    setShowGamesPanel(true);
+  };
+
+  const closeGamesPanel = () => {
+    setShowGamesPanel(false);
+  };
+
+  const handleClick = (route, event) => {
+    if (route.label === "Games") {
+      event.preventDefault();
+      toggleGamesPanel();
+    } else {
+      closeGamesPanel();
+    }
+  };
+
+  const handleMouseEnter = (route) => {
+    if (route.label === "Games" && showGamesPanel) {
+      openGamesPanel();
+    } else {
+      closeGamesPanel();
+    }
+  };
+
+  const handleMouseLeave = (route) => {
+    if (route.label === "Games" && !showGamesPanel) {
+      closeGamesPanel();
+    }
+  };
+
   return (
     <div>
       <Logo />
@@ -12,21 +47,9 @@ function Sidebar({ showGamesPanel, setShowGamesPanel }) {
           {routesConfig.map((route, index) => (
             <li
               key={index}
-              onClick={(e) => {
-                if (route.label === "Games") {
-                  e.preventDefault(); // Prevent default link navigation
-                  setShowGamesPanel(!showGamesPanel);
-                } else if (showGamesPanel) {
-                  setShowGamesPanel(false); // Close GamesPanel for other buttons
-                }
-              }}
-              onMouseEnter={() => {
-                if (route.label === "Games") {
-                  if (!showGamesPanel) setShowGamesPanel(true);
-                } else if (showGamesPanel) {
-                  setShowGamesPanel(false); // Close GamesPanel for other buttons
-                }
-              }}
+              onClick={(event) => handleClick(route, event)}
+              onMouseEnter={() => handleMouseEnter(route)}
+              onMouseLeave={() => handleMouseLeave(route)}
             >
               <Link to={route.path} className="nav-link">
                 <span className="icon">{route.icon}</span>

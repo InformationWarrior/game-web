@@ -4,7 +4,11 @@ import "../styles/GamesPanel.css";
 import gamesConfig from "../routes/gamesConfig";
 import GameCard from "./GameCard";
 
-function GamesPanel() {
+function GamesPanel({ setShowGamePanel }) {
+  const handleGameSelect = () => {
+    setShowGamePanel(false);
+  };
+
   return (
     <div className="games-panel">
       <h2 className="games-header">Games</h2>
@@ -14,7 +18,11 @@ function GamesPanel() {
         <ul>
           {gamesConfig.map((game, index) => (
             <li key={index}>
-              <Link to={game.path} className="game-link">
+              <Link
+                to={game.path}
+                className="game-link"
+                onClick={handleGameSelect}
+              >
                 <GameCard
                   title={game.title}
                   description={game.description}
