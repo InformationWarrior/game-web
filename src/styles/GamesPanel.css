@@ -8,6 +8,7 @@
   color: white;
   padding: 20px;
   overflow-y: auto;
+  z-index: 1800;
 }
 
 .games-header {

@@ -1,12 +1,22 @@
 .laser-blast__bet-panel {
-  background-color: #121212;
+  /* background-color: #121212;
   border-radius: 10px;
   padding: 20px;
   width: 300px;
   color: #fff;
   font-family: "Arial", sans-serif;
-}
+   */
 
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2.5rem;
+  height: 100%;
+}
+@media screen and (min-width: 60rem) {
+  .laser-blast__bet-panel {
+    flex-direction: column;
+  }
+}
 .laser-blast__bet-logo img {
   width: 100%;
   height: auto;

@@ -3,11 +3,11 @@ import "./styles/LaserBlast.css";
 import GameDataTable from "./components/GameDataTable";
 import BetOptions from "./components/BetOptions";
 import { UIManager } from "./scripts/UIManager";
+import { outcomes } from "./utils/outcomes";
 
 function LaserBlast() {
   const [risk, setRisk] = useState("low");
   const [row, setRow] = useState(8);
-  const [shots, setShots] = useState(5);
   const [uIManager, setUIManager] = useState(null);
   const canvasRef = useRef(null);
 
@@ -27,12 +27,11 @@ function LaserBlast() {
 
   const handleRiskChange = (newRisk) => setRisk(newRisk);
   const handleRowChange = (newRow) => setRow(newRow);
-  const handleShotsChange = (newShots) => setShots(newShots);
 
   const handleDropBall = async () => {
     try {
       if (uIManager) {
-        uIManager.addBall(3953045.1447091424); //Outcome.js file ---> comes from backend.
+        uIManager.addBall(outcomes[16][0]); //Outcome.js file ---> comes from backend.
       }
     } catch (error) {
       console.error("Error adding ball:", error);
@@ -50,8 +49,8 @@ function LaserBlast() {
                 <canvas
                   ref={canvasRef}
                   width="800"
-                  height="600"
-                  // style={{ width: "748px", height: "561px" }}
+                  height="680"
+                  // style={{ width: "800px", height: "680px" }}
                 ></canvas>
               </div>
             </div>
@@ -62,10 +61,8 @@ function LaserBlast() {
           <BetOptions
             risk={risk}
             row={row}
-            shots={shots}
             onRiskChange={handleRiskChange}
             onRowChange={handleRowChange}
-            onShotsChange={handleShotsChange}
             handleDropBall={handleDropBall}
           />
         </div>

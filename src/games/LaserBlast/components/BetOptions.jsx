@@ -4,15 +4,9 @@ import CreditsManager from "../scripts/CreditsManager";
 import laserBlastLogo from "../assets/thumbnail.webp";
 // import { ConnectButton } from "@rainbow-me/rainbowkit"; To be used later.
 
-const BetOptions = ({
-  risk,
-  row,
-  shots,
-  onRiskChange,
-  onRowChange,
-  onShotsChange,
-  handleDropBall,
-}) => {
+const BetOptions = (props) => {
+  const { risk, row, onRiskChange, onRowChange, handleDropBall } = props;
+
   const handleRiskChange = (event) => {
     const value = parseInt(event.target.value, 10);
     const riskLevels = ["low", "medium", "high"];
@@ -22,10 +16,6 @@ const BetOptions = ({
     }
   };
 
-  const capitalize = (word) => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  };
-
   const handleRowChange = (event) => {
     const value = parseInt(event.target.value, 10);
     if (onRowChange) {
@@ -33,11 +23,8 @@ const BetOptions = ({
     }
   };
 
-  const handleShotsChange = (event) => {
-    const value = parseInt(event.target.value, 10);
-    if (onShotsChange) {
-      onShotsChange(value);
-    }
+  const capitalize = (word) => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
   };
 
   return (
@@ -70,12 +57,11 @@ const BetOptions = ({
             <div className="laser-blast__entry-buttons">
               <button>½</button>
               <button>x2</button>
-              <button>Max</button>
             </div>
-            <div className="laser-blast__entry-note">
+            {/* <div className="laser-blast__entry-note">
               Minimum Play Amount:{" "}
               <span className="laser-blast__entry-min">32.38926</span>
-            </div>
+            </div> */}
           </div>
 
           {/* Risk Level Section */}
@@ -120,7 +106,7 @@ const BetOptions = ({
           </div>
 
           {/* Shots Section */}
-          <div className="laser-blast__bet-shots">
+          {/* <div className="laser-blast__bet-shots">
             <label className="laser-blast__label" htmlFor="shots-slider">
               Shots
             </label>
@@ -134,16 +120,15 @@ const BetOptions = ({
                 max={10}
                 step={1}
                 value={shots}
-                onChange={handleShotsChange}
               />
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Connect Wallet Button */}
         <div className="laser-blast__bet-connect">
           <button className="laser-blast__connect-btn" onClick={handleDropBall}>
-            Drop ball
+            Play
           </button>
         </div>
       </div>
