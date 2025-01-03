@@ -3,38 +3,105 @@ import "./styles/LaserBlast.css";
 import GameDataTable from "./components/GameDataTable";
 import BetOptions from "./components/BetOptions";
 import { UIManager } from "./scripts/UIManager";
+import { ScoreManager } from "./scripts/ScoreManager";
 import { outcomes } from "./utils/outcomes";
 
 function LaserBlast() {
   const [risk, setRisk] = useState("low");
   const [row, setRow] = useState(8);
-  const [uIManager, setUIManager] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState("YOLO");
+  const [currentBetIndex, setCurrentBetIndex] = useState(0);
+  const [totalWin, setTotalWin] = useState(0);
+  const [overallTotalWin, setOverallTotalWin] = useState(0); // Track overall total win
+  const [currentCredits, setCurrentCredits] = useState(1000); // Initialize with 1000 credits
+
   const canvasRef = useRef(null);
+  const scoreManagerRef = useRef(null);
+  const [uIManager, setUIManager] = useState(null);
 
   useEffect(() => {
-    if (canvasRef.current) {
-      const manager = new UIManager(canvasRef.current, row, risk);
+    // Initialize ScoreManager only once on component mount
+    const manager = new ScoreManager();
+    scoreManagerRef.current = manager;
+    setCurrentCredits(manager.credits); // Initialize credits
+  }, []); // Empty dependency array ensures this runs once
+
+  const handleCurrencyChange = (currency) => {
+    setSelectedCurrency(currency);
+    setDropdownOpen(false);
+  };
+
+  useEffect(() => {
+    // Initialize UIManager and pass necessary props
+    if (canvasRef.current && scoreManagerRef.current) {
+      const manager = new UIManager(
+        canvasRef.current,
+        row,
+        risk,
+        (index) => {
+          const multiplier = manager.getLatestMultiplier();
+          console.log(
+            "Multiplier after ball finish: >>>>>>>>>>>>>>",
+            multiplier
+          );
+
+          const roundWin =
+            scoreManagerRef.current.calculateTotalWin(multiplier);
+          setTotalWin(roundWin); // Set current round win
+
+          // Update the overall total win
+          setOverallTotalWin((prevTotal) => prevTotal + roundWin);
+        },
+        scoreManagerRef,
+        setTotalWin,
+        setOverallTotalWin
+      );
       setUIManager(manager);
     }
-  }, [canvasRef]);
 
-  useEffect(() => {
-    if (uIManager) {
-      uIManager.updateRows(row);
-      uIManager.updateSinks(row, risk);
-    }
-  }, [row, risk, uIManager]);
+    return () => {
+      if (uIManager) {
+        uIManager.stop(); // Cleanup on component unmount
+      }
+    };
+  }, [canvasRef, row, risk]);
 
   const handleRiskChange = (newRisk) => setRisk(newRisk);
   const handleRowChange = (newRow) => setRow(newRow);
 
   const handleDropBall = async () => {
     try {
-      if (uIManager) {
-        uIManager.addBall(outcomes[16][0]); //Outcome.js file ---> comes from backend.
+      if (uIManager && scoreManagerRef.current) {
+        // Place the bet and update the credits
+        scoreManagerRef.current.placeBet();
+        setCurrentCredits(scoreManagerRef.current.credits); // Update current credits
+
+        // Add the ball to the canvas and trigger the onFinish callback
+        uIManager.addBall(outcomes[9][5]);
       }
     } catch (error) {
-      console.error("Error adding ball:", error);
+      console.error("Error handling play:", error);
+    }
+  };
+
+  const handleLeftClick = () => {
+    if (currentBetIndex > 0) {
+      const newIndex = currentBetIndex - 1;
+      setCurrentBetIndex(newIndex);
+      scoreManagerRef.current.setBet(
+        scoreManagerRef.current.betArray[newIndex]
+      );
+    }
+  };
+
+  const handleRightClick = () => {
+    if (currentBetIndex < scoreManagerRef.current.betArray.length - 1) {
+      const newIndex = currentBetIndex + 1;
+      setCurrentBetIndex(newIndex);
+      scoreManagerRef.current.setBet(
+        scoreManagerRef.current.betArray[newIndex]
+      );
     }
   };
 
@@ -46,12 +113,7 @@ function LaserBlast() {
           <div className="laser-blast__panel">
             <div className="laser-blast__panel-wrap">
               <div className="laser-blast__canvas">
-                <canvas
-                  ref={canvasRef}
-                  width="800"
-                  height="680"
-                  // style={{ width: "800px", height: "680px" }}
-                ></canvas>
+                <canvas ref={canvasRef} width="800" height="680"></canvas>
               </div>
             </div>
           </div>
@@ -64,6 +126,17 @@ function LaserBlast() {
             onRiskChange={handleRiskChange}
             onRowChange={handleRowChange}
             handleDropBall={handleDropBall}
+            dropdownOpen={dropdownOpen}
+            setDropdownOpen={setDropdownOpen}
+            selectedCurrency={selectedCurrency}
+            setSelectedCurrency={setSelectedCurrency}
+            handleCurrencyChange={handleCurrencyChange}
+            currentBet={scoreManagerRef.current?.betArray[currentBetIndex]}
+            handleLeftClick={handleLeftClick}
+            handleRightClick={handleRightClick}
+            currentCredits={currentCredits} // Display current credits
+            totalWin={totalWin} // Display current round win
+            overallTotalWin={overallTotalWin} // Display overall total win
           />
         </div>
       </div>
@@ -76,3 +149,269 @@ function LaserBlast() {
 }
 
 export default LaserBlast;
+
+// import React, { useEffect, useRef, useState } from "react";
+// import "./styles/LaserBlast.css";
+// import GameDataTable from "./components/GameDataTable";
+// import BetOptions from "./components/BetOptions";
+// import { UIManager } from "./scripts/UIManager";
+// import { ScoreManager } from "./scripts/ScoreManager";
+// import { outcomes } from "./utils/outcomes";
+
+// function LaserBlast() {
+//   const [risk, setRisk] = useState("low");
+//   const [row, setRow] = useState(8);
+//   const [dropdownOpen, setDropdownOpen] = useState(false);
+//   const [selectedCurrency, setSelectedCurrency] = useState("YOLO");
+//   const [currentBetIndex, setCurrentBetIndex] = useState(0);
+//   const [totalWin, setTotalWin] = useState(0);
+//   const [overallTotalWin, setOverallTotalWin] = useState(0);
+//   const [currentCredits, setCurrentCredits] = useState(1000);
+
+//   const canvasRef = useRef(null);
+//   const scoreManagerRef = useRef(null);
+//   const [uIManager, setUIManager] = useState(null);
+
+//   useEffect(() => {
+//     const manager = new ScoreManager();
+//     scoreManagerRef.current = manager;
+//     setCurrentCredits(manager.credits);
+//   }, []);
+
+//   useEffect(() => {
+//     if (canvasRef.current && scoreManagerRef.current) {
+//       const manager = new UIManager(
+//         canvasRef.current,
+//         row,
+//         risk,
+//         (multiplier) => {
+//           const roundWin = scoreManagerRef.current.calculateTotalWin(multiplier);
+//           setTotalWin(roundWin);
+//           setOverallTotalWin((prevTotal) => prevTotal + roundWin);
+//         },
+//         scoreManagerRef,
+//         setTotalWin,
+//         setOverallTotalWin
+//       );
+//       setUIManager(manager);
+//     }
+
+//     return () => {
+//       if (uIManager) {
+//         uIManager.stop();
+//       }
+//     };
+//   }, [canvasRef, row, risk, uIManager]);
+
+//   const handleCurrencyChange = (currency) => {
+//     setSelectedCurrency(currency);
+//     setDropdownOpen(false);
+//   };
+
+//   const handleRiskChange = (newRisk) => setRisk(newRisk);
+//   const handleRowChange = (newRow) => setRow(newRow);
+
+//   const handleDropBall = async () => {
+//     if (uIManager && scoreManagerRef.current) {
+//       try {
+//         scoreManagerRef.current.placeBet();
+//         setCurrentCredits(scoreManagerRef.current.credits);
+//         uIManager.addBall(outcomes[9][5]);
+//       } catch (error) {
+//         console.error("Error handling play:", error);
+//       }
+//     }
+//   };
+
+//   const handleLeftClick = () => {
+//     if (currentBetIndex > 0) {
+//       const newIndex = currentBetIndex - 1;
+//       setCurrentBetIndex(newIndex);
+//       scoreManagerRef.current.setBet(scoreManagerRef.current.betArray[newIndex]);
+//     }
+//   };
+
+//   const handleRightClick = () => {
+//     if (currentBetIndex < scoreManagerRef.current.betArray.length - 1) {
+//       const newIndex = currentBetIndex + 1;
+//       setCurrentBetIndex(newIndex);
+//       scoreManagerRef.current.setBet(scoreManagerRef.current.betArray[newIndex]);
+//     }
+//   };
+
+//   return (
+//     <div className="laser-blast">
+//       <div className="laser-blast__main">
+//         <div className="laser-blast__game">
+//           <div className="laser-blast__panel">
+//             <div className="laser-blast__panel-wrap">
+//               <div className="laser-blast__canvas">
+//                 <canvas ref={canvasRef} width="800" height="680"></canvas>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         <div className="laser-blast__bet-options">
+//           <BetOptions
+//             risk={risk}
+//             row={row}
+//             onRiskChange={handleRiskChange}
+//             onRowChange={handleRowChange}
+//             handleDropBall={handleDropBall}
+//             dropdownOpen={dropdownOpen}
+//             setDropdownOpen={setDropdownOpen}
+//             selectedCurrency={selectedCurrency}
+//             setSelectedCurrency={setSelectedCurrency}
+//             handleCurrencyChange={handleCurrencyChange}
+//             currentBet={scoreManagerRef.current?.betArray[currentBetIndex]}
+//             handleLeftClick={handleLeftClick}
+//             handleRightClick={handleRightClick}
+//             currentCredits={currentCredits}
+//             totalWin={totalWin}
+//             overallTotalWin={overallTotalWin}
+//           />
+//         </div>
+//       </div>
+
+//       <div className="laser-blast__data">
+//         <GameDataTable />
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default LaserBlast;
+
+// import React, { useEffect, useRef, useState } from "react";
+// import "./styles/LaserBlast.css";
+// import GameDataTable from "./components/GameDataTable";
+// import BetOptions from "./components/BetOptions";
+// import { UIManager } from "./scripts/UIManager";
+// import { ScoreManager } from "./scripts/ScoreManager";
+// import { outcomes } from "./utils/outcomes";
+
+// function LaserBlast() {
+//   const [risk, setRisk] = useState("low");
+//   const [row, setRow] = useState(8);
+//   const [dropdownOpen, setDropdownOpen] = useState(false);
+//   const [selectedCurrency, setSelectedCurrency] = useState("YOLO");
+//   const [currentBetIndex, setCurrentBetIndex] = useState(0);
+//   const [totalWin, setTotalWin] = useState(0);
+//   const [overallTotalWin, setOverallTotalWin] = useState(0);
+//   const [currentCredits, setCurrentCredits] = useState(1000);
+
+//   const canvasRef = useRef(null);
+//   const scoreManagerRef = useRef(null);
+//   const [uIManager, setUIManager] = useState(null);
+
+//   useEffect(() => {
+//     const manager = new ScoreManager();
+//     scoreManagerRef.current = manager;
+//     setCurrentCredits(manager.credits);
+//   }, []);
+
+//   useEffect(() => {
+//     if (canvasRef.current && scoreManagerRef.current) {
+//       const manager = new UIManager(
+//         canvasRef.current,
+//         row,
+//         risk,
+//         (multiplier) => {
+//           const roundWin = scoreManagerRef.current.calculateTotalWin(multiplier);
+//           setTotalWin(roundWin);
+//           setOverallTotalWin((prevTotal) => prevTotal + roundWin);
+//         },
+//         scoreManagerRef,
+//         setTotalWin,
+//         setOverallTotalWin
+//       );
+//       setUIManager(manager);
+//     }
+
+//     return () => {
+//       if (uIManager) {
+//         uIManager.stop();
+//       }
+//     };
+//   }, [canvasRef, row, risk]); // Removed setTotalWin and setOverallTotalWin from dependencies
+
+//   const handleCurrencyChange = (currency) => {
+//     setSelectedCurrency(currency);
+//     setDropdownOpen(false);
+//   };
+
+//   const handleRiskChange = (newRisk) => setRisk(newRisk);
+//   const handleRowChange = (newRow) => setRow(newRow);
+
+//   const handleDropBall = async () => {
+//     if (uIManager && scoreManagerRef.current) {
+//       try {
+//         scoreManagerRef.current.placeBet();
+//         setCurrentCredits(scoreManagerRef.current.credits);
+//         uIManager.addBall(outcomes[9][5]);
+//       } catch (error) {
+//         console.error("Error handling play:", error);
+//       }
+//     }
+//   };
+
+//   const handleLeftClick = () => {
+//     if (currentBetIndex > 0) {
+//       const newIndex = currentBetIndex - 1;
+//       setCurrentBetIndex(newIndex);
+//       scoreManagerRef.current.setBet(scoreManagerRef.current.betArray[newIndex]);
+//     }
+//   };
+
+//   const handleRightClick = () => {
+//     if (currentBetIndex < scoreManagerRef.current.betArray.length - 1) {
+//       const newIndex = currentBetIndex + 1;
+//       setCurrentBetIndex(newIndex);
+//       scoreManagerRef.current.setBet(scoreManagerRef.current.betArray[newIndex]);
+//     }
+//   };
+
+//   return (
+//     <div className="laser-blast">
+//       <div className="laser-blast__main">
+//         <div className="laser-blast__game">
+//           <div className="laser-blast__panel">
+//             <div className="laser-blast__panel-wrap">
+//               <div className="laser-blast__canvas">
+//                 <canvas ref={canvasRef} width="800" height="680"></canvas>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         <div className="laser-blast__bet-options">
+//           <BetOptions
+//             risk={risk}
+//             row={row}
+//             onRiskChange={handleRiskChange}
+//             onRowChange={handleRowChange}
+//             handleDropBall={handleDropBall}
+//             dropdownOpen={dropdownOpen}
+//             setDropdownOpen={setDropdownOpen}
+//             selectedCurrency={selectedCurrency}
+//             setSelectedCurrency={setSelectedCurrency}
+//             handleCurrencyChange={handleCurrencyChange}
+//             currentBet={scoreManagerRef.current?.betArray[currentBetIndex]}
+//             handleLeftClick={handleLeftClick}
+//             handleRightClick={handleRightClick}
+//             currentCredits={currentCredits}
+//             totalWin={totalWin}
+//             overallTotalWin={overallTotalWin}
+//           />
+//         </div>
+//       </div>
+
+//       <div className="laser-blast__data">
+//         <GameDataTable />
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default LaserBlast;

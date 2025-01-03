@@ -13,6 +13,7 @@ export class Ball {
         this.obstacles = obstacles; // Array of obstacles
         this.sinks = sinks; // Array of sinks
         this.onFinish = onFinish; // Callback function when the ball enters a sink
+        this.multiplier = 0; // Store multiplier for use in other scripts or components
     }
 
     draw() {
@@ -52,16 +53,27 @@ export class Ball {
         // Handle collision with sinks
         for (let i = 0; i < this.sinks.length; i++) {
             const sink = this.sinks[i];
-            if (
-                unpad(this.x) > sink.x - sink.width / 2 &&
+            let condition = unpad(this.x) > sink.x - sink.width / 2 &&
                 unpad(this.x) < sink.x + sink.width / 2 &&
                 unpad(this.y) + this.radius > sink.y - sink.height / 2
-            ) {
+
+            if (condition) {
                 this.vx = 0;
                 this.vy = 0;
-                this.onFinish(i); // Trigger the callback when the ball enters a sink
+                // console.log("This is my current Multiplier >>>>  ", sink);
+
+                // Store the multiplier from the sink
+                this.multiplier = sink.multiplier;
+
+                // Trigger the callback when the ball enters a sink
+                this.onFinish(i);
                 break;
             }
         }
+    }
+
+    // Method to get the multiplier for use in other components
+    getMultiplier() {
+        return this.multiplier;
     }
 }
