@@ -1,7 +1,9 @@
 import { pad } from "./padding";
+import dynamicConstants from "./dynamicConstants";
 
-export const CANVAS_WIDTH = 800;
-export const CANVAS_HEIGHT = 800;
+export const CANVAS_WIDTH = dynamicConstants.canvasWidth;
+export const CANVAS_HEIGHT = dynamicConstants.canvasHeight;
+
 export const ballRadius = 7;
 export const pegsRadius = 4;
 
