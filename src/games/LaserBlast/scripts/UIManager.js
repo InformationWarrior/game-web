@@ -77,7 +77,7 @@ export class UIManager {
             // this.ctx.fillRect(sink.x, sink.y, sink.width, sink.height);
             this.ctx.fillRect(sink.x, sink.y - sink.height / 2, sink.width - SPACING, sink.height);
             this.ctx.fillStyle = colorInfo.color;
-            this.ctx.font = 'normal 11px Arial';
+            this.ctx.font = 'normal 8px Arial';
             this.ctx.fillText(
                 (sink.multiplier || '').toString() + "x",
                 sink.x - 15 + sinkWidth / 2,

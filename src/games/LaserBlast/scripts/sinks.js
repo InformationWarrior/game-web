@@ -26,8 +26,8 @@ const getMultipliers = (row, risk) => {
 export const createSinks = (rows, risk, pegsRadius, lastRowYPos, rowSpacing, lastRowXPositions) => {
     const sinks = [];
     const MULTIPLIERS = getMultipliers(rows, risk);
-    // const y = lastRowYPos + rowSpacing / 2;
-    const y = CANVAS_HEIGHT - 25;
+    const y = lastRowYPos + rowSpacing / 2;
+    // const y = CANVAS_HEIGHT - 25;
 
     for (let i = 0; i <= rows; i++) {
         const x = unpad(lastRowXPositions[i]) + pegsRadius;

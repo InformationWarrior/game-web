@@ -24,11 +24,10 @@ function GameDataTable() {
               <th>Risk</th>
               <th>Rows</th>
               <th>Shots</th>
-              <th>Ending</th>
+              <th>Entry</th>
               <th>Payout</th>
-              <th>Pin</th>
+              <th>Pts</th>
               <th>Date</th>
-              <th>Utility</th>
             </tr>
           </thead>
           <tbody>
@@ -43,7 +42,6 @@ function GameDataTable() {
                 <td>0.002</td>
                 <td>{index + 2}</td>
                 <td>24/12/2024</td>
-                <td>...</td>
               </tr>
             ))}
           </tbody>

@@ -23,14 +23,12 @@ function LaserBlast() {
   const [uIManager, setUIManager] = useState(null);
 
   useEffect(() => {
-    // Initialize ScoreManager only once on component mount
     const manager = new ScoreManager();
     scoreManagerRef.current = manager;
-    setCurrentCredits(manager.credits); // Initialize credits
-  }, []); // Empty dependency array ensures this runs once
+    setCurrentCredits(manager.credits);
+  }, []);
 
   useEffect(() => {
-    // Initialize UIManager and pass necessary props
     if (canvasRef.current && scoreManagerRef.current) {
       const manager = new UIManager(
         canvasRef.current,
@@ -75,12 +73,19 @@ function LaserBlast() {
   const handleDropBall = async () => {
     try {
       if (uIManager && scoreManagerRef.current) {
-        // Place the bet and update the credits
-        scoreManagerRef.current.placeBet();
-        setCurrentCredits(scoreManagerRef.current.credits); // Update current credits
+        if (
+          scoreManagerRef.current.credits >= scoreManagerRef.current.currentBet
+        ) {
+          scoreManagerRef.current.placeBet();
+          setCurrentCredits(scoreManagerRef.current.credits);
 
-        // Add the ball to the canvas and trigger the onFinish callback
-        uIManager.addBall(outcomes[9][5]);
+          uIManager.addBall(outcomes[9][5]);
+        } else {
+          console.log("Insufficient credits to place the bet.");
+          alert(
+            "You do not have enough credits to play. Please add more credits or reduce the bet amount."
+          );
+        }
       }
     } catch (error) {
       console.error("Error handling play:", error);
@@ -117,13 +122,11 @@ function LaserBlast() {
         {/* Game Panel */}
         <div className="laser-blast__game">
           <div className="laser-blast__panel">
-            <div className="laser-blast__panel-wrap">
-              <div className="laser-blast__canvas">
-                <ResponsiveCanvas
-                  canvasRef={canvasRef}
-                  onDimensionsChange={handleCanvasResize}
-                />
-              </div>
+            <div className="laser-blast__canvas">
+              <ResponsiveCanvas
+                canvasRef={canvasRef}
+                onDimensionsChange={handleCanvasResize}
+              />
             </div>
           </div>
         </div>

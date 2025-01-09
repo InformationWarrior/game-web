@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import routesConfig from "./routes/routesConfig";
 import gamesConfig from "./routes/gamesConfig";
@@ -9,6 +9,19 @@ import "./App.css";
 
 function App() {
   const [showGamesPanel, setShowGamesPanel] = useState(false);
+  const [navbarTitle, setNavbarTitle] = useState(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    // Find the current route's title based on the path
+    const currentRoute =
+      routesConfig.find((route) => route.path === location.pathname) ||
+      gamesConfig.find((game) => game.path === location.pathname);
+
+    if (currentRoute) {
+      setNavbarTitle(currentRoute.title || ""); // Set title or default to an empty string
+    }
+  }, [location.pathname]);
 
   return (
     <>
@@ -22,7 +35,7 @@ function App() {
 
         <div className="app-main">
           <div className="main-navbar">
-            <Navbar />
+            <Navbar title={navbarTitle} />
           </div>
           <div className="content-wrapper">
             {showGamesPanel && (

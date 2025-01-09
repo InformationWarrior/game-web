@@ -21,7 +21,10 @@ function Navbar(props) {
         </button>
         <span className="navbar-logo">Y</span>
       </div>
-      <NavbarTitle className="navbar-title" title={props.title} />
+      <NavbarTitle
+        className="navbar-title"
+        title={props.title || "YOLO Games | The Home of Degen Gaming"}
+      />
       <div className="navbar-buttons">
         <button
           className="invite-button me-2"

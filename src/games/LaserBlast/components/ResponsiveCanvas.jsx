@@ -24,6 +24,7 @@ function ResponsiveCanvas({ canvasRef, onDimensionsChange }) {
       canvasRef.current.style.width = `${newWidth}px`;
       canvasRef.current.style.height = `${newHeight}px`;
 
+      console.log(`Width = ${newWidth}px Height = ${newHeight}px`);
       if (onDimensionsChange) {
         onDimensionsChange({ width: newWidth, height: newHeight });
       }

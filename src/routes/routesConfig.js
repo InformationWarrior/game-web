@@ -1,10 +1,11 @@
 import Home from "../pages/Home";
 import Rewards from "../pages/Rewards";
+import ContactUs from '../pages/ContactUs'
 
 const routesConfig = [
   {
     "label": "Home",
-    "title": "Title of the Webpage",
+    "title": "YOLO Games | The Home of Degen Gaming",
     "path": "/",
     "icon": "🏠",
     "element": <Home />
@@ -19,6 +20,14 @@ const routesConfig = [
     "path": "/rewards",
     "icon": "🏆",
     "element": <Rewards />
+  },
+
+  {
+    "label": "Contact Us",
+    "title": "Contact Us",
+    "path": "/contact-us",
+    "icon": "✉️",
+    "element": <ContactUs />
   },
 
   // {
