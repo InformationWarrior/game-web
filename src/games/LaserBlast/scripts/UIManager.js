@@ -14,7 +14,7 @@ export class UIManager {
         this.pegs = pegs;
         this.sinks = createSinks(row, risk, pegsRadius, lastRowYPos, spacing, lastRowXPositions);
         this.update();
-        this.latestMultiplier = 0; // Store the latest multiplier
+        this.latestMultiplier = null; // Store the latest multiplier
         this.canvas = canvas;
         this.row = row;
         this.risk = risk;
@@ -43,11 +43,14 @@ export class UIManager {
             this.sinks,
             (index) => {
                 this.balls = this.balls.filter((ball) => ball !== newBall);
+
+                // Set the multiplier when the ball hits a sink
+                this.latestMultiplier = newBall.getMultiplier();
+
+                // Trigger the onFinish logic for scoring
                 if (this.onFinishCallback) {
                     this.onFinishCallback(index, startX);
                 }
-                // Update the latest multiplier when the ball enters a sink
-                this.latestMultiplier = newBall.getMultiplier();
             }
         );
         this.balls.push(newBall);
@@ -130,7 +133,13 @@ export class UIManager {
     // On ball finish, update the total win and overall win
     onFinish(index) {
         const multiplier = this.getLatestMultiplier();
-        console.log("Multiplier after ball finish: >>>>>>>>>>>>>>", multiplier);
+
+        if (multiplier === null) {
+            console.error("Multiplier not available yet for the ball!");
+            return;
+        }
+
+        console.log("Multiplier after ball finish:", multiplier);
 
         if (this.scoreManagerRef && this.scoreManagerRef.current) {
             // Calculate total win

@@ -17,6 +17,7 @@ function LaserBlast() {
   const [totalWin, setTotalWin] = useState(0);
   const [overallTotalWin, setOverallTotalWin] = useState(0); // Track overall total win
   const [currentCredits, setCurrentCredits] = useState(1000); // Initialize with 1000 credits
+  const [currentMultiplier, setCurrentMultiplier] = useState(null);
 
   const canvasRef = useRef(null);
   const scoreManagerRef = useRef(null);
@@ -36,6 +37,7 @@ function LaserBlast() {
         risk,
         (index) => {
           const multiplier = manager.getLatestMultiplier();
+          setCurrentMultiplier(multiplier);
           console.log(
             "Multiplier after ball finish: >>>>>>>>>>>>>>",
             multiplier
@@ -147,6 +149,7 @@ function LaserBlast() {
             handleLeftClick={handleLeftClick}
             handleRightClick={handleRightClick}
             currentCredits={currentCredits} // Display current credits
+            currentMultiplier={currentMultiplier}
             totalWin={totalWin} // Display current round win
             overallTotalWin={overallTotalWin} // Display overall total win
           />

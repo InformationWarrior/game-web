@@ -71,6 +71,7 @@ const BetOptions = (props) => {
             <div className="laser-blast__credits">
               <span className="credits-display">
                 Multiplier: {currentMultiplier}
+                {console.log("Current Multiplier in BetOptions>>>>>> ", currentMultiplier)}
               </span>
             </div>
             {/* Total Win */}
