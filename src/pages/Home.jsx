@@ -1,37 +1,12 @@
 import React from "react";
 import "../styles/Home.css";
-import { FaGamepad, FaDiscord } from "react-icons/fa";
-import gameImage from "../games/LaserBlast/assets/thumbnail.webp";
 import { Link } from "react-router-dom";
+import { SiFireship } from "react-icons/si";
+import { ImStatsBars } from "react-icons/im";
+import { FaGamepad } from "react-icons/fa";
 import gameConfigTemporary from "../routes/gameConfigTemporary";
 
 const HomePage = () => {
-  const games = [
-    {
-      title: "Laser Blast",
-      description: "Invaders must die!",
-      type: "Single Player",
-      path: "/laser-blast",
-      //imgSrc: laserBlastLogo,
-      //element: <LaserBlast />,
-    },
-    {
-      title: "YOLO",
-      description:
-        "Deposit crypto and spin the wheel. But remember: there can be only one winner.",
-      image: gameImage,
-      watching: 31,
-    },
-    {
-      title: "Moon or Doom",
-      description:
-        "Think you know where crypto prices are headed in the next 60 seconds? Put your money where your...",
-      image: gameImage,
-      watching: 7,
-      //link: <LaserBlast />,
-    },
-  ];
-
   return (
     <div className="homepage">
       {/* Header */}
@@ -44,7 +19,7 @@ const HomePage = () => {
       {/* Popular Games Section */}
       <section className="popular-games">
         <h2>
-          <FaGamepad size={18} /> POPULAR GAMES
+          <FaGamepad /> POPULAR GAMES
         </h2>
         <div className="games-grid">
           {gameConfigTemporary.map((game, index) => (
@@ -73,7 +48,9 @@ const HomePage = () => {
 
       {/* Platform Stats */}
       <section className="platform-stats">
-        <h2>📊 PLATFORM STATS</h2>
+        <h2>
+          <ImStatsBars /> PLATFORM STATS
+        </h2>
         <div className="stats-grid">
           <div className="stat-card">
             <p>Total Players</p>
@@ -95,7 +72,9 @@ const HomePage = () => {
 
       {/* Recent Wins */}
       <section className="recent-wins">
-        <h2>🔥 RECENT WINS</h2>
+        <h2>
+          <SiFireship /> RECENT WINS
+        </h2>
         <div className="wins-table">
           <div className="table-header">
             <span>Game</span>
