@@ -1,18 +1,18 @@
-import { useAccount, useBalance } from "wagmi";
+// import { useAccount, useBalance } from "wagmi";
 
-const useAccountBalance = () => {
-  const { address, isConnected } = useAccount();
-  const { data, isError, isLoading } = useBalance({
-    addressOrName: address,
-  });
+// const useAccountBalance = () => {
+//   const { address, isConnected } = useAccount();
+//   const { data, isError, isLoading } = useBalance({
+//     addressOrName: address,
+//   });
 
-  return {
-    address,
-    balance: data?.formatted,
-    isConnected,
-    isError,
-    isLoading,
-  };
-};
+//   return {
+//     address,
+//     balance: data?.formatted,
+//     isConnected,
+//     isError,
+//     isLoading,
+//   };
+// };
 
-export default useAccountBalance;
+// export default useAccountBalance;

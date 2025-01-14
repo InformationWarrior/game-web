@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./styles/LaserBlast.css";
+import { useSelector } from "react-redux";
 import GameDataTable from "./components/GameDataTable";
 import BetOptions from "./components/BetOptions";
 import { UIManager } from "./scripts/UIManager";
 import { ScoreManager } from "./scripts/ScoreManager";
-import { outcomes } from "./utils/outcomes";
 import ResponsiveCanvas from "./components/ResponsiveCanvas";
 import dynamicConstants from "./scripts/dynamicConstants";
+import "./styles/LaserBlast.css";
 
 function LaserBlast() {
-  const [risk, setRisk] = useState("low");
-  const [row, setRow] = useState(8);
+  const { riskLevel, numberOfRows } = useSelector((state) => state.laserBlast);
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState("YOLO");
   const [currentBetIndex, setCurrentBetIndex] = useState(0);
@@ -33,8 +33,8 @@ function LaserBlast() {
     if (canvasRef.current && scoreManagerRef.current) {
       const manager = new UIManager(
         canvasRef.current,
-        row,
-        risk,
+        numberOfRows,
+        riskLevel,
         (index) => {
           const multiplier = manager.getLatestMultiplier();
           setCurrentMultiplier(multiplier);
@@ -62,37 +62,40 @@ function LaserBlast() {
         uIManager.stop(); // Cleanup on component unmount
       }
     };
-  }, [canvasRef, row, risk]);
-
-  const handleRiskChange = (newRisk) => setRisk(newRisk);
-  const handleRowChange = (newRow) => setRow(newRow);
+  }, [canvasRef, numberOfRows, riskLevel]);
 
   const handleCurrencyChange = (currency) => {
     setSelectedCurrency(currency);
     setDropdownOpen(false);
   };
 
-  const handleDropBall = async () => {
-    try {
-      if (uIManager && scoreManagerRef.current) {
-        if (
-          scoreManagerRef.current.credits >= scoreManagerRef.current.currentBet
-        ) {
-          scoreManagerRef.current.placeBet();
-          setCurrentCredits(scoreManagerRef.current.credits);
-
-          uIManager.addBall(outcomes[9][5]);
-        } else {
-          console.log("Insufficient credits to place the bet.");
-          alert(
-            "You do not have enough credits to play. Please add more credits or reduce the bet amount."
-          );
-        }
-      }
-    } catch (error) {
-      console.error("Error handling play:", error);
+  const handleDropBall = (point) => {
+    if (uIManager && point) {
+      uIManager.addBall(point);
     }
   };
+
+  // const handleDropBall = async () => {
+  //   try {
+  //     if (uIManager && scoreManagerRef.current) {
+  //       if (
+  //         scoreManagerRef.current.credits >= scoreManagerRef.current.currentBet
+  //       ) {
+  //         scoreManagerRef.current.placeBet();
+  //         setCurrentCredits(scoreManagerRef.current.credits);
+
+  //         uIManager.addBall(outcomes[9][5]);
+  //       } else {
+  //         console.log("Insufficient credits to place the bet.");
+  //         alert(
+  //           "You do not have enough credits to play. Please add more credits or reduce the bet amount."
+  //         );
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Error handling play:", error);
+  //   }
+  // };
 
   const handleLeftClick = () => {
     if (currentBetIndex > 0) {
@@ -135,10 +138,6 @@ function LaserBlast() {
 
         <div className="laser-blast__bet-options">
           <BetOptions
-            risk={risk}
-            row={row}
-            onRiskChange={handleRiskChange}
-            onRowChange={handleRowChange}
             handleDropBall={handleDropBall}
             dropdownOpen={dropdownOpen}
             setDropdownOpen={setDropdownOpen}

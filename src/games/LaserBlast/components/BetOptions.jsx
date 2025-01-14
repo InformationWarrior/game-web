@@ -1,15 +1,16 @@
-import React, { useState } from "react";
-import "../styles/BetOptions.css";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import laserBlastLogo from "../assets/thumbnail.webp";
 import { TiArrowSortedDown } from "react-icons/ti";
-// import { ConnectButton } from "@rainbow-me/rainbowkit"; To be used later.
+import PlayButton from "./PlayButton";
+import {
+  setRiskLevel,
+  setNumberOfRows,
+} from "../../../redux/slices/laserBlastSlice";
+import "../styles/BetOptions.css";
 
-const BetOptions = (props) => {
+function BetOptions(props) {
   const {
-    risk,
-    row,
-    onRiskChange,
-    onRowChange,
     handleDropBall,
     dropdownOpen,
     setDropdownOpen,
@@ -24,20 +25,18 @@ const BetOptions = (props) => {
     overallTotalWin,
   } = props;
 
+  const dispatch = useDispatch();
+  const { riskLevel, numberOfRows } = useSelector((state) => state.laserBlast);
+
   const handleRiskChange = (event) => {
     const value = parseInt(event.target.value, 10);
     const riskLevels = ["low", "medium", "high"];
-    const currentRisk = riskLevels[value];
-    if (onRiskChange) {
-      onRiskChange(currentRisk);
-    }
+    dispatch(setRiskLevel(riskLevels[value]));
   };
 
   const handleRowChange = (event) => {
     const value = parseInt(event.target.value, 10);
-    if (onRowChange) {
-      onRowChange(value);
-    }
+    dispatch(setNumberOfRows(value)); // Update Redux
   };
 
   const capitalize = (word) => {
@@ -71,7 +70,10 @@ const BetOptions = (props) => {
             <div className="laser-blast__credits">
               <span className="credits-display">
                 Multiplier: {currentMultiplier}
-                {console.log("Current Multiplier in BetOptions>>>>>> ", currentMultiplier)}
+                {console.log(
+                  "Current Multiplier in BetOptions>>>>>> ",
+                  currentMultiplier
+                )}
               </span>
             </div>
             {/* Total Win */}
@@ -133,7 +135,7 @@ const BetOptions = (props) => {
             </label>
             <div className="laser-blast__slider">
               <span className="laser-blast__slider-label">
-                {capitalize(risk)}
+                {capitalize(riskLevel)}
               </span>
               <input
                 type="range"
@@ -142,7 +144,7 @@ const BetOptions = (props) => {
                 min={0}
                 max={2}
                 step={1}
-                value={["low", "medium", "high"].indexOf(risk)}
+                value={["low", "medium", "high"].indexOf(riskLevel)}
                 onChange={handleRiskChange}
               />
             </div>
@@ -154,14 +156,14 @@ const BetOptions = (props) => {
               Rows
             </label>
             <div className="laser-blast__slider">
-              <span className="laser-blast__slider-label">{row}</span>
+              <span className="laser-blast__slider-label">{numberOfRows}</span>
               <input
                 type="range"
                 id="row-slider"
                 className="laser-blast__range-input"
                 min={8}
                 max={16}
-                value={row}
+                value={numberOfRows}
                 onChange={handleRowChange}
               />
             </div>
@@ -187,15 +189,15 @@ const BetOptions = (props) => {
           </div> */}
         </div>
 
-        {/* Connect Wallet Button */}
+        {/* Play Button Section */}
         <div className="laser-blast__bet-connect">
-          <button className="laser-blast__connect-btn" onClick={handleDropBall}>
-            Play
-          </button>
+          <PlayButton
+            handleDropBall={handleDropBall}
+          />
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default BetOptions;
