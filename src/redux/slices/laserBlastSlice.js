@@ -1,56 +1,50 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 const initialState = {
-    riskLevel: "low", // Represents the risk level (low, medium, high)
-    numberOfRows: 8,  // Represents the number of rows
+    riskLevel: "low",
+    numberOfRows: 8,
+    currency: "USDT",
+    betAmount: 0.01,
     serverOutcome: null,
-    // credits: 1000,
-    // currentBetIndex: 0,
-    // totalWin: 0,
-    // overallTotalWin: 0,
-    // currentMultiplier: null,
+    wallet: { remainingCredits: 0, currency: "USDT" },
 };
 
 const laserBlastSlice = createSlice({
-    name: "laserBlast", // Updated name to represent the Laser Blast context
+    name: "laserBlast",
     initialState,
     reducers: {
         setRiskLevel(state, action) {
-            state.riskLevel = action.payload; // Updates risk level
+            state.riskLevel = action.payload;
         },
         setNumberOfRows(state, action) {
-            state.numberOfRows = action.payload; // Updates number of rows
+            state.numberOfRows = action.payload;
         },
-        setServerOutcome: (state, action) => {
+        setCurrency(state, action) {
+            state.currency = action.payload;
+        },
+        setBetAmount(state, action) {
+            state.betAmount = action.payload;
+        },
+        setServerOutcome(state, action) {
             state.serverOutcome = action.payload;
         },
-        // setCredits(state, action) {
-        //     state.credits = action.payload;
-        // },
-        // setBetIndex(state, action) {
-        //     state.currentBetIndex = action.payload;
-        // },
-        // setTotalWin(state, action) {
-        //     state.totalWin = action.payload;
-        // },
-        // setOverallTotalWin(state, action) {
-        //     state.overallTotalWin = action.payload;
-        // },
-        // setMultiplier(state, action) {
-        //     state.currentMultiplier = action.payload;
-        // },
+        setWallet(state, action) {
+            state.wallet = {
+                ...state.wallet,
+                remainingCredits: action.payload.remainingCredits,
+                currency: action.payload.currency,
+            };
+        },
+
     },
 });
 
 export const {
     setRiskLevel,
     setNumberOfRows,
+    setCurrency,
+    setBetAmount,
     setServerOutcome,
-    // setCredits,
-    // setBetIndex,
-    // setTotalWin,
-    // setOverallTotalWin,
-    // setMultiplier,
+    setWallet,
 } = laserBlastSlice.actions;
 
 export default laserBlastSlice.reducer;

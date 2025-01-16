@@ -6,7 +6,7 @@ import { Ball } from "./Ball";
 
 
 export class UIManager {
-    constructor(canvas, row, risk, onFinishCallback, scoreManagerRef, setTotalWin, setOverallTotalWin) {
+    constructor(canvas, row, risk, onFinishCallback) {
         this.balls = [];
         this.canvasRef = canvas;
         this.ctx = this.canvasRef.getContext("2d");
@@ -14,14 +14,10 @@ export class UIManager {
         this.pegs = pegs;
         this.sinks = createSinks(row, risk, pegsRadius, lastRowYPos, spacing, lastRowXPositions);
         this.update();
-        this.latestMultiplier = null; // Store the latest multiplier
         this.canvas = canvas;
         this.row = row;
         this.risk = risk;
-        this.onFinishCallback = onFinishCallback; // Passed from LaserBlast
-        this.scoreManagerRef = scoreManagerRef; // Passed from LaserBlast
-        this.setTotalWin = setTotalWin; // Passed from LaserBlast
-        this.setOverallTotalWin = setOverallTotalWin; // Passed from LaserBlast
+        this.onFinishCallback = onFinishCallback;
     }
 
     updateRows(newRows) {
@@ -32,33 +28,25 @@ export class UIManager {
         this.sinks = createSinks(newRows, newRisk);
     }
 
-    addBall(startX) {
+    addBall(startX, reward, onFinishCallback) {
         const newBall = new Ball(
             startX || pad(CANVAS_WIDTH / 2 + 13),
             pad(50),
             ballRadius,
-            'red',
+            "red",
             this.ctx,
             this.pegs,
             this.sinks,
             (index) => {
                 this.balls = this.balls.filter((ball) => ball !== newBall);
-
-                // Set the multiplier when the ball hits a sink
-                this.latestMultiplier = newBall.getMultiplier();
-
-                // Trigger the onFinish logic for scoring
-                if (this.onFinishCallback) {
-                    this.onFinishCallback(index, startX);
+                if (onFinishCallback) {
+                    onFinishCallback(index, startX, reward); // Trigger callback when the ball hits the sink
                 }
             }
         );
         this.balls.push(newBall);
     }
 
-    getLatestMultiplier() {
-        return this.latestMultiplier;
-    }
 
     drawPegs() {
         this.ctx.fillStyle = 'white';
@@ -129,30 +117,7 @@ export class UIManager {
             cancelAnimationFrame(this.requestId);
         }
     }
-
-    // On ball finish, update the total win and overall win
     onFinish(index) {
-        const multiplier = this.getLatestMultiplier();
-
-        if (multiplier === null) {
-            console.error("Multiplier not available yet for the ball!");
-            return;
-        }
-
-        console.log("Multiplier after ball finish:", multiplier);
-
-        if (this.scoreManagerRef && this.scoreManagerRef.current) {
-            // Calculate total win
-            const roundWin = this.scoreManagerRef.current.calculateTotalWin(multiplier);
-            this.setTotalWin(roundWin); // Set current win for this round
-
-            // Update the overall total win
-            this.setOverallTotalWin((prevTotal) => prevTotal + roundWin);
-        } else {
-            console.error("ScoreManager is not initialized yet!");
-        }
-
-        // Call the callback function passed from LaserBlast
         if (this.onFinishCallback) {
             this.onFinishCallback(index);
         }
