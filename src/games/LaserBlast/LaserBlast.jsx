@@ -5,15 +5,12 @@ import BetOptions from "./components/BetOptions";
 import { useUIManager } from "./hooks/useUIManager";
 import ResponsiveCanvas from "./components/ResponsiveCanvas";
 import dynamicConstants from "./scripts/dynamicConstants";
-import {
-  setWallet,
-  setServerOutcome,
-} from "../../redux/slices/laserBlastSlice";
+import { setCredits } from "../../redux/slices/laserBlastSlice";
 import "./styles/LaserBlast.css";
 
 function LaserBlast() {
   const dispatch = useDispatch();
-  const { riskLevel, numberOfRows, wallet } = useSelector(
+  const { riskLevel, numberOfRows, credits, currency, betAmount } = useSelector(
     (state) => state.laserBlast
   );
 
@@ -21,20 +18,13 @@ function LaserBlast() {
   const canvasRef = useRef(null);
   const uIManager = useUIManager(canvasRef, numberOfRows, riskLevel);
 
-  // Handles ball dropping and delayed reward addition
-  const handleDropBall = (point, reward) => {
-    if (uIManager && point !== undefined) {
-      uIManager.addBall(point, reward, () => {
-        // Callback after ball hits the sink
-        if (reward && reward > 0) {
-          const updatedCredits = wallet.remainingCredits + reward;
-          dispatch(
-            setWallet({
-              remainingCredits: updatedCredits,
-              currency: wallet.currency,
-            })
-          );
-        }
+  const handleDropBall = (point, payout) => {
+    if (uIManager && point) {
+      uIManager.addBall(point, payout, (index, startX, payout) => {
+        const updatedCredits = parseFloat(
+          (Number(credits) - Number(betAmount) + Number(payout)).toFixed(2)
+        );
+        dispatch(setCredits({ credits: updatedCredits, currency }));
       });
     }
   };
@@ -46,7 +36,6 @@ function LaserBlast() {
   return (
     <div className="laser-blast">
       <div className="laser-blast__main">
-        {/* Game Panel */}
         <div className="laser-blast__game">
           <div className="laser-blast__panel">
             <div className="laser-blast__canvas">
@@ -58,7 +47,6 @@ function LaserBlast() {
           </div>
         </div>
 
-        {/* Bet Options */}
         <div className="laser-blast__bet-options">
           <BetOptions
             handleDropBall={handleDropBall}
@@ -68,7 +56,6 @@ function LaserBlast() {
         </div>
       </div>
 
-      {/* Game Data Table */}
       <div className="laser-blast__data">
         <GameDataTable />
       </div>

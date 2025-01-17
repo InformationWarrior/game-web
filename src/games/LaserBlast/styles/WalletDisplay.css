@@ -1,64 +1,11 @@
-.wallet-display {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #1a1f2b; /* Dark background */
-    padding: 0 15px; /* Horizontal padding */
-    border-radius: 8px;
-    height: 50px; /* Fixed height for consistency */
-    width: 250px; /* Fixed width for alignment */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    gap: 10px; /* Space between elements */
-  }
-  
-  .wallet-info {
-    display: flex;
-    align-items: center;
-    gap: 5px; /* Spacing between text and icon */
-  }
-  
-  .wallet-amount {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: 600;
-    color: #e0e0e0; /* Light text color */
-    white-space: nowrap; /* Prevent wrapping of text */
-    text-align: right; /* Align text to the right */
-    width: 100px; /* Fixed width to prevent shifting */
-    overflow: hidden; /* Ensures the text won't overflow the box */
-  }
-  
-  .wallet-icon {
-    margin-left: 5px;
-    font-size: 16px; /* Icon size */
-    color: #fbbf24; /* Gold color for the Bitcoin icon */
-  }
-  
-  .wallet-currency {
-    font-size: 12px;
-    color: #a3a3a3; /* Slightly lighter color for the currency */
-  }
-  
-  .wallet-button {
-    height: 100%; /* Matches the height of the container */
-    background-color: #2563eb; /* Blue button */
-    color: #ffffff;
-    border: none;
-    padding: 0 16px; /* Horizontal padding */
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    white-space: nowrap; /* Prevent text wrapping */
-  }
-  
-  .wallet-button:hover {
-    background-color: #1d4ed8; /* Darker blue on hover */
-  }
-  
-  .wallet-button:active {
-    background-color: #1a3ea8; /* Even darker blue on click */
-  }
-  
+.credits-display {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  background-color: #f5f5f5;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-align: center;
+  margin: 10px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

@@ -1,25 +1,39 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { FaBitcoin } from "react-icons/fa"; // Example for the coin icon
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { setCredits } from "../../../redux/slices/laserBlastSlice";
 import "../styles/WalletDisplay.css";
 
 function WalletDisplay() {
-  const wallet = useSelector((state) => state.laserBlast.wallet);
+  const dispatch = useDispatch();
+  const { credits, currency } = useSelector((state) => state.laserBlast);
 
-  if (!wallet || wallet.remainingCredits === undefined) {
-    return <div>Loading wallet data...</div>;
-  }
+  // Fetch credits when the component loads
+  const fetchCredits = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/api/laser-blast/wallet"
+      );
+      const { remainingCredits, currency } = response.data;
 
-  const { remainingCredits, currency } = wallet;
+      // Dispatch the credits to Redux store
+      dispatch(setCredits({ credits: remainingCredits, currency }));
+    } catch (error) {
+      console.error("Error fetching wallet data:", error);
+      alert("Failed to fetch wallet data. Please try again.");
+    }
+  };
+
+  // Fetch credits on component mount
+  useEffect(() => {
+    fetchCredits();
+  }, []); // Empty dependency array ensures this runs once on mount
 
   return (
-    <div className="wallet-display">
-      <div className="wallet-amount">
-        {remainingCredits.toFixed(2)}
-        {/* <FaBitcoin className="wallet-icon" /> */}
-        <span className="wallet-currency">{currency}</span>
-      </div>
-      <button className="wallet-button">Wallet</button>
+    <div className="credits-display">
+      <p>
+        <strong>Credits:</strong> {credits} {currency}
+      </p>
     </div>
   );
 }

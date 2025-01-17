@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import laserBlastLogo from "../assets/thumbnail.webp";
 import BetButton from "./BetButton";
 import EntrySection from "./EntrySection";
-import WalletDisplay from "./WalletDisplay";
 import {
   setRiskLevel,
   setNumberOfRows,
 } from "../../../redux/slices/laserBlastSlice";
 import "../styles/BetOptions.css";
-import ConnectButton from "./ConnectButton";
+import WalletDisplay from "./WalletDisplay";
 
 function BetOptions(props) {
   const { handleDropBall, dropdownOpen, setDropdownOpen } = props;
@@ -93,7 +92,7 @@ function BetOptions(props) {
         </div>
 
         {/* Connect Section */}
-        <ConnectButton />
+        {/* <ConnectButton /> */}
 
         {/* Play Button Section */}
         <div className="laser-blast__bet-connect">

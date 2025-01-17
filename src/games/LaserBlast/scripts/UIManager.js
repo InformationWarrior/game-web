@@ -28,7 +28,7 @@ export class UIManager {
         this.sinks = createSinks(newRows, newRisk);
     }
 
-    addBall(startX, reward, onFinishCallback) {
+    addBall(startX, payout, onFinishCallback) {
         const newBall = new Ball(
             startX || pad(CANVAS_WIDTH / 2 + 13),
             pad(50),
@@ -40,7 +40,7 @@ export class UIManager {
             (index) => {
                 this.balls = this.balls.filter((ball) => ball !== newBall);
                 if (onFinishCallback) {
-                    onFinishCallback(index, startX, reward); // Trigger callback when the ball hits the sink
+                    onFinishCallback(index, startX, payout);
                 }
             }
         );

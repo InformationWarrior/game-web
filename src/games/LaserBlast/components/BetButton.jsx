@@ -1,61 +1,60 @@
 import React from "react";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setServerOutcome, setWallet } from "../../../redux/slices/laserBlastSlice";
+import {
+  setServerOutcome,
+  setCredits,
+} from "../../../redux/slices/laserBlastSlice";
 
 function BetButton({ handleDropBall }) {
   const dispatch = useDispatch();
-  const { riskLevel, numberOfRows, currency, betAmount, wallet } = useSelector(
+  const { riskLevel, numberOfRows, currency, betAmount, credits } = useSelector(
     (state) => state.laserBlast
   );
 
   const handleBetClick = async () => {
-    const currentBalance = wallet?.remainingCredits || 0;
-
-    // Check if the wallet has enough balance
-    if (currentBalance < betAmount) {
-      alert("Insufficient balance!");
+    // Locally decrease credits immediately
+    const updatedCredits = credits - betAmount;
+    if (updatedCredits < 0) {
+      alert("Insufficient credits for this bet.");
       return;
     }
 
-    // Immediately update the wallet balance on the client side
-    const updatedBalance = currentBalance - betAmount;
-    dispatch(setWallet({ remainingCredits: updatedBalance, currency }));
+    dispatch(setCredits({ credits: updatedCredits, currency }));
 
     try {
-      // Send the updated wallet balance and bet details to the server
-      const response = await fetch(
+      const response = await axios.post(
         "http://localhost:3001/api/laser-blast/game-outcome",
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            rows: numberOfRows,
-            risk: riskLevel,
-            currency,
-            betAmount,
-            remainingCredits: updatedBalance,
-          }),
+          rows: numberOfRows,
+          risk: riskLevel,
+          currency,
+          betAmount,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
+      const responseData = response.data;
+      const { point, payout } = responseData;
 
-      // Handle the server response
-      const responseData = await response.json();
-      const { reward, point } = responseData;
-
-      // Update the Redux store with the server's response
       dispatch(setServerOutcome(responseData));
 
-      // Trigger the ball drop animation with the reward
-      handleDropBall(point, reward);
+      // Update credits with payout adjustment
+      // const finalCredits = updatedCredits + payout;
+      // dispatch(setCredits({ remainingCredits: finalCredits, currency }));
+
+      // Drop the ball in the game
+      handleDropBall(point, payout);
     } catch (error) {
       console.error("Error during Bet button click:", error);
 
-      // Revert the wallet balance on error
-      dispatch(setWallet({ remainingCredits: currentBalance, currency }));
+      // Roll back the credit deduction in case of API failure
+      // dispatch(setCredits({ credits: credits, currency }));
+
       alert("Something went wrong. Please try again.");
     }
   };

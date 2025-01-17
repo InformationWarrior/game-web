@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
     riskLevel: "low",
     numberOfRows: 8,
     currency: "USDT",
     betAmount: 0.01,
+    credits: 0,
     serverOutcome: null,
-    wallet: { remainingCredits: 0, currency: "USDT" },
 };
 
 const laserBlastSlice = createSlice({
@@ -24,17 +25,14 @@ const laserBlastSlice = createSlice({
         setBetAmount(state, action) {
             state.betAmount = action.payload;
         },
+        setCredits(state, action) {
+            const { credits, currency } = action.payload;
+            state.credits = credits;
+            state.currency = currency;
+        },
         setServerOutcome(state, action) {
             state.serverOutcome = action.payload;
         },
-        setWallet(state, action) {
-            state.wallet = {
-                ...state.wallet,
-                remainingCredits: action.payload.remainingCredits,
-                currency: action.payload.currency,
-            };
-        },
-
     },
 });
 
@@ -43,8 +41,8 @@ export const {
     setNumberOfRows,
     setCurrency,
     setBetAmount,
+    setCredits,
     setServerOutcome,
-    setWallet,
 } = laserBlastSlice.actions;
 
 export default laserBlastSlice.reducer;
