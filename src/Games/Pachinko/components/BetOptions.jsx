@@ -6,7 +6,7 @@ import EntrySection from "./EntrySection";
 import {
   setRiskLevel,
   setNumberOfRows,
-} from "../../../redux/slices/laserBlastSlice";
+} from "../../../Common/redux/slices/laserBlastSlice";
 import "../styles/BetOptions.css";
 import WalletDisplay from "./WalletDisplay";
 

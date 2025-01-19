@@ -1,5 +1,5 @@
-import LaserBlast from "../games/LaserBlast/LaserBlast";
-import laserBlastLogo from "../games/LaserBlast/assets/thumbnail.webp";
+import LaserBlast from "../../Games/Pachinko/LaserBlast";
+import laserBlastLogo from "../../Games/Pachinko/assets/thumbnail.webp";
 
 const gamesConfig = [
     {

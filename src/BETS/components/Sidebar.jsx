@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import routesConfig from "../routes/routesConfig";
+import routesConfig from "../../Common/routes/routesConfig";
 import "../styles/Sidebar.css";
 import Logo from "./Logo";
 

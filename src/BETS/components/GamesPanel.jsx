@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/GamesPanel.css";
-import gamesConfig from "../routes/gamesConfig";
+import gamesConfig from "../../Common/routes/routesConfig";
 import GameCard from "./GameCard";
 
 function GamesPanel({ setShowGamePanel }) {

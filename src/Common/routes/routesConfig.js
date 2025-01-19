@@ -1,6 +1,6 @@
-import Home from "../pages/Home";
-import Rewards from "../pages/Rewards";
-import ContactUs from '../pages/ContactUs'
+import Home from "../../BETS/pages/Home";
+import Rewards from "../../BETS/pages/Rewards";
+import ContactUs from '../../BETS/pages/ContactUs'
 
 const routesConfig = [
   {

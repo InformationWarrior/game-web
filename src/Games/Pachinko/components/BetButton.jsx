@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setServerOutcome,
   setCredits,
-} from "../../../redux/slices/laserBlastSlice";
+} from "../../../Common/redux/slices/laserBlastSlice";
 
 function BetButton({ handleDropBall }) {
   const dispatch = useDispatch();

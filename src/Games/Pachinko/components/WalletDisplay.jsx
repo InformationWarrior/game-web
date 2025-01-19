@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { setCredits } from "../../../redux/slices/laserBlastSlice";
+import { setCredits } from "../../../Common/redux/slices/laserBlastSlice";
 import "../styles/WalletDisplay.css";
 
 function WalletDisplay() {
   const dispatch = useDispatch();
   const { credits, currency } = useSelector((state) => state.laserBlast);
 
-  // Fetch credits when the component loads
   const fetchCredits = async () => {
     try {
       const response = await axios.get(

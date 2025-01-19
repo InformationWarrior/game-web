@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
-import routesConfig from "./routes/routesConfig";
-import gamesConfig from "./routes/gamesConfig";
-import Navbar from "./components/Navbar";
-import GamesPanel from "./components/GamesPanel";
+import routesConfig from "./Common/routes/routesConfig";
+import gamesConfig from "./Common/routes/gamesConfig";
+import Sidebar from "./BETS/components/Sidebar";
+import Navbar from "./BETS/components/Navbar";
+import GamesPanel from "./BETS/components/GamesPanel";
 import "./App.css";
 
 function App() {

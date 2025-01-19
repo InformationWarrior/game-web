@@ -5,7 +5,7 @@ import BetOptions from "./components/BetOptions";
 import { useUIManager } from "./hooks/useUIManager";
 import ResponsiveCanvas from "./components/ResponsiveCanvas";
 import dynamicConstants from "./scripts/dynamicConstants";
-import { setCredits } from "../../redux/slices/laserBlastSlice";
+import { setCredits } from "../../Common/redux/slices/laserBlastSlice";
 import "./styles/LaserBlast.css";
 
 function LaserBlast() {

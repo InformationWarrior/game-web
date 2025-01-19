@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { SiFireship } from "react-icons/si";
 import { ImStatsBars } from "react-icons/im";
 import { FaGamepad } from "react-icons/fa";
-import gameConfigTemporary from "../routes/gameConfigTemporary";
+import gameConfigTemporary from "../../Common/routes/gameConfigTemporary";
 
 const HomePage = () => {
   return (
