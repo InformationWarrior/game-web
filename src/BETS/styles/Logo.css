@@ -1,6 +1,6 @@
 .logo-container {
     width: 100%;
-    height: 70px; /* Fixed height for the logo container */
+    height: 80px; /* Fixed height for the logo container */
     display: flex;
     justify-content: center;
     align-items: center;

@@ -4,11 +4,11 @@ import routesConfig from "./Common/routes/routesConfig";
 import gamesConfig from "./Common/routes/gamesConfig";
 import Sidebar from "./BETS/components/Sidebar";
 import Navbar from "./BETS/components/Navbar";
-import GamesPanel from "./BETS/components/GamesPanel";
+// import GamesPanel from "./BETS/components/GamesPanel";
 import "./App.css";
 
 function App() {
-  const [showGamesPanel, setShowGamesPanel] = useState(false);
+  // const [showGamesPanel, setShowGamesPanel] = useState(false);
   const [navbarTitle, setNavbarTitle] = useState(null);
   const location = useLocation();
 
@@ -28,8 +28,8 @@ function App() {
       <div className="app-container">
         <div className="app-sidebar">
           <Sidebar
-            showGamesPanel={showGamesPanel}
-            setShowGamesPanel={setShowGamesPanel}
+          // showGamesPanel={showGamesPanel}
+          // setShowGamesPanel={setShowGamesPanel}
           />
         </div>
 
@@ -38,9 +38,9 @@ function App() {
             <Navbar title={navbarTitle} />
           </div>
           <div className="content-wrapper">
-            {showGamesPanel && (
+            {/* {showGamesPanel && (
               <GamesPanel setShowGamesPanel={setShowGamesPanel} />
-            )}
+            )} */}
             <Routes>
               {routesConfig.map((route, index) => (
                 <Route key={index} path={route.path} element={route.element} />

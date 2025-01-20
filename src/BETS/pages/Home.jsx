@@ -3,26 +3,25 @@ import "../styles/Home.css";
 import { Link } from "react-router-dom";
 import { SiFireship } from "react-icons/si";
 import { ImStatsBars } from "react-icons/im";
-import { FaGamepad } from "react-icons/fa";
-import gameConfigTemporary from "../../Common/routes/gameConfigTemporary";
+import gamesConfig from "../../Common/routes/gamesConfig";
+import banner from "../assets/Banner.jpeg";
 
 const HomePage = () => {
   return (
     <div className="homepage">
+      <div className="banner">
+        <img src={banner} alt="Banner" />
+      </div>
       {/* Header */}
       <header className="homepage-header">
         <div className="logo">
-          <span className="highlight">YOLO</span> GAMES
+          <span>BETS GAMES</span>
         </div>
       </header>
 
-      {/* Popular Games Section */}
       <section className="popular-games">
-        <h2>
-          <FaGamepad /> POPULAR GAMES
-        </h2>
         <div className="games-grid">
-          {gameConfigTemporary.map((game, index) => (
+          {gamesConfig.map((game, index) => (
             <Link
               key={index}
               to={game.path}
@@ -33,9 +32,7 @@ const HomePage = () => {
                 <div
                   className="game-image"
                   style={{ backgroundImage: `url(${game.imgSrc})` }}
-                >
-                  <span className="watching">{game.watching} Watching</span>
-                </div>
+                ></div>
                 <div className="game-info">
                   <h3>{game.title}</h3>
                   <p>{game.description}</p>
@@ -75,21 +72,27 @@ const HomePage = () => {
         <h2>
           <SiFireship /> RECENT WINS
         </h2>
-        <div className="wins-table">
-          <div className="table-header">
-            <span>Game</span>
-            <span>Player</span>
-            <span>Entry Amount</span>
-            <span>Amount Won</span>
-          </div>
-          {[...Array(8)].map((_, i) => (
-            <div className="table-row" key={i}>
-              <span>Laser Blast</span>
-              <span>Player{i + 1}</span>
-              <span>0.01 ETH</span>
-              <span className="win-amount">0.1 ETH</span>
-            </div>
-          ))}
+        <div className=" table-responsive wins-table">
+          <table className="table table-dark  table-hover">
+            <thead>
+              <tr>
+                <th>Game</th>
+                <th>Player</th>
+                <th>Entry Amount</th>
+                <th>Amount Won</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[...Array(8)].map((_, i) => (
+                <tr key={i}>
+                  <td>Pocket Pachinko</td>
+                  <td>Player{i + 1}</td>
+                  <td>0.01 ETH</td>
+                  <td className="win-amount">0.1 ETH</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
     </div>

@@ -1,24 +1,30 @@
 import Home from "../../BETS/pages/Home";
+import Games from "../../BETS/pages/Games";
 import Rewards from "../../BETS/pages/Rewards";
-import ContactUs from '../../BETS/pages/ContactUs'
+import ContactUs from "../../BETS/pages/ContactUs";
+
+import { FaHome, FaGamepad, FaTrophy, FaRegAddressCard } from "react-icons/fa";
 
 const routesConfig = [
   {
     "label": "Home",
-    "title": "YOLO Games | The Home of Degen Gaming",
+    "title": "BETS",
     "path": "/",
-    "icon": "🏠",
+    "icon": <FaHome />,
     "element": <Home />
   },
   {
     "label": "Games",
-    "icon": "🎮",
+    "title": "BETS",
+    "path": "/games",
+    "icon": <FaGamepad />,
+    "element": <Games />
   },
   {
     "label": "Rewards",
     "title": "Rewards",
     "path": "/rewards",
-    "icon": "🏆",
+    "icon": <FaTrophy />,
     "element": <Rewards />
   },
 
@@ -26,41 +32,9 @@ const routesConfig = [
     "label": "Contact Us",
     "title": "Contact Us",
     "path": "/contact-us",
-    "icon": "✉️",
+    "icon": <FaRegAddressCard />,
     "element": <ContactUs />
   },
-
-  // {
-  //   "label": "Rakeback",
-  //   "title": "Rakeback",
-  //   "path": "/rakeback",
-  //   "icon": "📥"
-  // },
-  // {
-  //   "label": "Lottery",
-  //   "title": "Lottery",
-  //   "path": "/lottery",
-  //   "icon": "🎟️"
-  // },
-  // {
-  //   "label": "Gold Rush",
-  //   "title": "Gold Rush",
-  //   "path": "/gold-rush",
-  //   "icon": "💰"
-  // },
-  // {
-  //   "label": "Liquidity",
-  //   "title": "Liquidity",
-  //   "path": "/liquidity",
-  //   "icon": "💧"
-  // },
-  // {
-  //   "label": "Settings",
-  //   "title": "Settings",
-  //   "path": "/settings",
-  //   "icon": "⚙️"
-  // }
-]
-  ;
+];
 
 export default routesConfig;

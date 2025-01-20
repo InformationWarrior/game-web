@@ -2,11 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Sans-serif", Arial, Helvetica, sans-serif;
 }
 
 html {
-  background-color: black;
+  background-color: #8b4513; /* Brown background */
 }
 
 .app-container {
@@ -17,11 +17,10 @@ html {
 .app-sidebar {
   width: 80px;
   height: 100%; /* Full viewport height */
-  background-color: #121212; /* Dark background */
+  background-color: #2f2f2f; /* Darker shade of brown */
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0;
   position: fixed;
   top: 0;
   left: 0;
@@ -37,17 +36,17 @@ html {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  color: white;
+  color: white; /* Text color */
   overflow: hidden;
-  background-color: black;
+  background-color: #8b4513; /* Brown background */
 }
 
 .main-navbar {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1e1e1f;
-  color: #ffffff;
+  background-color: #000; /* Black background */
+  color: white; /* White text */
   height: 5rem;
   width: 100%;
   position: fixed;
@@ -57,15 +56,12 @@ html {
 
 .content-wrapper {
   flex: 1;
-  display: flex;
-  flex-direction: column;
   overflow-y: auto;
-  background-color: #121212;
+  background-color: #8b4513; /* Brown background */
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
-  margin-top: 5em;
+  margin-top: 5rem; /* Adjusted to align with navbar height */
   padding: 1rem;
 }
-
 
 @media (max-width: 959px) {
   .app-sidebar {
@@ -73,11 +69,5 @@ html {
   }
   .app-main {
     margin-left: 0;
-  }
-
-  .content-wrapper {
-    /* margin-left: 10px;
-    margin-right: 10px; */
-    padding: 10px;
   }
 }

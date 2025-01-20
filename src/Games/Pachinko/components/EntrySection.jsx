@@ -64,7 +64,7 @@ function EntrySection({ dropdownOpen, setDropdownOpen }) {
             </button>
             {dropdownOpen && (
               <ul className="laser-blast__dropdown-menu">
-                {["USDT", "YOLO", "ETH"].map((currency) => (
+                {["USDT", "BETS", "ETH"].map((currency) => (
                   <li
                     key={currency}
                     className="laser-blast__dropdown-item"

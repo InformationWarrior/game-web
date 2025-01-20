@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import SidebarPanel from "./SidebarPanel";
 import NavbarTitle from "./NavbarTitle";
-import InvitePanel from "./InvitePanel";
+// import InvitePanel from "./InvitePanel";
 import "../styles/Navbar.css";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 function Navbar(props) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isInvitePanelOpen, setIsInvitePanelOpen] = useState(false);
+  // const [isInvitePanelOpen, setIsInvitePanelOpen] = useState(false);
 
   return (
     <div className="nav-bar">
@@ -19,19 +19,19 @@ function Navbar(props) {
         >
           <FaBars />
         </button>
-        <span className="navbar-logo">Y</span>
+        <span className="navbar-logo">BETS</span>
       </div>
       <NavbarTitle
         className="navbar-title"
-        title={props.title || "YOLO Games | The Home of Degen Gaming"}
+        title={props.title || "BETS"}
       />
       <div className="navbar-buttons">
-        <button
+        {/* <button
           className="invite-button me-2"
           onClick={() => setIsInvitePanelOpen(true)}
         >
           Invite
-        </button>
+        </button> */}
         <ConnectButton />
       </div>
 
@@ -39,9 +39,9 @@ function Navbar(props) {
         <SidebarPanel onClose={() => setIsSidebarOpen(false)} />
       )}
 
-      {isInvitePanelOpen && (
+      {/* {isInvitePanelOpen && (
         <InvitePanel onClose={() => setIsInvitePanelOpen(false)} />
-      )}
+      )} */}
     </div>
   );
 }

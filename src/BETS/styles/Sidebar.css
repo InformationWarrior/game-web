@@ -39,6 +39,7 @@
 .nav-link .icon {
   font-size: 1.5rem; /* Icon size */
   margin-bottom: 5px;
+  color: white;
 }
 
 .nav-link .label {

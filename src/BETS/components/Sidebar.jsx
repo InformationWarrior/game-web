@@ -3,41 +3,42 @@ import routesConfig from "../../Common/routes/routesConfig";
 import "../styles/Sidebar.css";
 import Logo from "./Logo";
 
-function Sidebar({ showGamesPanel, setShowGamesPanel }) {
-  const toggleGamesPanel = () => {
-    setShowGamesPanel(!showGamesPanel);
-  };
+// function Sidebar({ showGamesPanel, setShowGamesPanel }) {
+function Sidebar() {
+  // const toggleGamesPanel = () => {
+  //   setShowGamesPanel(!showGamesPanel);
+  // };
 
-  const openGamesPanel = () => {
-    setShowGamesPanel(true);
-  };
+  // const openGamesPanel = () => {
+  //   setShowGamesPanel(true);
+  // };
 
-  const closeGamesPanel = () => {
-    setShowGamesPanel(false);
-  };
+  // const closeGamesPanel = () => {
+  //   setShowGamesPanel(false);
+  // };
 
-  const handleClick = (route, event) => {
-    if (route.label === "Games") {
-      event.preventDefault();
-      toggleGamesPanel();
-    } else {
-      closeGamesPanel();
-    }
-  };
+  // const handleClick = (route, event) => {
+  //   if (route.label === "Games") {
+  //     event.preventDefault();
+  //     toggleGamesPanel();
+  //   } else {
+  //     closeGamesPanel();
+  //   }
+  // };
 
-  const handleMouseEnter = (route) => {
-    if (route.label === "Games" && showGamesPanel) {
-      openGamesPanel();
-    } else {
-      closeGamesPanel();
-    }
-  };
+  // const handleMouseEnter = (route) => {
+  //   if (route.label === "Games" && showGamesPanel) {
+  //     openGamesPanel();
+  //   } else {
+  //     closeGamesPanel();
+  //   }
+  // };
 
-  const handleMouseLeave = (route) => {
-    if (route.label === "Games" && !showGamesPanel) {
-      closeGamesPanel();
-    }
-  };
+  // const handleMouseLeave = (route) => {
+  //   if (route.label === "Games" && !showGamesPanel) {
+  //     closeGamesPanel();
+  //   }
+  // };
 
   return (
     <div>
@@ -47,9 +48,9 @@ function Sidebar({ showGamesPanel, setShowGamesPanel }) {
           {routesConfig.map((route, index) => (
             <li
               key={index}
-              onClick={(event) => handleClick(route, event)}
-              onMouseEnter={() => handleMouseEnter(route)}
-              onMouseLeave={() => handleMouseLeave(route)}
+              // onClick={(event) => handleClick(route, event)}
+              // onMouseEnter={() => handleMouseEnter(route)}
+              // onMouseLeave={() => handleMouseLeave(route)}
             >
               <Link to={route.path} className="nav-link">
                 <span className="icon">{route.icon}</span>

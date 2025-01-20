@@ -93,7 +93,7 @@
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   border-radius: 15px; /* Rounded corners */
-  background: url("../assets/space-background.webp") no-repeat center center,
+  background: url("../assets/bgImage.jpg") no-repeat center center,
     /* Add background image */ linear-gradient(to bottom, #1e1e2f, #121212); /* Gradient background */
   background-size: cover; /* Ensure the image covers the entire panel */
   position: relative; /* Allows child positioning */
