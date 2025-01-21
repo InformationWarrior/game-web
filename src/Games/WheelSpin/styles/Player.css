@@ -1,0 +1,80 @@
+/* Player.css */
+.player-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #0f0f23, #252547);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.player-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.player-details {
+  flex: 1;
+  margin-left: 1rem;
+}
+
+.player-username {
+  font-size: 14px;
+  /* font-weight: bold; */
+}
+
+.crown {
+  color: gold;
+  font-size: 14px;
+}
+
+.player-points {
+  font-size: 14px;
+  color: #a1a1b0;
+}
+
+.player-stats {
+  text-align: right;
+}
+
+.player-percentage {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.player-value {
+  font-size: 14px;
+  color: #a1a1b0;
+}
+
+/* Border color classes */
+.border-green {
+  border-right: 8px solid green;
+}
+
+.border-orange {
+  border-right: 8px solid orange;
+}
+
+.border-blue {
+  border-right: 8px solid blue;
+}
+
+.border-yellow {
+  border-right: 8px solid yellow;
+}
+
+.border-red {
+  border-right: 8px solid red;
+}
+
+.border-violet {
+  border-right: 8px solid violet;
+}
+
+.border-aqua {
+  border-right: 8px solid aqua;
+}

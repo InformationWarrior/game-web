@@ -1,0 +1,22 @@
+.round-info-container {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  width: 100%; /* Ensures it fits the container */
+}
+
+.round-title {
+  font-weight: 500;
+}
+
+.timer-placeholder {
+  min-width: 50px; /* Keeps a consistent size for the timer */
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #444; /* Subtle divider line */
+}
+
+.detail-label,
+.footer-label {
+  margin-top: 4px;
+}
