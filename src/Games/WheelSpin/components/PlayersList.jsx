@@ -184,7 +184,7 @@ function PlayersList() {
       <div className="players-header">
         <h2>{players.length} Players</h2>
       </div>
-      <div className="players-list">
+      <div>
         {players.map((player, index) => (
           <Player key={index} {...player} />
         ))}

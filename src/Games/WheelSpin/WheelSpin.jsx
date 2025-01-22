@@ -1,46 +1,48 @@
 import React from "react";
-import PlayersList from "./components/PlayersList";
 import "./styles/WheelSpin.css";
 import RoundInfo from "./components/RoundInfo";
+import PlayersList from "./components/PlayersList";
+import RoundContents from "./components/RoundContents";
+import PlayerEntry from "./components/PlayerEntry";
+import WheelSection from "./components/WheelSection";
 
 function WheelSpin() {
   return (
-    <div className="container-fluid vh-100 bg-dark text-white">
+    <div className="container-fluid vh-100">
       <div className="row h-100 g-4">
         {/* Players List Section */}
-        <div
-          className="col-md-3 bg-secondary overflow-auto"
-          style={{ maxHeight: "100%", padding: "0px" }} // Ensures content stays within this column and is scrollable
-        >
+        <div className="col-xxl-3 col-xl-3 col-md-3 col-12 bg-dark rounded overflow-auto mb-3 players-list">
           <PlayersList />
         </div>
 
         {/* Wheel Spin Section */}
-        <div className="col-md-6">
-          <div className="row h-75 g-2">
-            {/* Central Spinning Area */}
-            <div className="col-12 bg-dark d-flex align-items-center justify-content-center border p-4">
-              <h5>Wheel Spin</h5>
+        <div className="col-xxl-6 col-xl-6 col-md-6 col-12 vh-100">
+          {/* Top 75% Section */}
+          <div className="row h-75 g-3 mb-2">
+            <div className="col-12 bg-dark rounded d-flex align-items-center justify-content-center">
+              <WheelSection />
             </div>
           </div>
-          <div className="row h-25 g-2 mt-2">
-            {/* Round Content Area */}
-            <div className="col-12 bg-secondary d-flex align-items-center justify-content-center border p-4">
-              <h5>Round Content</h5>
+          {/* Bottom 25% Section */}
+          <div className="row h-25 g-3 mt-2">
+            <div className="col-12 bg-dark rounded d-flex align-items-center justify-content-center">
+              <RoundContents />
             </div>
           </div>
         </div>
 
         {/* Info Section */}
-        <div className="col-md-3">
-          <div className="row h-50 g-2">
-            <div className="col-12 bg-secondary d-flex align-items-center justify-content-center border p-4">
+        <div className="col-xxl-3 col-xl-3 col-md-3 col-12">
+          {/* Top 50% Section */}
+          <div className="row h-50 g-3 mb-3">
+            <div className="col-12 bg-dark rounded d-flex align-items-center justify-content-center">
               <RoundInfo />
             </div>
           </div>
-          <div className="row h-50 g-2 mt-2">
-            <div className="col-12 bg-secondary d-flex align-items-center justify-content-center border p-4">
-              <h5>Other Info</h5>
+          {/* Bottom 50% Section */}
+          <div className="row h-50 g-3">
+            <div className="col-12 bg-dark rounded d-flex align-items-stretch justify-content-center">
+              <PlayerEntry />
             </div>
           </div>
         </div>
