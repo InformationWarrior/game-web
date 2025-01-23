@@ -3,7 +3,7 @@ import { Wheel } from "react-custom-roulette";
 
 const data = [
   { option: "0", style: { backgroundColor: "green", textColor: "black" } },
-  { option: "1", style: { backgroundColor: "white" } },
+  { option: "1", style: { backgroundColor: "white" }, textColor: "black" },
   { option: "2", style: { backgroundColor: "blue", textColor: "white" } },
 ];
 
@@ -23,6 +23,13 @@ function Spinner() {
 
   return (
     <div className="wheel-container d-flex flex-column align-items-center">
+      <button
+        onClick={handleSpinClick}
+        className="btn btn-primary mt-4"
+        disabled={mustSpin}
+      >
+        Spin the Wheel
+      </button>
       <Wheel
         mustStartSpinning={mustSpin}
         prizeNumber={prizeNumber}
@@ -31,13 +38,6 @@ function Spinner() {
         textColors={["#ffffff"]}
         onStopSpinning={handleSpinComplete}
       />
-      <button
-        onClick={handleSpinClick}
-        className="btn btn-primary mt-4"
-        disabled={mustSpin}
-      >
-        Spin the Wheel
-      </button>
     </div>
   );
 }

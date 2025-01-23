@@ -9,8 +9,8 @@ const initialState = {
     serverOutcome: null,
 };
 
-const laserBlastSlice = createSlice({
-    name: "laserBlast",
+const pachinkoSlice = createSlice({
+    name: "pachinko",
     initialState,
     reducers: {
         setRiskLevel(state, action) {
@@ -43,6 +43,6 @@ export const {
     setBetAmount,
     setCredits,
     setServerOutcome,
-} = laserBlastSlice.actions;
+} = pachinkoSlice.actions;
 
-export default laserBlastSlice.reducer;
+export default pachinkoSlice.reducer;

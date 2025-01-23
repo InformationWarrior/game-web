@@ -4,7 +4,7 @@ import { TiArrowSortedDown } from "react-icons/ti";
 import {
   setCurrency,
   setBetAmount,
-} from "../../../Common/redux/slices/laserBlastSlice";
+} from "../../../Common/redux/slices/pachinkoSlice";
 
 function EntrySection({ dropdownOpen, setDropdownOpen }) {
   const dispatch = useDispatch();
