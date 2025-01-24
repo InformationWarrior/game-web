@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 
 function GasSavings() {
@@ -6,9 +6,13 @@ function GasSavings() {
     (state) => state.wheelSpin
   );
 
-  const totalEntry = betAmount * totalPlayerRounds; // Total Entry
-  const discountRate = 0.1; // Example: 10% discount
-  const gasSavings = totalEntry * discountRate; // Calculate savings
+  // Memoize the calculations to ensure they update when dependencies change
+  const { totalEntry, gasSavings } = useMemo(() => {
+    const totalEntry = betAmount * totalPlayerRounds; // Total Entry
+    const discountRate = 0.1; // Example: 10% discount
+    const gasSavings = totalEntry * discountRate; // Calculate savings
+    return { totalEntry, gasSavings };
+  }, [betAmount, totalPlayerRounds]); // Dependencies for recalculating values
 
   return (
     <div>
@@ -21,7 +25,7 @@ function GasSavings() {
           </span>
         </p>
       </div>
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <h6 className="fw-bold mb-1">Est. Gas Savings:</h6>
         <p className="text-white">
           ( ${gasSavings.toFixed(2)} ){" "}
@@ -29,7 +33,7 @@ function GasSavings() {
             {gasSavings.toFixed(4)} {currency}
           </span>
         </p>
-      </div>
+      </div> */}
     </div>
   );
 }

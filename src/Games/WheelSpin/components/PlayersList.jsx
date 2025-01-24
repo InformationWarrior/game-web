@@ -66,7 +66,6 @@ function PlayersList() {
       isWinner: true,
       borderColorClass: getRandomBorderClass(),
     },
-
     {
       avatar: playerAvatar,
       username: "d3A74F",

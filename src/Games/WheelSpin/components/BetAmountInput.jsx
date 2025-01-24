@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaEthereum, FaDice } from "react-icons/fa";
-import { setBetAmount } from "../../../Common/redux/slices/wheelSpinSlice";
+import {
+  setBetAmount,
+  setWalletAmount,
+  setCurrency,
+} from "../../../Common/redux/slices/wheelSpinSlice";
 
 function BetAmountInput() {
   const dispatch = useDispatch();
-  const { betAmount, credits, currency } = useSelector(
+  const { betAmount, walletAmount, currency, totalPlayerRounds } = useSelector(
     (state) => state.wheelSpin
   );
 
@@ -37,12 +41,44 @@ function BetAmountInput() {
     dispatch(setBetAmount(value));
   };
 
-  // Calculate remaining credits based on bet amount
-  const remainingCredits = credits - betAmount;
+  // Handle dropdown selection change
+  const handleCurrencyChange = (event) => {
+    const selectedCurrency = event.target.value;
+    dispatch(setCurrency(selectedCurrency)); // Update currency in Redux
+  };
+
+  // Calculate total bet amount
+  const totalBetAmount = betAmount * totalPlayerRounds;
+
+  // Calculate remaining credits dynamically
+  const remainingCredits = walletAmount - totalBetAmount;
+
+  // Check if the user has sufficient balance
+  const hasSufficientBalance = remainingCredits >= 0;
 
   return (
     <>
-      <h6 className="fw-bold mb-2">ETH entry per round</h6>
+      <div className="d-flex align-items-center mb-2">
+        <h6 className="fw-bold mb-0">
+          {/* ETH entry with dropdown */}
+          <span>
+            <select
+              className="form-select d-inline-block bg-transparent text-white fw-bold border-0 p-0"
+              value={currency}
+              onChange={handleCurrencyChange}
+              style={{
+                width: "auto",
+                appearance: "none",
+                cursor: "pointer",
+              }}
+            >
+              <option value="ETH">ETH</option>
+              <option value="BETS">BETS</option>
+            </select>
+          </span>
+          - per round
+        </h6>
+      </div>
       <div className="bet-amount-input-container">
         <div className="input-group mb-2 w-100">
           <input
@@ -77,7 +113,7 @@ function BetAmountInput() {
             className="btn btn-outline-secondary eth-btn"
             onClick={() =>
               handlePresetValueClick(
-                Math.min(credits, Math.random() * 0.1).toFixed(2)
+                Math.min(walletAmount, Math.random() * 0.1).toFixed(2)
               )
             }
           >
@@ -87,11 +123,15 @@ function BetAmountInput() {
         <p className="text-white mt-2">
           {currency} in wallet:{" "}
           <span className="text-white">
-            {remainingCredits < 0
-              ? "Insufficient funds"
-              : `( $${remainingCredits.toFixed(
-                  2
-                )} ) ${remainingCredits} ${currency}`}
+            {hasSufficientBalance
+              ? `( $${remainingCredits.toFixed(2)} remaining )`
+              : "Insufficient Balance"}
+          </span>
+        </p>
+        <p className="text-white mt-2">
+          Total Bet:
+          <span className="text-warning">
+            {` ${totalBetAmount.toFixed(4)} ${currency}`}
           </span>
         </p>
       </div>

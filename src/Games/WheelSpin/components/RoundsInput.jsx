@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { FaQuestionCircle } from "react-icons/fa";
-import { setCurrentPlayerRound } from "../../../Common/redux/slices/wheelSpinSlice";
+import { setTotalPlayerRounds } from "../../../Common/redux/slices/wheelSpinSlice";
 import "../styles/RoundsInput.css";
 
 function RoundsInput() {
   const dispatch = useDispatch();
-  const { currentPlayerRound } = useSelector((state) => state.wheelSpin);
+  const { totalPlayerRounds } = useSelector((state) => state.wheelSpin);
 
-  const [inputValue, setInputValue] = useState(currentPlayerRound || 1); // Default value is 1
+  const [inputValue, setInputValue] = useState(totalPlayerRounds || 1); // Default value is 1
 
   const handleIncrement = () => {
     if (inputValue < 10) {
       const newValue = inputValue + 1;
       setInputValue(newValue);
-      dispatch(setCurrentPlayerRound(newValue));
+      dispatch(setTotalPlayerRounds(newValue));
     }
   };
 
@@ -22,7 +22,7 @@ function RoundsInput() {
     if (inputValue > 1) {
       const newValue = inputValue - 1;
       setInputValue(newValue);
-      dispatch(setCurrentPlayerRound(newValue));
+      dispatch(setTotalPlayerRounds(newValue));
     }
   };
 
@@ -36,7 +36,7 @@ function RoundsInput() {
 
     if (value >= 1 && value <= 10) {
       setInputValue(value);
-      dispatch(setCurrentPlayerRound(value));
+      dispatch(setTotalPlayerRounds(value));
     } else {
       setInputValue(inputValue); // Reset to previous valid value
     }
@@ -44,7 +44,7 @@ function RoundsInput() {
 
   const handleMaxClick = () => {
     setInputValue(10);
-    dispatch(setCurrentPlayerRound(10));
+    dispatch(setTotalPlayerRounds(10));
   };
 
   return (

@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/RoundInfo.css";
 import TimerComponent from "./TimerComponent";
+import { useSelector } from "react-redux";
 
 const RoundInfo = () => {
+  const { gameRound, inGameMessage } = useSelector((state) => state.wheelSpin);
+
+  console.log("In game message = ", inGameMessage);
   return (
     <div className="round-info-container bg-dark text-white p-3 rounded">
       {/* Header Section */}
       <div className="row align-items-center mb-1">
         <div className="col">
-          <h3 className="mb-0 fs-6 fw-medium">Round 215455</h3>
+          <h3 className="mb-0 fs-6 fw-medium">Round {gameRound}</h3>
         </div>
         <div className="col-auto">
           {/* Timer Component */}
           <TimerComponent />
         </div>
       </div>
-
-      {/* <hr className="divider my-2" /> */}
 
       {/* Details Section */}
       <div className="row text-center mb-3">
@@ -49,6 +51,20 @@ const RoundInfo = () => {
         <div className="col-6">
           <div className="fs-5 fw-bold">--</div>
           <div className="text-white">Total (0 Avg)</div>
+        </div>
+      </div>
+
+      <hr className="divider my-3" />
+
+      {/* Message Section */}
+      <div className="message-section bg-secondary text-white p-3 rounded">
+        {/* <h5 className="fs-6 fw-bold mb-2">In-Game Message</h5> */}
+        <div className="current-message-container">
+          {inGameMessage ? (
+            <div className="current-message py-1">{inGameMessage}</div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
