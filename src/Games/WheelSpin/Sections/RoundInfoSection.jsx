@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "../styles/RoundInfo.css";
-import TimerComponent from "./TimerComponent";
+import TimerComponent from "../components/TimerComponent";
 import { useSelector } from "react-redux";
 
-const RoundInfo = () => {
+const RoundInfoSection = () => {
   const { gameRound, inGameMessage } = useSelector((state) => state.wheelSpin);
 
   console.log("In game message = ", inGameMessage);
@@ -71,4 +71,4 @@ const RoundInfo = () => {
   );
 };
 
-export default RoundInfo;
+export default RoundInfoSection;

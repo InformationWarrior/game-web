@@ -1,9 +1,9 @@
 import React from "react";
-import RoundContentItem from "./RoundContentItem";
+import RoundContentItem from "../components/RoundContentItem";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "../styles/RoundContents.css";
 
-function RoundContents() {
+function RoundContentsSection() {
   return (
     <div className="round-contents-container text-white p-3">
       {/* Header */}
@@ -52,4 +52,4 @@ function RoundContents() {
   );
 }
 
-export default RoundContents;
+export default RoundContentsSection;

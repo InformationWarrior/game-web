@@ -1,10 +1,10 @@
 import React from "react";
 import "./styles/WheelSpin.css";
-import RoundInfo from "./components/RoundInfo";
-import PlayersList from "./components/PlayersList";
-import RoundContents from "./components/RoundContents";
-import PlayerEntry from "./components/PlayerEntry";
-import WheelSection from "./components/WheelSection";
+import RoundInfoSection from "./Sections/RoundInfoSection";
+import RoundContentsSection from "./Sections/RoundContentsSection";
+import PlayerEntrySection from "./Sections/PlayerEntrySection";
+import WheelSection from "./Sections/WheelSection";
+import PlayersListSection from "./Sections/PlayersListSection";
 
 function WheelSpin() {
   return (
@@ -12,7 +12,7 @@ function WheelSpin() {
       <div className="row h-100 g-4">
         {/* Players List Section */}
         <div className="col-xxl-3 col-xl-3 col-md-3 col-12 bg-dark rounded overflow-auto mb-3 players-list">
-          <PlayersList />
+          <PlayersListSection />
         </div>
 
         {/* Wheel Spin Section */}
@@ -26,7 +26,7 @@ function WheelSpin() {
           {/* Bottom 25% Section */}
           <div className="row h-25 g-3 mt-2">
             <div className="col-12 bg-dark rounded d-flex align-items-center justify-content-center">
-              <RoundContents />
+              <RoundContentsSection />
             </div>
           </div>
         </div>
@@ -36,13 +36,13 @@ function WheelSpin() {
           {/* Top 50% Section */}
           <div className="row h-50 g-3 mb-3">
             <div className="col-12 bg-dark rounded d-flex align-items-center justify-content-center">
-              <RoundInfo />
+              <RoundInfoSection />
             </div>
           </div>
           {/* Bottom 50% Section */}
           <div className="row h-50 g-3">
             <div className="col-12 bg-dark rounded d-flex align-items-stretch justify-content-center">
-              <PlayerEntry />
+              <PlayerEntrySection />
             </div>
           </div>
         </div>

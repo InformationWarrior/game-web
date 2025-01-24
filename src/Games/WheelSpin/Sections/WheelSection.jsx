@@ -1,6 +1,5 @@
 import React from "react";
-import Spinner from "./Spinner";
-import SpinnerTwo from "./SpinnerTwo";
+import Spinner from "../components/Spinner";
 
 function WheelSection() {
   return (

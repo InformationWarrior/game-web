@@ -1,11 +1,11 @@
 import React from "react";
 import "../styles/PlayerEntry.css";
-import BetAmountInput from "./BetAmountInput";
-import RoundsInput from "./RoundsInput";
-import GasSavings from "./GasSavings";
-import AddSelection from "./AddSelection";
+import BetAmountInput from "../components/BetAmountInput";
+import RoundsInput from "../components/RoundsInput";
+import GasSavings from "../components/GasSavings";
+import AddSelection from "../components/AddSelection";
 
-function PlayerEntry() {
+function PlayerEntrySection() {
   return (
     <div className="player-entry-container p-4 bg-dark text-white rounded">
       {/* ETH Entry per Round */}
@@ -27,4 +27,4 @@ function PlayerEntry() {
   );
 }
 
-export default PlayerEntry;
+export default PlayerEntrySection;

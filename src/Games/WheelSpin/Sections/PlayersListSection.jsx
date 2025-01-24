@@ -1,9 +1,9 @@
 import React from "react";
-import Player from "./Player";
+import Player from "../components/Player";
 import "../styles/PlayersList.css";
 import playerAvatar from "../assets/playerAvatar.png";
 
-function PlayersList() {
+function PlayersListSection() {
   const borderColorClasses = [
     "border-green",
     "border-orange",
@@ -192,4 +192,4 @@ function PlayersList() {
   );
 }
 
-export default PlayersList;
+export default PlayersListSection;
