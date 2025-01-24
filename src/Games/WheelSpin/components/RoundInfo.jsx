@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/RoundInfo.css";
+import TimerComponent from "./TimerComponent";
 
 const RoundInfo = () => {
   return (
@@ -10,9 +11,8 @@ const RoundInfo = () => {
           <h3 className="mb-0 fs-6 fw-medium">Round 215455</h3>
         </div>
         <div className="col-auto">
-          <div className="bg-secondary text-white rounded text-center px-2 py-1">
-            00:00
-          </div>
+          {/* Timer Component */}
+          <TimerComponent />
         </div>
       </div>
 

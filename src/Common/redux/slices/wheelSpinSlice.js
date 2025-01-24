@@ -6,6 +6,7 @@ const initialState = {
     currency: "ETH",
     betAmount: 0.01,
     credits: 100,
+    gameState: "RESET",
     serverOutcome: null,
 };
 
@@ -28,6 +29,9 @@ const wheelSpinSlice = createSlice({
         setCredits(state, action) {
             state.credits = action.payload;;
         },
+        setGameState(state, action) {
+            state.gameState = action.payload;
+        },
         setServerOutcome(state, action) {
             state.serverOutcome = action.payload;
         },
@@ -40,6 +44,7 @@ export const {
     setCurrency,
     setBetAmount,
     setCredits,
+    setGameState,
     setServerOutcome,
 } = wheelSpinSlice.actions;
 
