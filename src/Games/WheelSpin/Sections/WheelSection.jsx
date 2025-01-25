@@ -3,9 +3,9 @@ import Spinner from "../components/Spinner";
 
 function WheelSection() {
   return (
-    <div className="wheel-section-container d-flex flex-column align-items-center justify-content-center h-100">
+    <div className="wheel-section-container d-flex flex-column justify-content-center">
       <h4 className="text-white mb-4">Current Round</h4>
-      <div className="spinner-container w-100 d-flex align-items-center justify-content-center">
+      <div className="spinner-container d-flex justify-content-center">
         <Spinner />
       </div>
     </div>

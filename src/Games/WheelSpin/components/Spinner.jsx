@@ -5,14 +5,33 @@ import {
   setInGameMessage,
   clearMessage,
 } from "../../../Common/redux/slices/wheelSpinSlice";
+import "../styles/Wheel.css";
 
 const players = [
-  { name: "Alice", betAmount: 0.5 },
-  { name: "Bob", betAmount: 0.3 },
-  { name: "Charlie", betAmount: 0.2 },
-  { name: "Adam", betAmount: 0.2 },
-  { name: "Nick", betAmount: 0.5 },
+  { name: "Alice", betAmount: 10, optionSize: 0 },
+  { name: "Bob", betAmount: 20, optionSize: 0 },
+  { name: "Charlie", betAmount: 20, optionSize: 0 },
+  { name: "Adam", betAmount: 150, optionSize: 0 },
+  { name: "Nick", betAmount: 20, optionSize: 0 },
 ];
+
+// Calculate the total betAmount
+const totalBetAmount = players.reduce(
+  (total, player) => total + player.betAmount,
+  0
+);
+
+// Update optionSize based on the ratio of betAmount to totalBetAmount
+players.forEach((player) => {
+  player.optionSize = parseFloat(
+    (player.betAmount / totalBetAmount) * players.length
+  ).toFixed(2);
+});
+
+// Round optionSize to make it more readable(optional)
+players.forEach((player) => {
+  player.optionSize = Math.round(player.optionSize);
+});
 
 function Spinner() {
   const dispatch = useDispatch();
@@ -34,6 +53,7 @@ function Spinner() {
       backgroundColor: generateUniqueColor(index),
       textColor: "white",
     },
+    optionSize: parseInt((player.betAmount / totalBetAmount) * 100),
   }));
 
   function generateUniqueColor(index) {
@@ -61,11 +81,12 @@ function Spinner() {
   };
 
   return (
-    <div className="wheel-container d-flex flex-column align-items-center">
+    <div className="wheel-container d-flex flex-column">
       <Wheel
         mustStartSpinning={mustSpin}
         prizeNumber={prizeNumber}
         data={data}
+        spinDuration={0}
         backgroundColors={["#3e3e3e", "#df3428"]}
         textColors={["#ffffff"]}
         onStopSpinning={handleSpinComplete}
