@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setInGameMessage,
   clearMessage,
-} from "../../../Common/redux/slices/wheelSpinSlice";
+} from "../../../Config/redux/slices/wheelSpinSlice";
 import "../styles/Wheel.css";
 
 const players = [

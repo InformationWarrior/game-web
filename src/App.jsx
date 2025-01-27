@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import routesConfig from "./Common/routes/routesConfig";
-import gamesConfig from "./Common/routes/gamesConfig";
+import routesConfig from "./Config/routes/routesConfig";
+import gamesConfig from "./Config/routes/gamesConfig";
 import Sidebar from "./BETS/components/Sidebar";
 import Navbar from "./BETS/components/Navbar";
 // import GamesPanel from "./BETS/components/GamesPanel";

@@ -52,7 +52,7 @@ export default function BasicPie() {
           width: "300px",
           height: "300px",
           borderRadius: "50%",
-          border: "3px solid yellow",
+          //border: "3px solid yellow",
           position: "relative",
           overflow: "hidden",
         }}

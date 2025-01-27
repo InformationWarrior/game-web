@@ -19,7 +19,7 @@ function WheelSpin() {
         <div className="col-xxl-5 col-xl-5 col-md-5 col-12 wheel-col">
           {/* Top 75% Section */}
           <div className="row">
-            <div className="col-12 bg-dark rounded d-flex justify-content-center">
+            <div className="col-12 bg-dark rounded">
               <WheelSection />
             </div>
           </div>

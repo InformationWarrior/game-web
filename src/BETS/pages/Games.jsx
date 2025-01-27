@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/GamesPanel.css";
-import gameConfig from "../../Common/routes/gamesConfig";
+import gameConfig from "../../Config/routes/gamesConfig";
 
 function Games() {
   return (

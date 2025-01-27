@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { setCredits } from "../../../Common/redux/slices/pachinkoSlice";
+import { setCredits } from "../../../Config/redux/slices/pachinkoSlice";
 import "../styles/WalletDisplay.css";
 
 function WalletDisplay() {

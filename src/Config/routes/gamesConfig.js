@@ -2,7 +2,7 @@ import PocketPachinko from "../../Games/Pachinko/PocketPachinko";
 import pocketPachinkoLogo from "../../Games/Pachinko/assets/thumbnail.webp";
 
 import WheelSpin from "../../Games/WheelSpin/WheelSpin";
-import wheelSpinLogo from "../../Games/WheelSpin/assets/thumbnail.webp";
+import wheelSpinLogo from "../../Games/WheelSpin/assets/SpinWheelBanner.webp";
 
 const gamesConfig = [
     // {

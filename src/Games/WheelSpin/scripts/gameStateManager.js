@@ -1,7 +1,7 @@
 import {
   setGameState,
   setInGameMessage
-} from '../../../Common/redux/slices/wheelSpinSlice'
+} from '../../../Config/redux/slices/wheelSpinSlice'
 
 const durations = {
   RESET: 10,
