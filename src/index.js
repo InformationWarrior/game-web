@@ -7,7 +7,8 @@ import store from './Config/redux/store';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { ApolloProvider } from '@apollo/client';
+import client from './NetworkManager/apollo/client';
 import '@rainbow-me/rainbowkit/styles.css';
 import {
   getDefaultConfig,
@@ -43,11 +44,13 @@ root.render(
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider>
-          <BrowserRouter>
-            <Provider store={store}>
-              <App />
-            </Provider>
-          </BrowserRouter>
+          <ApolloProvider client={client}> {/* Wrap your app here */}
+            <BrowserRouter>
+              <Provider store={store}>
+                <App />
+              </Provider>
+            </BrowserRouter>
+          </ApolloProvider>
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
