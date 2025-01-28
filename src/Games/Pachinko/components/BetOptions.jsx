@@ -14,7 +14,7 @@ function BetOptions(props) {
   const { handleDropBall, dropdownOpen, setDropdownOpen } = props;
 
   const dispatch = useDispatch();
-  const { riskLevel, numberOfRows } = useSelector((state) => state.laserBlast);
+  const { riskLevel, numberOfRows } = useSelector((state) => state.pachinko);
 
   const handleRiskChange = (event) => {
     const value = parseInt(event.target.value, 10);

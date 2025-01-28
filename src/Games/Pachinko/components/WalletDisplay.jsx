@@ -6,7 +6,7 @@ import "../styles/WalletDisplay.css";
 
 function WalletDisplay() {
   const dispatch = useDispatch();
-  const { credits, currency } = useSelector((state) => state.laserBlast);
+  const { credits, currency } = useSelector((state) => state.pachinko);
 
   const fetchCredits = async () => {
     try {

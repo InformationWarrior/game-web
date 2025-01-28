@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useMutation } from "@apollo/client";
+import { CREATE_GAME } from "../../NetworkManager/graphql/mutations";
 import "./styles/WheelSpin.css";
 import RoundInfoSection from "./Sections/RoundInfoSection";
 import RoundContentsSection from "./Sections/RoundContentsSection";
@@ -7,8 +9,38 @@ import WheelSection from "./Sections/WheelSection";
 import PlayersListSection from "./Sections/PlayersListSection";
 
 function WheelSpin() {
+  // Apollo mutation hook
+  const [createGame, { loading, error, data }] = useMutation(CREATE_GAME);
+
+  useEffect(() => {
+    // Call CreateGame mutation when the component loads
+    const initializeGame = async () => {
+      try {
+        const response = await createGame({
+          variables: { name: "Wheel Spin" }, // Pass the game name
+        });
+        console.log("Game created successfully:", response.data.createGame);
+        // You can handle game initialization, state updates, or redirection here
+      } catch (err) {
+        console.error("Error creating game:", err);
+      }
+    };
+
+    initializeGame();
+  }, [createGame]);
+
   return (
     <div className="container-fluid">
+      {loading && <p className="text-center text-white">Starting the game...</p>}
+      {error && (
+        <p className="text-center text-danger">Error: {error.message}</p>
+      )}
+      {data && (
+        <p className="text-center text-success">
+          Game Created: {data.createGame._id}
+        </p>
+      )}
+
       <div className="row justify-content-evenly wheel-row">
         {/* Players List Section */}
         <div className="col-xxl-3 col-xl-3 col-md-3 col-12 bg-dark rounded overflow-auto players-list wheel-col">

@@ -6,12 +6,12 @@ import { useUIManager } from "./hooks/useUIManager";
 import ResponsiveCanvas from "./components/ResponsiveCanvas";
 import dynamicConstants from "./scripts/dynamicConstants";
 import { setCredits } from "../../Config/redux/slices/pachinkoSlice";
-import "./styles/LaserBlast.css";
+import "./styles/Pachinko.css";
 
 function PocketPachinko() {
   const dispatch = useDispatch();
   const { riskLevel, numberOfRows, credits, currency, betAmount } = useSelector(
-    (state) => state.laserBlast
+    (state) => state.pachinko
   );
 
   const [dropdownOpen, setDropdownOpen] = useState(false);

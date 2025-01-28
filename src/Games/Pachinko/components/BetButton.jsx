@@ -9,7 +9,7 @@ import {
 function BetButton({ handleDropBall }) {
   const dispatch = useDispatch();
   const { riskLevel, numberOfRows, currency, betAmount, credits } = useSelector(
-    (state) => state.laserBlast
+    (state) => state.pachinko
   );
 
   const handleBetClick = async () => {

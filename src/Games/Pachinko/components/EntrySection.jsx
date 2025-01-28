@@ -8,7 +8,7 @@ import {
 
 function EntrySection({ dropdownOpen, setDropdownOpen }) {
   const dispatch = useDispatch();
-  const { currency, betAmount } = useSelector((state) => state.laserBlast);
+  const { currency, betAmount } = useSelector((state) => state.pachinko);
 
   const [inputValue, setInputValue] = useState(betAmount.toString()); // Local state for input
 
