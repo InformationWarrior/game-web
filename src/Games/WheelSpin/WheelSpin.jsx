@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { CREATE_GAME } from "../../NetworkManager/graphql/mutations";
+import { CREATE_GAME } from "../../NetworkManager/graphql/modules/BETS/mutations";
 import "./styles/WheelSpin.css";
 import RoundInfoSection from "./Sections/RoundInfoSection";
 import RoundContentsSection from "./Sections/RoundContentsSection";
@@ -31,7 +31,9 @@ function WheelSpin() {
 
   return (
     <div className="container-fluid">
-      {loading && <p className="text-center text-white">Starting the game...</p>}
+      {loading && (
+        <p className="text-center text-white">Starting the game...</p>
+      )}
       {error && (
         <p className="text-center text-danger">Error: {error.message}</p>
       )}

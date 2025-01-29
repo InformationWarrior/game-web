@@ -3,7 +3,7 @@ import "../styles/PlayerEntry.css";
 import BetAmountInput from "../components/BetAmountInput";
 import RoundsInput from "../components/RoundsInput";
 import GasSavings from "../components/GasSavings";
-import AddSelection from "../components/AddSelection";
+import PlaceBet from "../components/PlaceBet";
 
 function PlayerEntrySection() {
   return (
@@ -22,7 +22,7 @@ function PlayerEntrySection() {
       <GasSavings />
 
       {/* Add Selection Button */}
-      <AddSelection />
+      <PlaceBet />
     </div>
   );
 }
