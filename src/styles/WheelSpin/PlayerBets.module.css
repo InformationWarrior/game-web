@@ -1,0 +1,31 @@
+.container {
+  border: solid 1px;
+  border-color: rgba(255, 255, 255, 0.08);
+  background: black;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  grid-area: cta;
+  position: relative;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow: hidden;
+  border-color: #ccfd07;
+  border-width: 1px;
+}
+
+@media screen and (min-width: 60rem) {
+  .container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}

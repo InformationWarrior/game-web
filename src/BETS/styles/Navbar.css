@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding: 0 1rem;
 }
@@ -18,19 +18,24 @@
   border: none;
   padding: 0.5em;
   color: #fff;
-  font-size: 1.8rem; /* Slightly larger for better visibility */
+  font-size: 1.8rem;
+  /* Slightly larger for better visibility */
   cursor: pointer;
-  position: relative; /* To position hover effects */
+  position: relative;
+  /* To position hover effects */
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .hamburger-button:hover {
-  transform: scale(1.2); /* Slight zoom effect */
-  color: #88ff00; /* Neon green color on hover */
+  transform: scale(1.2);
+  /* Slight zoom effect */
+  color: #88ff00;
+  /* Neon green color on hover */
 }
 
 .hamburger-button:active {
-  transform: scale(0.9); /* Press effect */
+  transform: scale(0.9);
+  /* Press effect */
 }
 
 /* Glow Effect on Hover */
@@ -64,14 +69,13 @@
 .navbar-title {
   font-size: 1.1rem;
   font-weight: bold;
-  padding-left: 2rem;
+  /* padding-left: 2rem; */
 }
 
 .navbar-buttons {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding-right: 6rem;
   font-weight: 600;
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.875rem;
@@ -108,6 +112,10 @@
 
 /* Small screen devices */
 @media (max-width: 959px) {
+  .nav-bar {
+    justify-content: space-between;
+  }
+
   .navbar-title {
     display: none;
   }

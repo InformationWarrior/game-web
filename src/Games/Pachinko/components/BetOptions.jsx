@@ -6,7 +6,7 @@ import EntrySection from "./EntrySection";
 import {
   setRiskLevel,
   setNumberOfRows,
-} from "../../../Config/redux/slices/pachinkoSlice";
+} from "../../../Common/redux/slices/pachinkoSlice";
 import "../styles/BetOptions.css";
 import WalletDisplay from "./WalletDisplay";
 
@@ -14,7 +14,7 @@ function BetOptions(props) {
   const { handleDropBall, dropdownOpen, setDropdownOpen } = props;
 
   const dispatch = useDispatch();
-  const { riskLevel, numberOfRows } = useSelector((state) => state.pachinko);
+  const { riskLevel, numberOfRows } = useSelector((state) => state.laserBlast);
 
   const handleRiskChange = (event) => {
     const value = parseInt(event.target.value, 10);

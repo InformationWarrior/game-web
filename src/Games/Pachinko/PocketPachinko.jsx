@@ -5,13 +5,13 @@ import BetOptions from "./components/BetOptions";
 import { useUIManager } from "./hooks/useUIManager";
 import ResponsiveCanvas from "./components/ResponsiveCanvas";
 import dynamicConstants from "./scripts/dynamicConstants";
-import { setCredits } from "../../Config/redux/slices/pachinkoSlice";
-import "./styles/Pachinko.css";
+import { setCredits } from "../../Common/redux/slices/pachinkoSlice";
+import "./styles/LaserBlast.css";
 
 function PocketPachinko() {
   const dispatch = useDispatch();
   const { riskLevel, numberOfRows, credits, currency, betAmount } = useSelector(
-    (state) => state.pachinko
+    (state) => state.laserBlast
   );
 
   const [dropdownOpen, setDropdownOpen] = useState(false);

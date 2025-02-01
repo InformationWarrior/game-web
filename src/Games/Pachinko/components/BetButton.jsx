@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setServerOutcome,
   setCredits,
-} from "../../../Config/redux/slices/pachinkoSlice";
+} from "../../../Common/redux/slices/pachinkoSlice";
 
 function BetButton({ handleDropBall }) {
   const dispatch = useDispatch();
   const { riskLevel, numberOfRows, currency, betAmount, credits } = useSelector(
-    (state) => state.pachinko
+    (state) => state.laserBlast
   );
 
   const handleBetClick = async () => {

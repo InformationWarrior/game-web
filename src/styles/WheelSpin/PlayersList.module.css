@@ -1,0 +1,257 @@
+/* Renamed from .container to .players-list-container */
+.players-list-container {
+  border: solid 1px;
+  border-color: rgba(255, 255, 255, 0.08);
+  background: black;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  grid-area: players;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+/* Renamed from .content to .players-list-content */
+.players-list-content {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  height: 100%;
+}
+
+/* Renamed from .header to .players-list-header */
+.players-list-header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* Renamed from .header-text to .players-list-header-text */
+.players-list-header-text {
+  color: #e5e7eb;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+
+/* Renamed from .body to .players-list-body */
+.players-list-body {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  max-height: 80dvh;
+  min-height: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-padding-start: 0.5rem;
+  padding-inline-start: 0.5rem;
+  -webkit-padding-end: 0.5rem;
+  padding-inline-end: 0.5rem;
+  padding-bottom: 0.25rem;
+}
+
+/* Renamed from .player-container to .player-item */
+.player-item {
+  width: 100%;
+}
+
+/* Renamed from .player-content to .player-item-content */
+.player-item-content {
+  padding-bottom: 0.25rem;
+}
+
+/* Renamed from .player-main-content to .player-card */
+.player-card {
+  display: flex;
+  position: relative;
+  background: #111927;
+  border-radius: 12px;
+  border-right: 12px solid rgb(204, 253, 7);
+  border-top-color: rgb(204, 253, 7);
+  border-bottom-color: rgb(204, 253, 7);
+  border-left-color: rgb(204, 253, 7);
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 0.75rem;
+  opacity: 1;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Renamed from .player-icon-holder to .player-avatar-container */
+.player-avatar-container {
+  position: relative;
+  border-radius: 9999px;
+  width: 32px;
+  height: 32px;
+}
+
+/* Renamed from .icon-holder to .avatar-holder */
+.avatar-holder {
+  border-radius: 9999px;
+}
+
+/* Renamed from .icon-holder > img to .avatar-holder > img */
+.avatar-holder > img {
+  border-style: none;
+}
+
+/* Renamed from .text-container to .player-info-container */
+.player-info-container {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  margin-left: 0.75rem;
+}
+
+/* Renamed from .player-name-points-container to .player-details */
+.player-details {
+  display: flex;
+  -webkit-box-align: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Renamed from .name-container to .player-name-container */
+.player-name-container {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  font-weight: 400;
+}
+
+/* Renamed from .name-main to .player-name-wrapper */
+.player-name-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+/* Renamed from .name-text to .player-name */
+.player-name {
+  color: #9da4ae;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+/* Renamed from .point-container to .player-points-container */
+.player-points-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+/* Renamed from .point-text to .player-points */
+.player-points {
+  color: #e5e7eb;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-left: 0.25rem;
+}
+
+/* Renamed from .player-chance-currency-container to .player-stats-container */
+.player-stats-container {
+  display: flex;
+  -webkit-box-align: end;
+  align-items: end;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Renamed from .chance-container to .player-chance-container */
+.player-chance-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+/* Renamed from .chance-text to .player-chance */
+.player-chance {
+  color: #f9fafb;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  margin-left: 0.5rem;
+}
+
+/* Renamed from .currency-container to .player-currency-container */
+.player-currency-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+/* Renamed from .currency-text to .player-currency */
+.player-currency {
+  color: #e5e7eb;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+/* Renamed from .currency-icon to .player-currency-icon */
+.player-currency-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  display: inline-block;
+  line-height: 1em;
+  flex-shrink: 0;
+  color: currentcolor;
+  vertical-align: middle;
+  margin-left: 0.25rem;
+}
+
+/* Renamed .body to .players-list-body inside media query */
+@media screen and (min-width: 60rem) {
+  .players-list-body {
+    min-height: calc(min(100vw, 580px) + 150px);
+  }
+}

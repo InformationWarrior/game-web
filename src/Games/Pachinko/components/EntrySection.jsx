@@ -4,11 +4,11 @@ import { TiArrowSortedDown } from "react-icons/ti";
 import {
   setCurrency,
   setBetAmount,
-} from "../../../Config/redux/slices/pachinkoSlice";
+} from "../../../Common/redux/slices/pachinkoSlice";
 
 function EntrySection({ dropdownOpen, setDropdownOpen }) {
   const dispatch = useDispatch();
-  const { currency, betAmount } = useSelector((state) => state.pachinko);
+  const { currency, betAmount } = useSelector((state) => state.laserBlast);
 
   const [inputValue, setInputValue] = useState(betAmount.toString()); // Local state for input
 

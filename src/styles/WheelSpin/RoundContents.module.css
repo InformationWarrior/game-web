@@ -1,0 +1,125 @@
+.round-content-wrapper {
+  border: solid 1px;
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgb(0, 0, 0);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  grid-area: pot;
+  min-height: 196px;
+}
+
+.round-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  padding-bottom: 0px;
+}
+
+.round-content-title {
+  color: #e5e7eb;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+  padding-left: 0.5rem;
+}
+
+.round-navigation {
+  display: flex;
+}
+
+.round-nav-button-left,
+.round-nav-button-right {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  line-height: 1.2;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: 200ms ease-in-out;
+  font-family: "Space Grotesk", sans-serif;
+  border: 1px solid #384250;
+  background: transparent;
+  color: #f9fafb;
+  height: 2rem;
+  min-width: 2rem;
+  font-size: 0.875rem;
+  padding: 0px;
+}
+
+.round-nav-button-left {
+  margin-right: 0.5rem;
+}
+
+.round-content-scroll {
+  display: flex;
+  position: relative;
+  padding: 0.5rem 0.5rem 1rem 1rem;
+  scroll-padding-left: 1rem;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.round-item {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+.round-item-card {
+  position: relative;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #111927;
+  overflow: hidden;
+  transition: 0.2s ease-out;
+  cursor: default;
+}
+
+.round-item-image-container {
+  display: flex;
+  background-image: linear-gradient(180deg, #111927 0%, #1f2a37 100%);
+  justify-content: center;
+  align-items: center;
+  width: 96px;
+  height: 96px;
+}
+
+.round-item-image-icon {
+  width: 3rem;
+  height: 3rem;
+  display: inline-block;
+  flex-shrink: 0;
+  color: currentcolor;
+}
+
+.round-item-text-container {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.round-item-currency-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  display: inline-block;
+  flex-shrink: 0;
+  color: currentcolor;
+  margin-right: 0.25rem;
+}
+
+.round-item-text {
+  color: #f9fafb;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+}

@@ -1,16 +1,23 @@
 import React from "react";
 import { FaEthereum } from "react-icons/fa";
 import "../styles/RoundContentItem.css";
+import styles from "../../../styles/WheelSpin/RoundContents.module.css";
 
 function RoundContentItem() {
   return (
-    <div className="round-content-item d-flex flex-column align-items-center">
-      {/* Icon Section */}
-      <div className="item-icon-container d-flex align-items-center justify-content-center">
-        <FaEthereum className="item-icon" />
+    <div className={styles["round-item"]}>
+      <div className={styles["round-item-card"]}>
+        <div className={styles["round-item-image-container"]}>
+          <FaEthereum className={styles["round-item-image-icon"]} />
+        </div>
+        <div
+          className={styles["round-item-text-container"]}
+          style={{ justifyContent: "center" }}
+        >
+          {/* <FaEthereum className={styles["round-item-currency-icon"]} /> */}
+          <p className={styles["round-item-text"]}>0.04</p>
+        </div>
       </div>
-      {/* Value Section */}
-      <div className="item-value">0.04</div>
     </div>
   );
 }

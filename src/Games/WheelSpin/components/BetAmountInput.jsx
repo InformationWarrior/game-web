@@ -5,7 +5,7 @@ import {
   setBetAmount,
   setWalletAmount,
   setCurrency,
-} from "../../../Config/redux/slices/wheelSpinSlice";
+} from "../../../Common/redux/slices/wheelSpinSlice";
 
 function BetAmountInput() {
   const dispatch = useDispatch();

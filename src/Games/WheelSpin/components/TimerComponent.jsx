@@ -1,86 +1,132 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Timer from "../scripts/timer";
-import {
-  handleStateTransition,
-  getDurationForState,
-} from "../scripts/gameStateManager";
+// import React, { useEffect, useState } from "react";
+// import { useDispatch } from "react-redux";
+// import {
+//   setGameState,
+//   setInGameMessage,
+// } from "../../../Common/redux/slices/wheelSpinSlice";
 
-const TimerComponent = () => {
-  const dispatch = useDispatch();
-  const gameState = useSelector((state) => state.wheelSpin.gameState);
+// const durations = {
+//   START: 2,
+//   BETTING: 2,
+//   SPINNING: 10,
+//   RESET: 2,
+// };
 
-  const [time, setTime] = useState("00:00");
+// const TimerComponent = () => {
+//   const dispatch = useDispatch();
 
-  // Start or stop the timer based on the game state
-  useEffect(() => {
-    if (gameState === "END") {
-      handleStateTransition(gameState, dispatch);
-      return;
-    }
+//   const [timer, setTimer] = useState("00:00");
+//   const [enabledButton, setEnabledButton] = useState("START");
 
-    const timerInstance = new Timer(
-      getDurationForState(gameState),
-      setTime,
-      () => handleStateTransition(gameState, dispatch)
-    );
+//   // Start the timer for a given game state
+//   const startTimer = (gameState) => {
+//     const duration = durations[gameState];
+//     let secondsRemaining = duration;
 
-    timerInstance.start();
+//     const interval = setInterval(() => {
+//       const minutes = Math.floor(secondsRemaining / 60);
+//       const seconds = secondsRemaining % 60;
 
-    return () => timerInstance.stop();
-  }, [gameState, dispatch]);
+//       // Set the timer display
+//       setTimer(
+//         `${minutes.toString().padStart(2, "0")}:${seconds
+//           .toString()
+//           .padStart(2, "0")}`
+//       );
+//       secondsRemaining--;
 
-  // Helper function to render timer display based on game state
-  const renderTimerDisplay = () => {
-    if (gameState === "RESET") {
-      return renderLoadingSpinner();
-    }
+//       // Handle the end of the timer
+//       if (secondsRemaining < 0) {
+//         clearInterval(interval);
+//         handleStateTransition(gameState);
+//       }
+//     }, 1000);
+//   };
 
-    if (gameState === "STARTING") {
-      return <div className="timer-text">{time}</div>;
-    }
+//   // Handle game state transitions
+//   const handleStateTransition = (gameState) => {
+//     switch (gameState) {
+//       case "START":
+//         dispatch(setGameState("BETTING"));
+//         setEnabledButton("BETTING");
+//         dispatch(setInGameMessage("Betting is now open! Place your bets."));
+//         break;
 
-    if (gameState === "SPINNING") {
-      return renderSpinningLoader();
-    }
+//       case "BETTING":
+//         dispatch(setGameState("SPINNING"));
+//         setEnabledButton("SPINNING");
+//         dispatch(setInGameMessage("The wheel is spinning... Good luck!"));
+//         break;
 
-    return null;
-  };
+//       case "SPINNING":
+//         dispatch(setGameState("RESET"));
+//         setEnabledButton("RESET");
+//         break;
 
-  const renderLoadingSpinner = () => (
-    <div className="d-flex justify-content-center align-items-center">
-      <div
-        className="spinner-border"
-        style={{ width: "1.5rem", height: "1.5rem" }}
-        role="status"
-      >
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  );
+//       case "RESET":
+//         dispatch(setGameState("START"));
+//         setEnabledButton("START");
+//         dispatch(setInGameMessage("Start Round."));
+//         break;
 
-  const renderSpinningLoader = () => (
-    <div className="d-flex justify-content-center align-items-center">
-      <div
-        className="spinner-grow"
-        style={{ width: "1.5rem", height: "1.5rem" }}
-        role="status"
-      >
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  );
+//       default:
+//         console.error(`Unknown game state: ${gameState}`);
+//     }
+//   };
 
-  return (
-    <div className="timer-container text-white">
-      <div
-        className="timer-display bg-secondary px-3 py-2 rounded text-center"
-        style={{ width: "80px" }}
-      >
-        {renderTimerDisplay()}
-      </div>
-    </div>
-  );
-};
+//   // Automatically start the SPINNING timer
+//   useEffect(() => {
+//     if (enabledButton === "SPINNING") {
+//       startTimer("SPINNING");
+//     }
+//   }, [enabledButton]);
 
-export default TimerComponent;
+//   // Handle button click to start timers
+//   const handleButtonClick = (gameState) => {
+//     startTimer(gameState);
+//   };
+
+//   // Render buttons
+//   const renderButtons = () => {
+//     return ["START", "BETTING", "SPINNING", "RESET"].map((gameState) => (
+//       <button
+//         key={gameState}
+//         className={`btn ${
+//           gameState === enabledButton ? "btn-primary" : "btn-secondary"
+//         } m-2`}
+//         onClick={() => handleButtonClick(gameState)}
+//         disabled={gameState !== enabledButton || gameState === "SPINNING"}
+//       >
+//         {gameState}
+//       </button>
+//     ));
+//   };
+
+//   // Render the timer display
+//   const renderTimerDisplay = () => {
+//     if (enabledButton === "SPINNING") {
+//       return (
+//         <div
+//           className="spinner-grow text-light"
+//           // style={{ width: "3rem", height: "3rem" }}
+//           role="status"
+//         >
+//           <span className="visually-hidden">Loading...</span>
+//         </div>
+//       );
+//     }
+
+//     return timer;
+//   };
+
+//   return (
+//     <div className="timer-container text-center text-white">
+//       <div className="timer-display bg-secondary px-3 py-2 rounded mb-4">
+//         {renderTimerDisplay()}
+//       </div>
+//       <div className="button-group">{renderButtons()}</div>
+//     </div>
+//   );
+// };
+
+// export default TimerComponent;

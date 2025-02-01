@@ -19,7 +19,7 @@ html {
   width: 80px;
   height: 100%;
   /* Full viewport height */
-  background-color: #2f2f2f;
+  background-color: #000;
   /* Darker shade of brown */
   display: flex;
   flex-direction: column;
@@ -66,9 +66,10 @@ html {
 .content-wrapper {
   flex: 1;
   overflow-y: auto;
-  background-color: #8b4513;
+  background-color: darkslategrey;
   /* Brown background */
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  padding: 1rem;
 }
 
 @media (max-width: 959px) {

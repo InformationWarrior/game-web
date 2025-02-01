@@ -1,8 +1,9 @@
 import React from "react";
 import Player from "../components/Player";
-import "../styles/PlayersList.css";
+// import PlayersList from "../styles/SectionModules/PlayersList.module.css";
 import playerAvatar from "../assets/playerAvatar.png";
-
+import styles from "../../../styles/WheelSpin/PlayersList.module.css";
+import { FaEthereum } from "react-icons/fa";
 function PlayersListSection() {
   const borderColorClasses = [
     "border-green",
@@ -30,142 +31,142 @@ function PlayersListSection() {
       isWinner: true,
       borderColorClass: getRandomBorderClass(),
     },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
-    {
-      avatar: playerAvatar,
-      username: "d3A74F",
-      points: "5K",
-      percentage: 90.91,
-      value: 0.1,
-      isWinner: true,
-      borderColorClass: getRandomBorderClass(),
-    },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "d3A74F",
+    //   points: "5K",
+    //   percentage: 90.91,
+    //   value: 0.1,
+    //   isWinner: true,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
 
-    {
-      avatar: playerAvatar,
-      username: "B36D5b",
-      points: 400,
-      percentage: 9.09,
-      value: 0.01,
-      isWinner: false,
-      borderColorClass: getRandomBorderClass(),
-    },
+    // {
+    //   avatar: playerAvatar,
+    //   username: "B36D5b",
+    //   points: 400,
+    //   percentage: 9.09,
+    //   value: 0.01,
+    //   isWinner: false,
+    //   borderColorClass: getRandomBorderClass(),
+    // },
     {
       avatar: playerAvatar,
       username: "B36D5b",
@@ -179,14 +180,18 @@ function PlayersListSection() {
 
   let totalPlayers = 0;
   return (
-    <div className="players-container">
-      <div className="players-header">
-        <h2>{players.length} Players</h2>
+    <div className={styles["players-list-content"]}>
+      {/* Header */}
+      <div className={styles["players-list-header"]}>
+        <p className={styles["players-list-header-text"]}>
+          {players.length} Players
+        </p>
       </div>
-      <div>
-        {players.map((player, index) => (
-          <Player key={index} {...player} />
-        ))}
+
+      {/* Body */}
+      <div className={styles["players-list-body"]}>
+        <Player />
+        <Player />
       </div>
     </div>
   );

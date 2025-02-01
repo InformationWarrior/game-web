@@ -1,0 +1,22 @@
+/* Default styles (Mobile First) */
+.container {
+    /* padding-inline-start: 1rem;
+    padding-inline-end: 1rem; */
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    /* padding: 1rem; */
+    max-width: 1440px;
+    min-height: 90dvh;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    display: flex;
+}
+
+/* Media Query for screens >= 60rem */
+/* @media screen and (min-width: 60rem) {
+    .container {
+        padding-inline-start: 2rem;
+        padding-inline-end: 2rem;
+    }
+} */

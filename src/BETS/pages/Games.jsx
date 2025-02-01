@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/GamesPanel.css";
-import gameConfig from "../../Config/routes/gamesConfig";
+import gameConfig from "../../Common/routes/gamesConfig";
 
 function Games() {
   return (
     <div>
-      <h2>Games</h2>
       <div>
         <div className="games-grid">
           {gameConfig.map((game, index) => (

@@ -1,0 +1,40 @@
+/* Default Grid Layout (Mobile First) */
+.container {
+    display: grid;
+    grid-template-areas:
+        "main"
+        "cta"
+        "stat"
+        "players"
+        "pot";
+    grid-gap: 0.5rem;
+    grid-template-columns: 100%;
+    flex: 1;
+    padding-bottom: 208px;
+}
+
+/* Medium Screens (960px and above) */
+@media screen and (min-width: 60rem) {
+    .container {
+        grid-template-areas:
+            "main stat"
+            "main cta"
+            "players cta"
+            "players cta"
+            "pot pot";
+        grid-template-columns: 60% 40%;
+        padding-bottom: 0px;
+    }
+}
+
+/* Large Screens (1200px and above) */
+@media screen and (min-width: 75rem) {
+    .container {
+        grid-template-areas:
+            "players main main stat"
+            "players main main cta"
+            "players main main cta"
+            "players pot pot cta";
+        grid-template-columns: 288px 1fr 1fr 360px;
+    }
+}

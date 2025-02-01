@@ -28,13 +28,13 @@ const routesConfig = [
     "element": <Rewards />
   },
 
-  // {
-  //   "label": "Contact Us",
-  //   "title": "Contact Us",
-  //   "path": "/contact-us",
-  //   "icon": <FaRegAddressCard />,
-  //   "element": <ContactUs />
-  // },
+  {
+    "label": "Contact Us",
+    "title": "Contact Us",
+    "path": "/contact-us",
+    "icon": <FaRegAddressCard />,
+    "element": <ContactUs />
+  },
 ];
 
 export default routesConfig;

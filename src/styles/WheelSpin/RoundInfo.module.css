@@ -1,0 +1,193 @@
+.container {
+  border: solid 1px rgba(255, 255, 255, 0.08);
+  background: black;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  grid-area: stat;
+  display: flex;
+}
+
+.content {
+  padding: 1rem;
+}
+
+.head {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.headText {
+  color: #e5e7eb;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  margin-right: 0.75rem;
+}
+
+.timerPlaceholder {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.timer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-color: rgba(255, 255, 255, 0.08);
+  border: solid 1px;
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.08);
+  background-color: #111927;
+  min-width: 66px;
+  min-height: 32px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -webkit-padding-start: 0.5rem;
+  padding-inline-start: 0.5rem;
+  -webkit-padding-end: 0.5rem;
+  padding-inline-end: 0.5rem;
+}
+
+.timerText {
+  color: inherit;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+}
+
+.body {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bodyContentGrid {
+  display: grid;
+  grid-gap: var(--yg-space-3);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media screen and (min-width: 60rem) {
+  .hrStyle {
+    display: inherit;
+  }
+}
+.hrStyle {
+  opacity: 1;
+  border: 0;
+  border-color: rgba(255, 255, 255, 0.08);
+  border-style: solid;
+  border-bottom-width: 1px;
+  width: 100%;
+  display: none;
+}
+
+hr {
+  border-top-width: 1px;
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+.bodyFooter {
+  grid-gap: var(--yg-space-3);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: none;
+}
+
+.footerContent {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.footerContentTwo {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.data {
+  -webkit-animation: none;
+  animation: none;
+}
+
+.dataText {
+  color: #9da4ae;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+
+.text {
+  color: #9da4ae;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+@media screen and (min-width: 30rem) {
+  .dataText {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.25rem;
+    line-height: 2rem;
+  }
+}
+
+@media screen and (min-width: 60rem) {
+  .container {
+    display: inherit;
+  }
+  .bodyContentGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .bodyFooter {
+    display: grid;
+  }
+}

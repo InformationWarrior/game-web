@@ -4,7 +4,7 @@
 // import {
 //   setInGameMessage,
 //   clearMessage,
-// } from "../../../Config/redux/slices/wheelSpinSlice";
+// } from "../../../Common/redux/slices/wheelSpinSlice";
 // import "../styles/Wheel.css";
 
 // const players = [
@@ -64,8 +64,14 @@
 //   useEffect(() => {
 //     if (gameState === "SPINNING") {
 //       handleSpinStart();
+//     } else if (gameState === "RESET") {
+//       handleResult();
 //     }
 //   }, [gameState]);
+
+//   const handleResult = () => {
+//     dispatch(setInGameMessage(`The winner is ${data[prizeNumber].name}`));
+//   };
 
 //   const handleSpinStart = () => {
 //     const newPrizeNumber = Math.floor(Math.random() * data.length);
@@ -75,7 +81,7 @@
 
 //   const handleSpinComplete = () => {
 //     console.log(`The spinner landed on: ${data[prizeNumber].option}`);
-//     dispatch(setInGameMessage(`The winner is ${data[prizeNumber].name}`));
+//     // dispatch(setInGameMessage(`The winner is ${data[prizeNumber].name}`));
 //     setMustSpin(false); // Reset spinning state after completion
 //     // Trigger additional actions if needed
 //   };
@@ -86,7 +92,6 @@
 //         mustStartSpinning={mustSpin}
 //         prizeNumber={prizeNumber}
 //         data={data}
-//         spinDuration={0}
 //         backgroundColors={["#3e3e3e", "#df3428"]}
 //         textColors={["#ffffff"]}
 //         onStopSpinning={handleSpinComplete}

@@ -1,8 +1,9 @@
 import React from "react";
-import "../styles/PlayerEntry.css";
+// import "../styles/PlayerEntry.css";
 import BetAmountInput from "../components/BetAmountInput";
 import RoundsInput from "../components/RoundsInput";
 import GasSavings from "../components/GasSavings";
+import AddSelection from "../components/AddSelection";
 import PlaceBet from "../components/PlaceBet";
 
 function PlayerEntrySection() {

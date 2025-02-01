@@ -1,12 +1,13 @@
 import React from "react";
-import SpinningWheel from "../components/SpinningWheel";
+import WheelWithPin from "../components/WheelWithPin";
+import styles from "../../../styles/WheelSpin/SpinWheel.module.css";
 
 function WheelSection() {
   return (
-    <div className="wheel-section-container d-flex flex-column justify-content-center">
-      <h4 className="text-white mb-4">Current Round</h4>
-      <div className="spinner-container d-flex justify-content-center">
-        <SpinningWheel />
+    <div className={styles.content}>
+      <h4 className={styles.heading}>Current Round</h4>
+      <div className={styles.main}>
+        <WheelWithPin />
       </div>
     </div>
   );
