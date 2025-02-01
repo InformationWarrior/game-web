@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setGameState,
   setInGameMessage,
-} from "../../../Common/redux/slices/wheelSpinSlice";
+} from "../../../Config/redux/slices/wheelSpinSlice";
 
 const AnotherTimerComponent = () => {
   const dispatch = useDispatch();

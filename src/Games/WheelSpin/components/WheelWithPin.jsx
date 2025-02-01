@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setGameState,
   setInGameMessage,
-} from "../../../Common/redux/slices/wheelSpinSlice";
+} from "../../../Config/redux/slices/wheelSpinSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
 import SpinWheel from "../../../styles/WheelSpin/SpinWheel.module.css";

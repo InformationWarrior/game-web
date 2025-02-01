@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { FaQuestionCircle } from "react-icons/fa";
-import { setTotalPlayerRounds } from "../../../Common/redux/slices/wheelSpinSlice";
+import { setTotalPlayerRounds } from "../../../Config/redux/slices/wheelSpinSlice";
 import "../styles/RoundsInput.css";
 
 function RoundsInput() {

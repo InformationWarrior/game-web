@@ -3,7 +3,7 @@ import "../styles/Home.css";
 import { Link } from "react-router-dom";
 import { SiFireship } from "react-icons/si";
 import { ImStatsBars } from "react-icons/im";
-import gamesConfig from "../../Common/routes/gamesConfig";
+import gamesConfig from "../../Config/routes/gamesConfig";
 import banner from "../assets/Banner.jpeg";
 
 const HomePage = () => {

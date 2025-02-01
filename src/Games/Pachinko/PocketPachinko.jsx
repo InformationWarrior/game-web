@@ -5,7 +5,7 @@ import BetOptions from "./components/BetOptions";
 import { useUIManager } from "./hooks/useUIManager";
 import ResponsiveCanvas from "./components/ResponsiveCanvas";
 import dynamicConstants from "./scripts/dynamicConstants";
-import { setCredits } from "../../Common/redux/slices/pachinkoSlice";
+import { setCredits } from "../../Config/redux/slices/pachinkoSlice";
 import "./styles/LaserBlast.css";
 
 function PocketPachinko() {

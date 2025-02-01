@@ -5,10 +5,10 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setGameState,
   setInGameMessage,
-} from "../../../Common/redux/slices/wheelSpinSlice";
+} from "../../../Config/redux/slices/wheelSpinSlice";
 
 export default function SpinningWheel() {
-  const wheelMessage = 'Spin the Wheel!'
+  const wheelMessage = "Spin the Wheel!";
   const dispatch = useDispatch();
   const gameState = useSelector((state) => state.wheelSpin.gameState);
 
@@ -32,7 +32,7 @@ export default function SpinningWheel() {
     if (isSpinning) return;
 
     setIsSpinning(true);
-    setTooltipContent(null)
+    setTooltipContent(null);
     const spins = Math.floor(Math.random() * 3 + 5); // Random spins between 5 and 7
     const randomAngle = Math.random() * segmentAngle;
     const totalRotation = spins * 360 + randomAngle;
@@ -49,7 +49,7 @@ export default function SpinningWheel() {
       const prize = segments[selectedSegment];
       dispatch(setInGameMessage(`You won: ${prize}`));
       dispatch(setGameState("RESET")); // Transition to RESET state
-      setTooltipContent(wheelMessage)
+      setTooltipContent(wheelMessage);
     }, 4000); // Matches animation duration
   };
 
@@ -76,25 +76,25 @@ export default function SpinningWheel() {
     >
       <div
         style={{
-          width: '300px',
-          height: '300px',
-          borderRadius: '50%',
-          border: '3px solid yellow',
-          position: 'relative',
-          overflow: 'hidden',
+          width: "300px",
+          height: "300px",
+          borderRadius: "50%",
+          border: "3px solid yellow",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
         {/* Motion div only for Pie slices */}
         <motion.div
           animate={{ rotate: rotation }}
-          transition={{ duration: 4, ease: 'easeOut' }}
+          transition={{ duration: 4, ease: "easeOut" }}
           style={{
-            width: '300px',
-            height: '300px',
-            position: 'absolute',
-            top: '0',
-            left: '0',
-            zIndex: 1,  // Ensure slices are on top of the static center
+            width: "300px",
+            height: "300px",
+            position: "absolute",
+            top: "0",
+            left: "0",
+            zIndex: 1, // Ensure slices are on top of the static center
           }}
         >
           <PieChart width={300} height={300}>
@@ -105,8 +105,8 @@ export default function SpinningWheel() {
               cy="50%"
               innerRadius={80} // Create a hole in the center (adjust this value for different ring thickness)
               outerRadius={150} // Outer radius for the ring
-              startAngle={90}  // Start angle to match your design
-              endAngle={-270}  // End angle to complete the circle
+              startAngle={90} // Start angle to match your design
+              endAngle={-270} // End angle to complete the circle
             >
               {data.map((entry, index) => (
                 <Cell
@@ -123,15 +123,15 @@ export default function SpinningWheel() {
         {/* Center part stays static with dynamic tooltip content */}
         <div
           style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 2,  // Ensure center is above the rotating slices
-            textAlign: 'center',
-            fontSize: '20px',
-            fontWeight: 'bold',
-            color: 'white',
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 2, // Ensure center is above the rotating slices
+            textAlign: "center",
+            fontSize: "20px",
+            fontWeight: "bold",
+            color: "white",
           }}
         >
           {tooltipContent}
