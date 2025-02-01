@@ -1,10 +1,10 @@
 import React from "react";
-import RoundContentItem from "../components/RoundContentItem";
+import PotItem from "../components/PotItem";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "../styles/RoundContents.css";
-import styles from "../../../styles/WheelSpin/RoundContents.module.css";
+import styles from "../../../styles/WheelSpin/PotSection.module.css";
 
-function RoundContentsSection() {
+function PotSection() {
   return (
     <div>
       <div className={styles["round-content-header"]}>
@@ -20,12 +20,12 @@ function RoundContentsSection() {
       </div>
 
       <div className={styles["round-content-scroll"]}>
-        <RoundContentItem />
-        <RoundContentItem />
-        <RoundContentItem />
+        <PotItem />
+        <PotItem />
+        <PotItem />
       </div>
     </div>
   );
 }
 
-export default RoundContentsSection;
+export default PotSection;

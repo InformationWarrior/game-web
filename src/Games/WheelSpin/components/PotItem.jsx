@@ -1,9 +1,9 @@
 import React from "react";
 import { FaEthereum } from "react-icons/fa";
 import "../styles/RoundContentItem.css";
-import styles from "../../../styles/WheelSpin/RoundContents.module.css";
+import styles from "../../../styles/WheelSpin/PotSection.module.css";
 
-function RoundContentItem() {
+function PotItem() {
   return (
     <div className={styles["round-item"]}>
       <div className={styles["round-item-card"]}>
@@ -22,4 +22,4 @@ function RoundContentItem() {
   );
 }
 
-export default RoundContentItem;
+export default PotItem;

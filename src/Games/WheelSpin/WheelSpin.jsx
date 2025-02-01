@@ -8,12 +8,12 @@ import GridLayout from "../../styles/WheelSpin/GridLayout.module.css";
 import PlayersList from "../../styles/WheelSpin/PlayersList.module.css";
 import SpinWheel from "../../styles/WheelSpin/SpinWheel.module.css";
 import RoundInfo from "../../styles/WheelSpin/RoundInfo.module.css";
-import RoundContents from "../../styles/WheelSpin/RoundContents.module.css";
+import PotSectionStyle from "../../styles/WheelSpin/PotSection.module.css";
 import PlayerBets from "../../styles/WheelSpin/PlayerBets.module.css";
 
 // Components
 import RoundInfoSection from "./Sections/RoundInfoSection";
-import RoundContentsSection from "./Sections/RoundContentsSection";
+import PotSection from "./Sections/PotSection";
 import PlayerEntrySection from "./Sections/PlayerEntrySection";
 import WheelSection from "./Sections/WheelSection";
 import PlayersListSection from "./Sections/PlayersListSection";
@@ -60,8 +60,8 @@ function WheelSpin() {
         <div className={RoundInfo.container}>
           <RoundInfoSection />
         </div>
-        <div className={RoundContents["round-content-wrapper"]}>
-          <RoundContentsSection />
+        <div className={PotSectionStyle["round-content-wrapper"]}>
+          <PotSection />
         </div>
         <div className={PlayerBets.container}>
           <PlayerEntrySection />

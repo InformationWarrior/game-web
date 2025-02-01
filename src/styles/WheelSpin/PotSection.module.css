@@ -1,4 +1,4 @@
-.round-content-wrapper {
+.pot-content-wrapper {
   border: solid 1px;
   border-color: rgba(255, 255, 255, 0.08);
   background: rgb(0, 0, 0);
@@ -9,7 +9,7 @@
   min-height: 196px;
 }
 
-.round-content-header {
+.pot-content-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,7 +17,7 @@
   padding-bottom: 0px;
 }
 
-.round-content-title {
+.pot-content-title {
   color: #e5e7eb;
   font-family: "Space Grotesk", sans-serif;
   font-size: 1rem;
@@ -26,12 +26,12 @@
   padding-left: 0.5rem;
 }
 
-.round-navigation {
+.pot-navigation {
   display: flex;
 }
 
-.round-nav-button-left,
-.round-nav-button-right {
+.pot-nav-button-left,
+.pot-nav-button-right {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -55,11 +55,11 @@
   padding: 0px;
 }
 
-.round-nav-button-left {
+.pot-nav-button-left {
   margin-right: 0.5rem;
 }
 
-.round-content-scroll {
+.pot-content-scroll {
   display: flex;
   position: relative;
   padding: 0.5rem 0.5rem 1rem 1rem;
@@ -69,12 +69,12 @@
   scroll-snap-type: x mandatory;
 }
 
-.round-item {
+.pot-item {
   flex-shrink: 0;
   scroll-snap-align: start;
 }
 
-.round-item-card {
+.pot-item-card {
   position: relative;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -84,7 +84,7 @@
   cursor: default;
 }
 
-.round-item-image-container {
+.pot-item-image-container {
   display: flex;
   background-image: linear-gradient(180deg, #111927 0%, #1f2a37 100%);
   justify-content: center;
@@ -93,7 +93,7 @@
   height: 96px;
 }
 
-.round-item-image-icon {
+.pot-item-image-icon {
   width: 3rem;
   height: 3rem;
   display: inline-block;
@@ -101,13 +101,13 @@
   color: currentcolor;
 }
 
-.round-item-text-container {
+.pot-item-text-container {
   display: flex;
   align-items: center;
   padding: 0.5rem;
 }
 
-.round-item-currency-icon {
+.pot-item-currency-icon {
   width: 0.75rem;
   height: 0.75rem;
   display: inline-block;
@@ -116,7 +116,7 @@
   margin-right: 0.25rem;
 }
 
-.round-item-text {
+.pot-item-text {
   color: #f9fafb;
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.875rem;
