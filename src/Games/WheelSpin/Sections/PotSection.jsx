@@ -7,19 +7,19 @@ import styles from "../../../styles/WheelSpin/PotSection.module.css";
 function PotSection() {
   return (
     <div>
-      <div className={styles["round-content-header"]}>
-        <p className={styles["round-content-title"]}>Round Contents</p>
-        <div className={styles["round-navigation"]}>
-          <button className={styles["round-nav-button-left"]}>
+      <div className={styles["pot-content-header"]}>
+        <p className={styles["pot-content-title"]}>Round Contents</p>
+        <div className={styles["pot-navigation"]}>
+          <button className={styles["pot-nav-button-left"]}>
             <FaChevronLeft />
           </button>
-          <button className={styles["round-nav-button-right"]}>
+          <button className={styles["pot-nav-button-right"]}>
             <FaChevronRight />
           </button>
         </div>
       </div>
 
-      <div className={styles["round-content-scroll"]}>
+      <div className={styles["pot-content-scroll"]}>
         <PotItem />
         <PotItem />
         <PotItem />

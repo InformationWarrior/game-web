@@ -60,7 +60,7 @@ function WheelSpin() {
         <div className={RoundInfo.container}>
           <RoundInfoSection />
         </div>
-        <div className={PotSectionStyle["round-content-wrapper"]}>
+        <div className={PotSectionStyle["pot-content-wrapper"]}>
           <PotSection />
         </div>
         <div className={PlayerBets.container}>

@@ -5,17 +5,17 @@ import styles from "../../../styles/WheelSpin/PotSection.module.css";
 
 function PotItem() {
   return (
-    <div className={styles["round-item"]}>
-      <div className={styles["round-item-card"]}>
-        <div className={styles["round-item-image-container"]}>
-          <FaEthereum className={styles["round-item-image-icon"]} />
+    <div className={styles["pot-item"]}>
+      <div className={styles["pot-item-card"]}>
+        <div className={styles["pot-item-image-container"]}>
+          <FaEthereum className={styles["pot-item-image-icon"]} />
         </div>
         <div
-          className={styles["round-item-text-container"]}
+          className={styles["pot-item-text-container"]}
           style={{ justifyContent: "center" }}
         >
-          {/* <FaEthereum className={styles["round-item-currency-icon"]} /> */}
-          <p className={styles["round-item-text"]}>0.04</p>
+          {/* <FaEthereum className={styles["pot-item-currency-icon"]} /> */}
+          <p className={styles["pot-item-text"]}>0.04</p>
         </div>
       </div>
     </div>

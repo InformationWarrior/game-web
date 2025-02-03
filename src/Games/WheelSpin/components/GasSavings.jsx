@@ -25,7 +25,7 @@ function GasSavings() {
           </span>
         </p>
       </div>
-      {/* <div className="mb-4">
+      <div className="mb-4">
         <h6 className="fw-bold mb-1">Est. Gas Savings:</h6>
         <p className="text-white">
           ( ${gasSavings.toFixed(2)} ){" "}
@@ -33,7 +33,7 @@ function GasSavings() {
             {gasSavings.toFixed(4)} {currency}
           </span>
         </p>
-      </div> */}
+      </div>
     </div>
   );
 }
