@@ -1,9 +1,9 @@
 import React from "react";
 import Player from "../components/Player";
-// import PlayersList from "../styles/SectionModules/PlayersList.module.css";
 import playerAvatar from "../assets/playerAvatar.png";
 import styles from "../../../styles/WheelSpin/PlayersList.module.css";
 import { FaEthereum } from "react-icons/fa";
+
 function PlayersListSection() {
   const borderColorClasses = [
     "border-green",

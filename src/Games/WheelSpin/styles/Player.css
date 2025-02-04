@@ -1,4 +1,3 @@
-/* Player.css */
 .player-card {
   display: flex;
   align-items: center;
@@ -23,7 +22,6 @@
 
 .player-username {
   font-size: 14px;
-  /* font-weight: bold; */
 }
 
 .crown {
@@ -50,7 +48,6 @@
   color: #a1a1b0;
 }
 
-/* Border color classes */
 .border-green {
   border-right: 8px solid green;
 }
