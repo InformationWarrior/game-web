@@ -34,7 +34,7 @@
 
 import React from "react";
 import RoundInfo from "../../../styles/WheelSpin/RoundInfo.module.css";
-import AnotherTimerComponent from "../components/AnotherTimerComponent";
+// import AnotherTimerComponent from "../components/AnotherTimerComponent";
 import { useSelector } from "react-redux";
 import RoundInfoContent from "../components/RoundInfoContent";
 import RoundInfoContentImage from "../components/RoundInfoContentImage";
@@ -52,7 +52,7 @@ function RoundInfoSection() {
             <p className={RoundInfo.timerText}>02:00</p>
             <AnotherTimerComponent />
           </div> */}
-          <AnotherTimerComponent />
+          {/* <AnotherTimerComponent /> */}
         </div>
       </div>
 

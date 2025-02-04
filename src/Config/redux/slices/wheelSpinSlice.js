@@ -6,7 +6,8 @@ const initialState = {
     currency: "ETH",
     betAmount: 0.01,
     walletAmount: 100,
-    gameState: "RESET",
+    gameState: null,
+    remainingTime: 0,
     inGameMessage: "",
     playerColor: null,
     serverOutcome: null,
@@ -31,9 +32,6 @@ const wheelSpinSlice = createSlice({
         setWalletAmount(state, action) {
             state.walletAmount = action.payload;;
         },
-        setGameState(state, action) {
-            state.gameState = action.payload;
-        },
         setInGameMessage(state, action) {
             state.inGameMessage = action.payload;
         },
@@ -46,6 +44,17 @@ const wheelSpinSlice = createSlice({
         setServerOutcome(state, action) {
             state.serverOutcome = action.payload;
         },
+        updateGameState(state, action) {
+            const { gameState, remainingTime } = action.payload;
+            console.log("🔥 Updating Redux State:", gameState, remainingTime); // Debugging
+            state.gameState = gameState;
+            state.remainingTime = remainingTime;
+        },
+        decrementTimer(state) {
+            if (state.remainingTime > 0) {
+                state.remainingTime -= 1;
+            }
+        },
     },
 });
 
@@ -55,11 +64,12 @@ export const {
     setCurrency,
     setBetAmount,
     setWalletAmount,
-    setGameState,
     setInGameMessage,
     clearMessage,
     setPlayerColor,
     setServerOutcome,
+    updateGameState,
+    decrementTimer
 } = wheelSpinSlice.actions;
 
 export default wheelSpinSlice.reducer;
