@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_GAME, CREATE_GAME, JOIN_GAME, MAKE_MOVE } from "../../graphql";
+import {
+  CREATE_GAME,
+  JOIN_GAME,
+  MAKE_MOVE,
+} from "../graphql/modules/BETS/mutations";
+import { GET_GAME } from "../graphql/modules/BETS/queries";
 import { useSocket } from "../hooks/useSocket";
-import PlayerList from "./components/PlayerList";
-import MoveList from "./components/MoveList";
-import MoveInput from "./components/MoveInput";
+import PlayerList from "./PlayerList";
+import MoveList from "./MoveList";
+import MoveInput from "./MoveInput";
 
 const Game = () => {
   const [game, setGame] = useState(null);

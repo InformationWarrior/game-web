@@ -34,9 +34,9 @@ function PlaceBet() {
     <button
       className="btn btn-secondary w-100 rounded py-2"
       onClick={handlePlaceBet}
-      disabled={gameState !== "STARTING"}
+      disabled={gameState !== "BETTING"}
     >
-      {gameState === "STARTING" ? "Place Bet" : "Round Closed"}
+      {gameState === "BETTING" ? "Place Bet" : "Round Closed"}
     </button>
   );
 }

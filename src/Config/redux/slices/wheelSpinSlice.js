@@ -44,9 +44,11 @@ const wheelSpinSlice = createSlice({
         setServerOutcome(state, action) {
             state.serverOutcome = action.payload;
         },
+        setGameState(state, action) {
+            state.gameState = action.payload;
+        },
         updateGameState(state, action) {
             const { gameState, remainingTime } = action.payload;
-            console.log("🔥 Updating Redux State:", gameState, remainingTime); // Debugging
             state.gameState = gameState;
             state.remainingTime = remainingTime;
         },
@@ -68,6 +70,7 @@ export const {
     clearMessage,
     setPlayerColor,
     setServerOutcome,
+    setGameState,
     updateGameState,
     decrementTimer
 } = wheelSpinSlice.actions;

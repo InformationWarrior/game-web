@@ -1,16 +1,17 @@
 import React from "react";
-import WheelWithPin from "../components/WheelWithPin";
+import SpinningWheel from "../components/SpinningWheel";
 import styles from "../../../styles/WheelSpin/SpinWheel.module.css";
-// import GameState from "../components/GameStatus";
-import GameStatus from "../components/GameStatus";
+import MainWheelInUse from "../components/MainWheelnUse";
+// import SpinningWheelForReference from "../components/SpinningWheelForReference";
 
 function WheelSection() {
   return (
     <div className={styles.content}>
       <h4 className={styles.heading}>Current Round</h4>
       <div className={styles.main}>
-        {/* <WheelWithPin /> */}
-        <GameStatus />
+        <SpinningWheel />
+        {/* <SpinningWheelForReference /> */}
+        {/* <MainWheelInUse /> */}
       </div>
     </div>
   );

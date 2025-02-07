@@ -7,7 +7,7 @@ import {
   decrementTimer,
 } from "../../../Config/redux/slices/wheelSpinSlice";
 
-const GameStatus = () => {
+const Timer = (props) => {
   const dispatch = useDispatch();
 
   // Extract game state and remaining time from Redux
@@ -49,12 +49,63 @@ const GameStatus = () => {
   if (loading) return <p>Loading game state...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const formattedSeconds = secs < 10 ? `0${secs}` : secs;
+    return `${formattedMinutes}:${formattedSeconds}`;
+  };
+
+  // Helper functions to render different timer displays
+  const renderLoadingSpinner = () => (
+    <div className="d-flex justify-content-center align-items-center">
+      <div
+        className="spinner-border"
+        style={{ width: "1.5rem", height: "1.5rem" }}
+        role="status"
+      >
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  );
+
+  const renderSpinningLoader = () => (
+    <div className="d-flex justify-content-center align-items-center">
+      <div
+        className="spinner-grow"
+        style={{ width: "1.5rem", height: "1.5rem" }}
+        role="status"
+      >
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  );
+
+  // Render timer display based on game state
+  const renderTimerDisplay = () => {
+    if (gameState === "RESET" || gameState === "END") {
+      return renderLoadingSpinner();
+    } else if (gameState === "BETTING") {
+      return <div className="timer-text">{formatTime(remainingTime)}</div>;
+    } else if (gameState === "RUNNING") {
+      return renderSpinningLoader();
+    } else {
+      return null;
+    }
+  };
+
   return (
-    <div key={gameState + remainingTime}>
-      <h2>Game State: {gameState}</h2>
-      <p>Time Left: {remainingTime} seconds</p>
+    <div className="timer-container text-white">
+      <div
+        //className="timer-display bg-secondary px-3 py-2 rounded text-center"
+        className={props.className}
+        // style={{ width: "80px" }}
+      >
+        {renderTimerDisplay()}
+      </div>
     </div>
   );
 };
 
-export default GameStatus;
+export default Timer;
