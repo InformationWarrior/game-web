@@ -7,7 +7,7 @@ import Timer from "../components/Timer";
 
 function RoundInfoSection() {
   const { gameRound, inGameMessage } = useSelector((state) => state.wheelSpin);
-  console.log("In game message = ", inGameMessage);
+  //console.log("In game message = ", inGameMessage);
 
   return (
     <div className={RoundInfo.content}>

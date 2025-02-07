@@ -98,7 +98,6 @@ export default function MainWheelInUse() {
     // Get the winning prize based on the calculated index
     const winningPrize = segments[winningIndex];
     dispatch(setInGameMessage(`${winningPrize} won`));
-    dispatch(updateGameState("RESET"));
     setTooltipContent(`${winningPrize} won`); // Display the winning prize
   };
 

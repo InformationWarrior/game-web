@@ -44,7 +44,7 @@ export default function SpinningWheel() {
     setRotation((prev) => prev + totalRotation);
 
     setTimeout(() => {
-      console.log("stopped");
+      // console.log("stopped");
       getWinner(totalRotation);
       setIsSpinning(false);
     }, 4000);
@@ -66,8 +66,8 @@ export default function SpinningWheel() {
     const pinCenterY = pinRect.top + pinRect.height / 2;
     const wheelCenterX = wheelRect.left + wheelRect.width / 2;
     const wheelCenterY = wheelRect.top + wheelRect.height / 2;
-    console.log({ pinCenterX, pinCenterY });
-    console.log({ wheelCenterX, wheelCenterY });
+    // console.log({ pinCenterX, pinCenterY });
+    // console.log({ wheelCenterX, wheelCenterY });
 
     // Use the function to get the color of the segment the pin is pointing to
     // const color = getSegmentColor(wheelCenterX, wheelCenterY, pinCenterX, pinCenterY);
@@ -78,7 +78,7 @@ export default function SpinningWheel() {
       671.6458740234375,
       139.7916717529297
     );
-    console.log({ color });
+    // console.log({ color });
 
     // Calculate the angle between the wheel center and pin center
     const angle =
@@ -96,7 +96,7 @@ export default function SpinningWheel() {
 
     // Determine which segment the pin is pointing to
     const winningIndex = Math.floor(adjustedAngle / segmentAngle);
-    console.log(data[winningIndex]);
+    // console.log(data[winningIndex]);
 
     // Get the winning prize based on the calculated index
     const winningPrize = segments[winningIndex];
@@ -127,7 +127,7 @@ export default function SpinningWheel() {
     const canvas = wheelRef.current.querySelector("canvas");
 
     if (!canvas) {
-      console.error("Canvas element not found in wheel.");
+      // console.error("Canvas element not found in wheel.");
       return null;
     }
 
@@ -172,7 +172,7 @@ export default function SpinningWheel() {
 
     // Get the color of the segment based on the (x, y) coordinates using canvas
     const color = getSegmentColor(x, y, wheelRef);
-    console.log("Segment color at clicked position:", color);
+    // console.log("Segment color at clicked position:", color);
   };
 
   return (

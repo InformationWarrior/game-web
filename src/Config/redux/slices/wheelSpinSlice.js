@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     gameRound: 1,
-    totalPlayerRounds: 0,
+    totalPlayerRounds: 1,
     currency: "ETH",
     betAmount: 0.01,
     walletAmount: 100,

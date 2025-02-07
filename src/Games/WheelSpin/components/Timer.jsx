@@ -14,7 +14,7 @@ const Timer = (props) => {
   const { gameState, remainingTime } = useSelector((state) => state.wheelSpin);
 
   // Debugging component re-renders
-  console.log("🎮 Component Render:", gameState, remainingTime);
+  //console.log("🎮 Component Render:", gameState, remainingTime);
 
   // ✅ Listen for game state updates from the server
   const { data, loading, error } = useSubscription(GAME_STATUS_SUBSCRIPTION);
@@ -22,7 +22,7 @@ const Timer = (props) => {
   // Using useEffect to handle subscription data
   useEffect(() => {
     if (data?.gameStatusUpdated) {
-      console.log("📢 onData Triggered:", data.gameStatusUpdated);
+      //console.log("📢 onData Triggered:", data.gameStatusUpdated);
 
       // Dispatch action to update game state and remaining time in Redux
       dispatch(
@@ -37,7 +37,7 @@ const Timer = (props) => {
   // ✅ Start a local countdown timer when remainingTime > 0
   useEffect(() => {
     if (remainingTime > 0) {
-      console.log("⏳ Timer Started:", remainingTime); // Debugging
+      //console.log("⏳ Timer Started:", remainingTime); // Debugging
       const interval = setInterval(() => {
         dispatch(decrementTimer());
       }, 1000);
@@ -46,8 +46,8 @@ const Timer = (props) => {
   }, [remainingTime, dispatch]); // Runs whenever `remainingTime` changes
 
   // Show loading or error states if needed
-  if (loading) return <p>Loading game state...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  // if (loading) return <p>Loading game state...</p>;
+  // if (error) return <p>Error: {error.message}</p>;
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);

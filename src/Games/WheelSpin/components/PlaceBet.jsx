@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { PLACE_BET } from "../../../NetworkManager/graphql/modules/WheelSpin/mutations";
 
 function PlaceBet() {
-  const [placeBet, { loading, error }] = useMutation(PLACE_BET);
+  const [betPlaced, setBetPlaced] = useState(false);
+  const [placeBet, { loading }] = useMutation(PLACE_BET);
   const { betAmount, totalPlayerRounds, currency, gameState } = useSelector(
     (state) => state.wheelSpin
   );
+
+  // Reset betPlaced when a new betting round starts
+  useEffect(() => {
+    if (gameState === "BETTING" && betPlaced) {
+      setBetPlaced(false);
+    }
+  }, [gameState]);
 
   const handlePlaceBet = async () => {
     try {
@@ -20,13 +28,14 @@ function PlaceBet() {
       });
 
       if (data.placeBet.success) {
-        alert("Bet placed successfully!");
+        console.log("Bet placed successfully!");
+        setBetPlaced(true);
       } else {
-        alert(`Error: ${data.placeBet.message}`);
+        console.log(`Error: ${data.placeBet.message}`);
+        setBetPlaced(false);
       }
     } catch (err) {
       console.error("Error placing bet:", err.message);
-      alert("An error occurred. Please try again later.");
     }
   };
 
@@ -34,9 +43,13 @@ function PlaceBet() {
     <button
       className="btn btn-secondary w-100 rounded py-2"
       onClick={handlePlaceBet}
-      disabled={gameState !== "BETTING"}
+      disabled={gameState !== "BETTING" || betPlaced || loading}
     >
-      {gameState === "BETTING" ? "Place Bet" : "Round Closed"}
+      {gameState !== "BETTING"
+        ? "Round Closed"
+        : betPlaced
+        ? "Bet Placed"
+        : "Place Bet"}
     </button>
   );
 }
