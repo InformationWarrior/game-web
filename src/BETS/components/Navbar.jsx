@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import SidebarPanel from "./SidebarPanel";
 import "../styles/Navbar.css";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import CustomConnectButton from "./CustomConnectButton";
 
 function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,7 +18,7 @@ function Navbar() {
         </button>
       </div>
       <div className="navbar-buttons">
-        <ConnectButton />
+        <CustomConnectButton />
       </div>
 
       {isSidebarOpen && (

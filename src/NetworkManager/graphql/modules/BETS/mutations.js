@@ -35,3 +35,12 @@ export const MAKE_MOVE = gql`
     }
   }
 `;
+
+export const SAVE_WALLET_DATA = gql`
+  mutation SaveWalletData($address: String!, $balance: Float!, $currency: String!) {
+    saveWalletData(address: $address, balance: $balance, currency: $currency) {
+      success
+      message
+    }
+  }
+`;
