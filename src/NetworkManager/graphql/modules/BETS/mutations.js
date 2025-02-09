@@ -1,36 +1,43 @@
 import { gql } from '@apollo/client';
 
+// ✅ Mutation to create a player
+export const CREATE_PLAYER = gql`
+  mutation CreatePlayer($walletAddress: ID!, $username: String!) {
+    createPlayer(walletAddress: $walletAddress, username: $username) {
+      walletAddress
+      username
+    }
+  }
+`;
+
+// ✅ Mutation to create a game
 export const CREATE_GAME = gql`
-  mutation CreateGame($name: String!) {
-    createGame(name: $name) {
-      _id
-      players {
-        _id
-        name
-      }
+    mutation CreateGame($name: String!, $type: String!, $maxPlayers: Int!) {
+        createGame(name: $name, type: $type, maxPlayers: $maxPlayers) {
+            id
+            name
+            type
+            state
+            maxPlayers
+            players {
+                walletAddress
+                username
+            }
+        }
     }
-  }
 `;
 
+// ✅ Mutation to join a game
 export const JOIN_GAME = gql`
-  mutation JoinGame($gameId: ObjectId!, $name: String!) {
-    joinGame(gameId: $gameId, name: $name) {
-      _id
+  mutation JoinGame($gameId: ID!, $walletAddress: ID!) {
+    joinGame(gameId: $gameId, walletAddress: $walletAddress) {
+      id
+      name
+      type
+      state
       players {
-        _id
-        name
-      }
-    }
-  }
-`;
-
-export const MAKE_MOVE = gql`
-  mutation MakeMove($gameId: ObjectId!, $move: String!) {
-    makeMove(gameId: $gameId, move: $move) {
-      _id
-      moves {
-        playerId
-        move
+        walletAddress
+        username
       }
     }
   }

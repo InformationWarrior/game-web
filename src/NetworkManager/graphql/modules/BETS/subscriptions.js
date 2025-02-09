@@ -1,13 +1,11 @@
 import { gql } from '@apollo/client';
 
-export const PLAYER_JOINED_SUBSCRIPTION = gql`
-  subscription {
-    playerJoined {
-      player {
-        _id
-        name
-      }
-      playerCount
+// ✅ Subscription to listen for new players joining a game
+export const PLAYER_JOINED = gql`
+    subscription PlayerJoined {
+        playerJoined {
+            walletAddress
+            username
+        }
     }
-  }
 `;
