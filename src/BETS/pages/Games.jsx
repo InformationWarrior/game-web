@@ -9,12 +9,13 @@ function Games() {
   const dispatch = useDispatch();
   const walletAddress = useSelector((state) => state.bets.wallet.address); // Get wallet from Redux
 
-  const handleJoinGame = (gameId) => {
+  const handleJoinGame = (game) => {
     if (!walletAddress) {
       alert("Connect your wallet first!");
       return;
     }
-    dispatch(joinGame({ gameId, walletAddress }));
+    console.log("Joining game:", game);
+    dispatch(joinGame({ gameId: game.id, walletAddress }));
   };
 
   return (
@@ -23,9 +24,8 @@ function Games() {
         <Link
           key={index}
           to={game.path}
-          rel="noopener noreferrer"
           className="game-card-link"
-          onClick={() => handleJoinGame("67a89cf55a020728c5b4d746")}
+          onClick={() => handleJoinGame(game)}
         >
           <div className="game-card">
             <div
@@ -42,4 +42,5 @@ function Games() {
     </div>
   );
 }
+
 export default Games;

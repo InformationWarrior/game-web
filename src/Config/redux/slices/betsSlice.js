@@ -4,6 +4,24 @@ import { SAVE_WALLET_DATA } from "../../../NetworkManager/graphql/modules/BETS/m
 import { JOIN_GAME } from "../../../NetworkManager/graphql/modules/BETS/mutations"
 import { CREATE_PLAYER } from "../../../NetworkManager/graphql/modules/BETS/mutations"
 
+// Async thunk to create a player
+export const createPlayer = createAsyncThunk(
+  "bets/createPlayer",
+  async ({ walletAddress, username }, { rejectWithValue }) => {
+    try {
+      const response = await client.mutate({
+        mutation: CREATE_PLAYER,
+        variables: { walletAddress, username },
+      });
+
+      const playerData = response.data.createPlayer;
+      return playerData;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 // Async thunk to save wallet data
 export const saveWalletData = createAsyncThunk(
   'bets/saveWalletData',
@@ -29,36 +47,25 @@ export const joinGame = createAsyncThunk(
   "bets/joinGame",
   async ({ gameId, walletAddress }, { rejectWithValue }) => {
     try {
+      console.log("Sending joinGame mutation for:", { gameId, walletAddress });
       const response = await client.mutate({
         mutation: JOIN_GAME,
         variables: { gameId, walletAddress },
       });
 
-      const gameData = response.data.joinGame;
-      return gameData; // Updated game data
+      console.log("joinGame response:", response.data);
+      if (!response.data || !response.data.joinGame) {
+        throw new Error("Invalid response from joinGame mutation");
+      }
+
+      return response.data.joinGame;
     } catch (error) {
+      console.error("joinGame error:", error);
       return rejectWithValue(error.message);
     }
   }
 );
 
-// Async thunk to create a player
-export const createPlayer = createAsyncThunk(
-  "bets/createPlayer",
-  async ({ walletAddress, username }, { rejectWithValue }) => {
-    try {
-      const response = await client.mutate({
-        mutation: CREATE_PLAYER,
-        variables: { walletAddress, username },
-      });
-
-      const playerData = response.data.createPlayer;
-      return playerData;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
 
 const initialState = {
   project: {
@@ -141,6 +148,7 @@ const betsSlice = createSlice({
       .addCase(joinGame.fulfilled, (state, action) => {
         state.networkStatus.loading = false;
         state.currentGame = action.payload; // Store updated game details
+        console.log("Joined game successfully:", action.payload);
       })
       .addCase(joinGame.rejected, (state, action) => {
         state.networkStatus.loading = false;
