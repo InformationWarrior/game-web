@@ -1,6 +1,6 @@
 import React from "react";
 import gamesConfig from "../../Config/routes/gamesConfig";
-import GameCard from "../components/GameCard"; // Import GameCard
+import GameCard from "../components/GameCard";
 import styles from "../../styles/BETS/Games.module.css";
 
 function Games() {
