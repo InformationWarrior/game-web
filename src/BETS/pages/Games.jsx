@@ -1,43 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import "../styles/GamesPanel.css";
-import gameConfig from "../../Config/routes/gamesConfig";
-import { useDispatch, useSelector } from "react-redux";
-import { joinGame } from "../../Config/redux/slices/betsSlice"; // Import action
+import gamesConfig from "../../Config/routes/gamesConfig";
+import GameCard from "../components/GameCard"; // Import GameCard
+import styles from "../../styles/BETS/Games.module.css";
 
 function Games() {
-  const dispatch = useDispatch();
-  const walletAddress = useSelector((state) => state.bets.wallet.address); // Get wallet from Redux
-
-  const handleJoinGame = (game) => {
-    if (!walletAddress) {
-      alert("Connect your wallet first!");
-      return;
-    }
-    console.log("Joining game:", game);
-    dispatch(joinGame({ gameId: game.id, walletAddress }));
-  };
-
   return (
-    <div className="games-grid">
-      {gameConfig.map((game, index) => (
-        <Link
+    <div className={styles.gamesGrid}>
+      {gamesConfig.map((game, index) => (
+        <GameCard
           key={index}
-          to={game.path}
-          className="game-card-link"
-          onClick={() => handleJoinGame(game)}
-        >
-          <div className="game-card">
-            <div
-              className="game-image"
-              style={{ backgroundImage: `url(${game.imgSrc})` }}
-            ></div>
-            <div className="game-info">
-              <h3>{game.title}</h3>
-              <p>{game.description}</p>
-            </div>
-          </div>
-        </Link>
+          title={game.title}
+          description={game.description}
+          imgSrc={game.imgSrc}
+          path={game.path}
+          gameId={game.id}
+        />
       ))}
     </div>
   );

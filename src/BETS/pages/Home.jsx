@@ -1,10 +1,10 @@
 import React from "react";
 import "../styles/Home.css";
-import { Link } from "react-router-dom";
 import { SiFireship } from "react-icons/si";
 import { ImStatsBars } from "react-icons/im";
 import gamesConfig from "../../Config/routes/gamesConfig";
 import banner from "../assets/Banner.jpeg";
+import GameCard from "../components/GameCard"; // Import GameCard
 
 const HomePage = () => {
   return (
@@ -17,28 +17,18 @@ const HomePage = () => {
         <span>BETS GAMES</span>
       </header>
 
-      <section className="popular-games">
-        <div className="games-grid">
-          {gamesConfig.map((game, index) => (
-            <Link
-              key={index}
-              to={game.path}
-              rel="noopener noreferrer"
-              className="game-card-link"
-            >
-              <div className="game-card">
-                <div
-                  className="game-image"
-                  style={{ backgroundImage: `url(${game.imgSrc})` }}
-                ></div>
-                <div className="game-info">
-                  <h3>{game.title}</h3>
-                  <p>{game.description}</p>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+      {/* Popular Games */}
+      <section>
+        {gamesConfig.map((game, index) => (
+          <GameCard
+            key={index}
+            title={game.title}
+            description={game.description}
+            imgSrc={game.imgSrc}
+            path={game.path}
+            gameId={game.id}
+          />
+        ))}
       </section>
 
       {/* Platform Stats */}
