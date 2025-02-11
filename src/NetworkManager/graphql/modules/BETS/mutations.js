@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 // ✅ Mutation to create a player
 export const CREATE_PLAYER = gql`
-  mutation CreatePlayer($walletAddress: ID!, $username: String!) {
+  mutation CreatePlayer($walletAddress: String!, $username: String!) {
     createPlayer(walletAddress: $walletAddress, username: $username) {
       walletAddress
       username
@@ -34,7 +34,7 @@ export const CREATE_GAME = gql`
 
 // ✅ Mutation to enter a game (just enter, not necessarily play)
 export const ENTER_GAME = gql`
-  mutation EnterGame($gameId: ID!, $walletAddress: ID!) {
+  mutation EnterGame($gameId: ID!, $walletAddress: String!) {
     enterGame(gameId: $gameId, walletAddress: $walletAddress) {
       id
       name
@@ -54,7 +54,7 @@ export const ENTER_GAME = gql`
 
 // ✅ Mutation to confirm participation (player actually plays)
 export const PARTICIPATE_IN_GAME = gql`
-  mutation ParticipateInGame($gameId: ID!, $walletAddress: ID!) {
+  mutation ParticipateInGame($gameId: ID!, $walletAddress: String!) {
     participateInGame(gameId: $gameId, walletAddress: $walletAddress) {
       id
       name
