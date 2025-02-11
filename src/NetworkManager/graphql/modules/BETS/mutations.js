@@ -12,30 +12,19 @@ export const CREATE_PLAYER = gql`
 
 // ✅ Mutation to create a game
 export const CREATE_GAME = gql`
-    mutation CreateGame($name: String!, $type: String!, $maxPlayers: Int!) {
-        createGame(name: $name, type: $type, maxPlayers: $maxPlayers) {
-            id
-            name
-            type
-            state
-            maxPlayers
-            players {
-                walletAddress
-                username
-            }
-        }
-    }
-`;
-
-// ✅ Mutation to join a game
-export const JOIN_GAME = gql`
-  mutation JoinGame($gameId: ID!, $walletAddress: ID!) {
-    joinGame(gameId: $gameId, walletAddress: $walletAddress) {
+  mutation CreateGame($name: String!, $type: String!, $maxPlayers: Int!, $maxParticipants: Int!) {
+    createGame(name: $name, type: $type, maxPlayers: $maxPlayers, maxParticipants: $maxParticipants) {
       id
       name
       type
       state
-      players {
+      maxPlayers
+      maxParticipants
+      enteredPlayers {
+        walletAddress
+        username
+      }
+      participants {
         walletAddress
         username
       }
@@ -43,6 +32,48 @@ export const JOIN_GAME = gql`
   }
 `;
 
+// ✅ Mutation to enter a game (just enter, not necessarily play)
+export const ENTER_GAME = gql`
+  mutation EnterGame($gameId: ID!, $walletAddress: ID!) {
+    enterGame(gameId: $gameId, walletAddress: $walletAddress) {
+      id
+      name
+      type
+      state
+      enteredPlayers {
+        walletAddress
+        username
+      }
+      participants {
+        walletAddress
+        username
+      }
+    }
+  }
+`;
+
+// ✅ Mutation to confirm participation (player actually plays)
+export const PARTICIPATE_IN_GAME = gql`
+  mutation ParticipateInGame($gameId: ID!, $walletAddress: ID!) {
+    participateInGame(gameId: $gameId, walletAddress: $walletAddress) {
+      id
+      name
+      type
+      state
+      enteredPlayers {
+        walletAddress
+        username
+      }
+      participants {
+        walletAddress
+        username
+      }
+    }
+  }
+`;
+
+
+// ✅ Mutation to save wallet data
 export const SAVE_WALLET_DATA = gql`
   mutation SaveWalletData($address: String!, $balance: Float!, $currency: String!) {
     saveWalletData(address: $address, balance: $balance, currency: $currency) {

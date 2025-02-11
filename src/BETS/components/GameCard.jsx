@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { joinGame } from "../../Config/redux/slices/betsSlice";
+import { enterGame } from "../../Config/redux/slices/betsSlice";
 import styles from "../../styles/BETS/Games.module.css";
 
 function GameCard({ title, description, imgSrc, path, gameId }) {
@@ -9,7 +9,7 @@ function GameCard({ title, description, imgSrc, path, gameId }) {
   const navigate = useNavigate();
   const walletAddress = useSelector((state) => state.bets.wallet.address);
 
-  const handleJoinGame = async (e) => {
+  const handleEnterGame = async (e) => {
     e.preventDefault(); // Prevent default navigation initially
 
     if (!walletAddress) {
@@ -18,15 +18,15 @@ function GameCard({ title, description, imgSrc, path, gameId }) {
     }
 
     try {
-      await dispatch(joinGame({ gameId, walletAddress }));
-      navigate(path); // Navigate after successful join
+      await dispatch(enterGame({ gameId, walletAddress })).unwrap();
+      navigate(path); // Navigate after successful entry
     } catch (error) {
-      console.error("Error joining game:", error);
+      console.error("Error entering game:", error);
     }
   };
 
   return (
-    <Link to={path} className={styles.gameCardLink} onClick={handleJoinGame}>
+    <Link to={path} className={styles.gameCardLink} onClick={handleEnterGame}>
       <div className={styles.gameCard}>
         <div
           className={styles.gameImage}

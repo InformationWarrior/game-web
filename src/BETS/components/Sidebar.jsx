@@ -16,7 +16,6 @@ function Sidebar() {
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
-                activeClassName="active"
               >
                 <span className="icon">{route.icon}</span>
                 <span className="label">{route.label}</span>

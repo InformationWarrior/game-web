@@ -1,8 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import client from "../../../NetworkManager/apollo/client"
-import { SAVE_WALLET_DATA } from "../../../NetworkManager/graphql/modules/BETS/mutations"
-import { JOIN_GAME } from "../../../NetworkManager/graphql/modules/BETS/mutations"
-import { CREATE_PLAYER } from "../../../NetworkManager/graphql/modules/BETS/mutations"
+import {
+  CREATE_PLAYER,
+  ENTER_GAME,
+  PARTICIPATE_IN_GAME,
+  SAVE_WALLET_DATA,
+} from "../../../NetworkManager/graphql/modules/BETS/mutations"
+
 
 // Async thunk to create a player
 export const createPlayer = createAsyncThunk(
@@ -43,29 +47,51 @@ export const saveWalletData = createAsyncThunk(
   }
 );
 
-export const joinGame = createAsyncThunk(
-  "bets/joinGame",
+// ✅ Async thunk to enter a game (viewing but not necessarily playing)
+export const enterGame = createAsyncThunk(
+  "bets/enterGame",
   async ({ gameId, walletAddress }, { rejectWithValue }) => {
     try {
-      console.log("Sending joinGame mutation for:", { gameId, walletAddress });
+      console.log("Sending enterGame mutation for:", { gameId, walletAddress });
       const response = await client.mutate({
-        mutation: JOIN_GAME,
+        mutation: ENTER_GAME,
         variables: { gameId, walletAddress },
       });
 
-      console.log("joinGame response:", response.data);
-      if (!response.data || !response.data.joinGame) {
-        throw new Error("Invalid response from joinGame mutation");
+      if (!response.data || !response.data.enterGame) {
+        throw new Error("Invalid response from enterGame mutation");
       }
 
-      return response.data.joinGame;
+      return response.data.enterGame;
     } catch (error) {
-      console.error("joinGame error:", error);
+      console.error("enterGame error:", error);
       return rejectWithValue(error.message);
     }
   }
 );
 
+// ✅ Async thunk to participate in the game (player actually plays)
+export const participateInGame = createAsyncThunk(
+  "bets/participateInGame",
+  async ({ gameId, walletAddress }, { rejectWithValue }) => {
+    try {
+      console.log("Sending participateInGame mutation for:", { gameId, walletAddress });
+      const response = await client.mutate({
+        mutation: PARTICIPATE_IN_GAME,
+        variables: { gameId, walletAddress },
+      });
+
+      if (!response.data || !response.data.participateInGame) {
+        throw new Error("Invalid response from participateInGame mutation");
+      }
+
+      return response.data.participateInGame;
+    } catch (error) {
+      console.error("participateInGame error:", error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const initialState = {
   project: {
@@ -109,48 +135,58 @@ const betsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // ✅ saveWalletData
       .addCase(saveWalletData.pending, (state) => {
         state.networkStatus.loading = true;
         state.networkStatus.error = null;
-        console.log("saveWalletData.pending");
       })
       .addCase(saveWalletData.fulfilled, (state, action) => {
         state.networkStatus.loading = false;
         state.wallet = action.payload;
-        console.log("saveWalletData.fulfilled with payload:", action.payload);
       })
       .addCase(saveWalletData.rejected, (state, action) => {
         state.networkStatus.loading = false;
         state.networkStatus.error = action.payload;
-        console.log("saveWalletData.rejected with error:", action.payload);
       })
 
+      // ✅ createPlayer
       .addCase(createPlayer.pending, (state) => {
         state.networkStatus.loading = true;
         state.networkStatus.error = null;
       })
       .addCase(createPlayer.fulfilled, (state, action) => {
         state.networkStatus.loading = false;
-        state.player = action.payload; // Save player in Redux state
-        console.log("Player created:", action.payload);
+        state.player = action.payload;
       })
       .addCase(createPlayer.rejected, (state, action) => {
         state.networkStatus.loading = false;
         state.networkStatus.error = action.payload;
-        console.error("Error creating player:", action.payload);
       })
 
-      // ✅ Corrected placement of joinGame reducers
-      .addCase(joinGame.pending, (state) => {
+      // ✅ enterGame
+      .addCase(enterGame.pending, (state) => {
         state.networkStatus.loading = true;
         state.networkStatus.error = null;
       })
-      .addCase(joinGame.fulfilled, (state, action) => {
+      .addCase(enterGame.fulfilled, (state, action) => {
         state.networkStatus.loading = false;
         state.currentGame = action.payload; // Store updated game details
-        console.log("Joined game successfully:", action.payload);
       })
-      .addCase(joinGame.rejected, (state, action) => {
+      .addCase(enterGame.rejected, (state, action) => {
+        state.networkStatus.loading = false;
+        state.networkStatus.error = action.payload;
+      })
+
+      // ✅ participateInGame
+      .addCase(participateInGame.pending, (state) => {
+        state.networkStatus.loading = true;
+        state.networkStatus.error = null;
+      })
+      .addCase(participateInGame.fulfilled, (state, action) => {
+        state.networkStatus.loading = false;
+        state.currentGame = action.payload; // Store updated game details
+      })
+      .addCase(participateInGame.rejected, (state, action) => {
         state.networkStatus.loading = false;
         state.networkStatus.error = action.payload;
       });
