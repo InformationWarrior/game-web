@@ -101,6 +101,7 @@ const initialState = {
   games: [],
   currentGame: null,
   players: [],
+  participatedPlayers: [],
   player: null,
   wallet: {
     address: null,
@@ -125,6 +126,9 @@ const betsSlice = createSlice({
     },
     setPlayers(state, action) {
       state.players = action.payload;
+    },
+    setParticipatedPlayers(state, action) {
+      state.participatedPlayers = action.payload;
     },
     setPlayer(state, action) {
       state.player = action.payload;
@@ -197,6 +201,7 @@ export const {
   setGames,
   setCurrentGame,
   setPlayers,
+  setParticipatedPlayers,
   setPlayer,
   setNetworkStatus,
 } = betsSlice.actions;

@@ -1,0 +1,174 @@
+/* ==================================
+   Main Container
+   ================================== */
+.laser-blast {
+  background-color: #121212; /* Dark theme background */
+  color: #fff; /* Text color for readability */
+  font-family: "Arial", sans-serif; /* Clean, sans-serif font */
+  display: flex; /* Enable flexible layout */
+  align-items: stretch; /* Stretch child elements to match container height */
+  flex-direction: column; /* Stack children vertically */
+  gap: 2rem; /* Space between child elements */
+  width: 100%; /* Full width of the container */
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+  padding-inline: 0px; /* Remove horizontal padding */
+}
+
+/* ==================================
+     Main Content Section
+     ================================== */
+.laser-blast__main {
+  display: flex; /* Flexible layout for main section */
+  flex-direction: column; /* Stack items vertically by default */
+  gap: 1.25rem; /* Space between items */
+  z-index: 1; /* Ensure proper layering */
+  padding: 1rem; /* Internal spacing */
+  border-radius: 24px; /* Rounded corners */
+  width: 100%; /* Full width */
+  max-width: 1536px; /* Maximum width for content alignment */
+  margin-inline: auto; /* Center content horizontally */
+  background: rgb(0, 0, 0); /* Black background for contrast */
+}
+
+@media screen and (min-width: 60rem) {
+  .laser-blast__main {
+    flex-direction: row; /* Switch to horizontal layout on larger screens */
+  }
+}
+
+@media screen and (min-width: 48rem) {
+  .laser-blast__main {
+    gap: 1.5rem; /* Increase gap on medium screens */
+    padding: 2rem; /* Larger padding for spacious layout */
+  }
+}
+
+/* ==================================
+     Game Panel Section
+     ================================== */
+.laser-blast__game {
+  display: flex; /* Flexible layout */
+  flex-grow: 1; /* Allow game panel to grow */
+  gap: 1.25rem; /* Space between elements */
+  height: 340px; /* Default height */
+  border-radius: 24px; /* Rounded corners */
+  overflow: hidden; /* Prevent overflow of child elements */
+  border-width: 15px 10px; /* Custom border thickness */
+  border-color: rgb(38, 38, 38); /* Dark border for subtle contrast */
+  background: rgb(38, 38, 38); /* Background matching border */
+  min-height: 680px; /* Minimum height */
+  position: relative; /* Relative positioning for layering */
+  min-width: 320px; /* Ensure minimum width for smaller screens */
+}
+
+@media screen and (min-width: 48rem) {
+  .laser-blast__game {
+    height: 680px; /* Fixed height for larger screens */
+  }
+}
+
+/* ==================================
+     Game Panel Inner Layout - Permanenet
+     ================================== */
+/* .laser-blast__panel {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background: linear-gradient(
+    to bottom,
+    #1e1e2f,
+    #121212
+  );
+  position: relative;
+  display: flex;
+  flex-direction: column;
+} */
+
+/* ==================================
+     Game Panel Inner Layout - Temporary Change: includes bg Image
+     ================================== */
+
+.laser-blast__panel {
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  border-radius: 15px; /* Rounded corners */
+  background: url("../assets/bgImage.jpg") no-repeat center center,
+    /* Add background image */ linear-gradient(to bottom, #1e1e2f, #121212); /* Gradient background */
+  background-size: cover; /* Ensure the image covers the entire panel */
+  position: relative; /* Allows child positioning */
+  display: flex; /* Flexible layout */
+  flex-direction: column; /* Stack elements vertically */
+}
+
+/* ==================================
+     Canvas Area
+     ================================== */
+.laser-blast__canvas {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevent content overflow */
+  border-radius: 15px;
+}
+
+.laser-blast__canvas canvas {
+  width: 100%; /* Let it adapt responsively */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 800px; /* Maximum width */
+  max-height: 600px; /* Maximum height */
+  min-width: 300px; /* Minimum width */
+  min-height: 225px; /* Minimum height */
+  /* background: linear-gradient(to bottom, #0d0d12, #1a1a2a);
+  border: 2px solid #2a2a3c;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); */
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .laser-blast__canvas canvas {
+    height: auto; /* Maintain aspect ratio on smaller screens */
+  }
+}
+
+/* ==================================
+     Bet Options Section
+     ================================== */
+.laser-blast__bet-options {
+  padding: 1.5rem; /* Internal spacing */
+  border-radius: 24px; /* Smooth edges */
+  background: #ffffff1a; /* Transparent white background */
+  width: 100%; /* Full width by default */
+}
+
+@media screen and (min-width: 60rem) {
+  .laser-blast__bet-options {
+    width: 320px; /* Fixed width for larger screens */
+  }
+}
+
+/* ==================================
+     Data Table
+     ================================== */
+.laser-blast__data {
+  display: flex; /* Flexible layout */
+  align-items: stretch; /* Stretch items to fill container */
+  flex-direction: column; /* Stack items vertically */
+  gap: 1rem; /* Space between items */
+}
+
+/* Adjust padding for larger screens */
+@media screen and (min-width: 75rem) {
+  .laser-blast {
+    padding-bottom: 1rem;
+  }
+}
+
+@media screen and (min-width: 48rem) {
+  .laser-blast {
+    padding-inline-start: 2rem;
+    padding-inline-end: 2rem;
+  }
+}

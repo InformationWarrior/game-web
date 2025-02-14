@@ -1,0 +1,209 @@
+/* ==================================
+   Bet Panel Container
+   ================================== */
+.laser-blast__bet-panel {
+  display: flex; /* Flexible layout for stacking */
+  flex-direction: column-reverse; /* Reverse stacking for mobile */
+  gap: 2.5rem; /* Space between child elements */
+  height: 100%; /* Full height */
+}
+
+@media screen and (min-width: 60rem) {
+  .laser-blast__bet-panel {
+    flex-direction: column; /* Standard stacking for larger screens */
+  }
+}
+
+/* ==================================
+     Logo Section
+     ================================== */
+.laser-blast__bet-logo img {
+  width: 100%; /* Responsive width */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 20px; /* Space below the logo */
+}
+
+/* ==================================
+     Input and Label Styling
+     ================================== */
+.laser-blast__label {
+  font-size: 14px; /* Label font size */
+  margin-bottom: 5px; /* Space below label */
+  display: block; /* Ensure block-level layout */
+  font-weight: bold; /* Emphasize label */
+}
+
+.laser-blast__entry-input-container {
+  display: flex; /* Arrange input and elements inline */
+  justify-content: space-between; /* Distribute space evenly */
+  align-items: center; /* Center align vertically */
+  background-color: #222; /* Dark background for contrast */
+  border: 1px solid #444; /* Subtle border for definition */
+  border-radius: 5px; /* Smooth corners */
+  padding: 10px; /* Internal spacing */
+  margin-bottom: 10px; /* Space below the container */
+}
+
+.laser-blast__entry-input {
+  flex: 1; /* Take up remaining space */
+  background: transparent; /* Transparent background */
+  border: none; /* Remove border */
+  color: #fff; /* White text for readability */
+  font-size: 16px; /* Font size for input text */
+}
+
+/* ==================================
+     Currency Selector
+     ================================== */
+.laser-blast__currency-select {
+  display: flex; /* Inline layout for selector */
+  align-items: center; /* Center align vertically */
+  gap: 5px; /* Space between elements */
+}
+
+/* ==================================
+     Entry Buttons
+     ================================== */
+.laser-blast__entry-buttons button {
+  background: #333; /* Dark background */
+  color: #fff; /* White text for contrast */
+  border: 1px solid #444; /* Subtle border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px 10px; /* Internal spacing */
+  margin-right: 5px; /* Space between buttons */
+  font-size: 12px; /* Button text size */
+  cursor: pointer; /* Pointer cursor for interactivity */
+}
+
+/* ==================================
+     Entry Notes
+     ================================== */
+.laser-blast__entry-note {
+  color: #f55; /* Red for visibility */
+  font-size: 12px; /* Small font size */
+  margin-top: 5px; /* Space above the note */
+}
+
+/* ==================================
+     Slider Section
+     ================================== */
+.laser-blast__slider {
+  display: flex; /* Arrange slider elements inline */
+  align-items: center; /* Center align vertically */
+  gap: 10px; /* Space between elements */
+  margin: 10px 0; /* Space above and below */
+}
+
+.laser-blast__slider-label {
+  flex-shrink: 0; /* Prevent shrinking */
+  margin-right: 10px; /* Space to the right of the label */
+  font-size: 14px; /* Label font size */
+  font-weight: bold; /* Emphasize label */
+  color: #ffffff; /* White text for readability */
+}
+
+.laser-blast__range-input {
+  flex-grow: 1; /* Take up available space */
+  width: 100%; /* Full width */
+  appearance: none; /* Remove default styling */
+  background: #282c34; /* Slider background */
+  height: 6px; /* Slider height */
+  border-radius: 5px; /* Rounded corners */
+  outline: none; /* Remove focus outline */
+}
+
+.laser-blast__range-input::-webkit-slider-thumb {
+  appearance: none; /* Remove default styling */
+  width: 14px; /* Thumb width */
+  height: 14px; /* Thumb height */
+  background: #f55; /* Red for visibility */
+  border-radius: 50%; /* Circular thumb */
+  cursor: pointer; /* Pointer cursor for interactivity */
+}
+
+.laser-blast__range-input::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: #f55;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* ==================================
+     Connect Button
+     ================================== */
+.laser-blast__connect-btn {
+  background-color: #fff; /* White background */
+  color: #121212; /* Dark text for contrast */
+  font-weight: bold; /* Emphasize button text */
+  width: 100%; /* Full width */
+  padding: 10px; /* Internal spacing */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor for interactivity */
+  transition: background 0.3s ease; /* Smooth hover transition */
+}
+
+.laser-blast__connect-btn:hover {
+  background-color: #f55; /* Change background on hover */
+  color: #fff; /* Change text color on hover */
+}
+
+/* ==================================
+     Bet Shots Section
+     ================================== */
+.laser-blast__bet-shots {
+  margin-top: 20px; /* Space above the section */
+}
+
+/* ==================================
+     Dropdown Section
+     ================================== */
+.laser-blast__dropdown-input {
+  display: flex; /* Inline layout for dropdown */
+  align-items: center; /* Center align vertically */
+  position: relative; /* Relative positioning for dropdown menu */
+}
+
+.laser-blast__dropdown-container {
+  position: relative; /* Container for dropdown */
+}
+
+.laser-blast__dropdown-button {
+  display: flex; /* Inline layout for button */
+  align-items: center; /* Center align vertically */
+  background: transparent; /* Transparent background */
+  border: none; /* Remove border */
+  font-size: 14px; /* Button text size */
+  cursor: pointer; /* Pointer cursor for interactivity */
+  padding: 0 8px; /* Internal horizontal spacing */
+  color: #fff; /* White text */
+}
+
+.laser-blast__dropdown-icon {
+  margin-left: 5px; /* Space to the left of the icon */
+}
+
+.laser-blast__dropdown-menu {
+  position: absolute; /* Absolute positioning for menu */
+  top: 100%; /* Position below the button */
+  right: 0; /* Align to the right */
+  background: #333; /* Dark background */
+  border: 1px solid #444; /* Subtle border */
+  border-radius: 4px; /* Smooth corners */
+  list-style: none; /* Remove default list styling */
+  padding: 0; /* Remove internal padding */
+  margin: 0; /* Remove external margin */
+  z-index: 10; /* Layer above other elements */
+}
+
+.laser-blast__dropdown-item {
+  padding: 8px 16px; /* Internal spacing */
+  cursor: pointer; /* Pointer cursor for interactivity */
+  color: #fff; /* White text */
+  transition: background 0.2s ease; /* Smooth hover transition */
+}
+
+.laser-blast__dropdown-item:hover {
+  background: #555; /* Highlight background on hover */
+}

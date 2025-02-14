@@ -18,8 +18,8 @@ function GameCard({ title, description, imgSrc, path, gameId }) {
     }
 
     try {
-      await dispatch(enterGame({ gameId, walletAddress })).unwrap();
       navigate(path); // Navigate after successful entry
+      await dispatch(enterGame({ gameId, walletAddress })).unwrap();
     } catch (error) {
       console.error("Error entering game:", error);
     }
