@@ -47,7 +47,7 @@ function PlaceBet() {
 
   return (
     <button
-      className="btn btn-secondary w-100 rounded py-2"
+      className="btn btn-primary w-100 rounded py-2"
       onClick={handlePlaceBet}
       disabled={
         gameState !== "BETTING" || betPlaced || placingBet || joiningGame

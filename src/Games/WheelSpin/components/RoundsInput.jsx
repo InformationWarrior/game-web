@@ -59,7 +59,7 @@ function RoundsInput() {
       </h6>
       <div className="d-flex align-items-center gap-2">
         <button
-          className="btn btn-outline-secondary round-control-btn"
+          className="btn btn-primary round-control-btn"
           onClick={handleDecrement}
           disabled={inputValue <= 1}
         >
@@ -74,14 +74,14 @@ function RoundsInput() {
           max={10}
         />
         <button
-          className="btn btn-outline-secondary round-control-btn"
+          className="btn btn-primary round-control-btn"
           onClick={handleIncrement}
           disabled={inputValue >= 10}
         >
           +
         </button>
         <button
-          className="btn btn-outline-secondary max-btn"
+          className="btn btn-primary max-btn"
           onClick={handleMaxClick}
         >
           Max
