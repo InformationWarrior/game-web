@@ -34,7 +34,7 @@ function RoundInfoSection() {
             subHeading={"Your Entries"}
           />
           <RoundInfoContent
-            headingData={`${(1 / totalPlayerRounds) * 100}%`}
+            headingData={`${((1 / totalPlayerRounds) * 100).toFixed(2)}%`}
             subHeading={"Your Win Chance"}
           />
         </div>
