@@ -3,7 +3,7 @@ import wheelSpinLogo from '../../Games/WheelSpin/assets/SpinWheelBanner.webp'
 
 const gamesConfig = [
   {
-    id: '67ab8f01d7f39d41a761fc67', // Temporary ID until backend provides actual ID
+    id: '67b42091dad8e320e611a165', // Temporary ID until backend provides actual ID
     title: 'Wheel Spin',
     description: 'Spin the Wheel!',
     type: 'multiplayer',

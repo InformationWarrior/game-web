@@ -3,19 +3,20 @@ import client from "../../../NetworkManager/apollo/client"
 import {
   CREATE_PLAYER,
   ENTER_GAME,
+  LEAVE_GAME,
   PARTICIPATE_IN_GAME,
-  SAVE_WALLET_DATA,
-} from "../../../NetworkManager/graphql/modules/BETS/mutations"
-
+} from "../../../NetworkManager/graphql/Operations/mutations"
+import { GET_ENTERED_PLAYERS, GET_PARTICIPANTS } from "../../../NetworkManager/graphql/Operations/queries";
+import { PLAYER_PARTICIPATED_SUBSCRIPTION } from '../../../NetworkManager/graphql/Operations/subscriptions';
 
 // Async thunk to create a player
 export const createPlayer = createAsyncThunk(
   "bets/createPlayer",
-  async ({ walletAddress, username }, { rejectWithValue }) => {
+  async ({ walletAddress, username, balance, currency }, { rejectWithValue }) => {
     try {
       const response = await client.mutate({
         mutation: CREATE_PLAYER,
-        variables: { walletAddress, username },
+        variables: { walletAddress, username, balance, currency },
       });
 
       const playerData = response.data.createPlayer;
@@ -26,31 +27,10 @@ export const createPlayer = createAsyncThunk(
   }
 );
 
-// Async thunk to save wallet data
-export const saveWalletData = createAsyncThunk(
-  'bets/saveWalletData',
-  async ({ address, balance, currency }, { rejectWithValue }) => {
-    try {
-      const response = await client.mutate({
-        mutation: SAVE_WALLET_DATA,
-        variables: { address, balance, currency },
-      });
-      const data = response.data.saveWalletData;
-      if (data.success) {
-        return { address, balance, currency };
-      } else {
-        return rejectWithValue(data.message);
-      }
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-// ✅ Async thunk to enter a game (viewing but not necessarily playing)
+// ✅ Async thunk to enter a game and fetch entered players
 export const enterGame = createAsyncThunk(
   "bets/enterGame",
-  async ({ gameId, walletAddress }, { rejectWithValue }) => {
+  async ({ gameId, walletAddress }, { rejectWithValue, dispatch }) => {
     try {
       console.log("Sending enterGame mutation for:", { gameId, walletAddress });
       const response = await client.mutate({
@@ -62,7 +42,9 @@ export const enterGame = createAsyncThunk(
         throw new Error("Invalid response from enterGame mutation");
       }
 
-      return response.data.enterGame;
+      const enteredGame = response.data.enterGame;
+      dispatch(getEnteredPlayers(gameId)); // Fetch entered players after entering the game
+      return enteredGame;
     } catch (error) {
       console.error("enterGame error:", error);
       return rejectWithValue(error.message);
@@ -70,10 +52,34 @@ export const enterGame = createAsyncThunk(
   }
 );
 
-// ✅ Async thunk to participate in the game (player actually plays)
+// ✅ Async thunk to get entered players
+export const getEnteredPlayers = createAsyncThunk(
+  "bets/getEnteredPlayers",
+  async (gameId, { rejectWithValue }) => {
+    try {
+      const response = await client.query({
+        query: GET_ENTERED_PLAYERS,
+        variables: { gameId },
+        fetchPolicy: "network-only",
+      });
+      console.log("API Response for Entered Players:", response); // Log API response
+
+      if (!response.data || !response.data.getEnteredPlayers) {
+        throw new Error("Failed to fetch entered players.");
+      }
+
+      return response.data.getEnteredPlayers;
+    } catch (error) {
+      console.error("getEnteredPlayers error:", error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// ✅ Async thunk to participate in a game
 export const participateInGame = createAsyncThunk(
   "bets/participateInGame",
-  async ({ gameId, walletAddress }, { rejectWithValue }) => {
+  async ({ gameId, walletAddress }, { rejectWithValue, dispatch }) => {
     try {
       console.log("Sending participateInGame mutation for:", { gameId, walletAddress });
       const response = await client.mutate({
@@ -85,7 +91,9 @@ export const participateInGame = createAsyncThunk(
         throw new Error("Invalid response from participateInGame mutation");
       }
 
-      return response.data.participateInGame;
+      const participatedGame = response.data.participateInGame;
+      dispatch(getParticipants(gameId)); // Fetch participants after participation
+      return participatedGame;
     } catch (error) {
       console.error("participateInGame error:", error);
       return rejectWithValue(error.message);
@@ -93,20 +101,93 @@ export const participateInGame = createAsyncThunk(
   }
 );
 
+// ✅ Async thunk to get participants
+export const getParticipants = createAsyncThunk(
+  "bets/getParticipants",
+  async (gameId, { rejectWithValue }) => {
+    try {
+      const response = await client.query({
+        query: GET_PARTICIPANTS,
+        variables: { gameId },
+        fetchPolicy: "network-only",
+      });
+
+      console.log("API Response for Participants:", response);
+
+      if (!response.data || !response.data.getParticipants) {
+        throw new Error("Failed to fetch participants.");
+      }
+
+      return response.data.getParticipants;
+    } catch (error) {
+      console.error("getParticipants error:", error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const playerParticipated = (gameId) => (dispatch, getState) => {
+  const { player } = getState().bets; // ✅ Get walletAddress from Redux state
+  if (!player.walletAddress) {
+    console.error("❌ Missing walletAddress for subscription");
+    return;
+  }
+
+  client
+    .subscribe({
+      query: PLAYER_PARTICIPATED_SUBSCRIPTION,
+      variables: { gameId, walletAddress: player.walletAddress }, // ✅ Pass walletAddress
+    })
+    .subscribe({
+      next({ data }) {
+        if (data && data.playerParticipated) {
+          console.log("✅ Player Participated:", data.playerParticipated);
+
+          // ✅ Update Redux state
+          const { participatedPlayers } = getState().bets;
+          dispatch(updateParticipatedPlayers([...participatedPlayers, data.playerParticipated]));
+        }
+      },
+      error(err) {
+        console.error("❌ Subscription error:", err);
+      },
+    });
+};
+
+export const leaveGame = createAsyncThunk(
+  "bets/leaveGame",
+  async ({ gameId, walletAddress }, { rejectWithValue }) => {
+    try {
+      console.log("Sending leaveGame mutation for:", { gameId, walletAddress });
+      const response = await client.mutate({
+        mutation: LEAVE_GAME,
+        variables: { gameId, walletAddress },
+      });
+
+      if (!response.data || !response.data.leaveGame) {
+        throw new Error("Invalid response from leaveGame mutation");
+      }
+
+      return response.data.leaveGame;
+    } catch (error) {
+      console.error("leaveGame error:", error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const initialState = {
-  project: {
-    id: null,
-    name: 'BETS',
-  },
   games: [],
   currentGame: null,
-  players: [],
-  participatedPlayers: [],
-  player: null,
-  wallet: {
-    address: null,
+  gameId: "67b42091dad8e320e611a165",
+  enteredPlayers: [],
+  participants: [],
+  spectators: [],
+  player: {
+    walletAddress: null,
+    username: null,
     balance: 0,
-    currency: null,
+    currency: null
   },
   networkStatus: {
     loading: false,
@@ -127,11 +208,11 @@ const betsSlice = createSlice({
     setPlayers(state, action) {
       state.players = action.payload;
     },
-    setParticipatedPlayers(state, action) {
-      state.participatedPlayers = action.payload;
-    },
     setPlayer(state, action) {
       state.player = action.payload;
+    },
+    updateParticipatedPlayers(state, action) {
+      state.participants = action.payload;
     },
     setNetworkStatus(state, action) {
       state.networkStatus = action.payload;
@@ -139,20 +220,6 @@ const betsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // ✅ saveWalletData
-      .addCase(saveWalletData.pending, (state) => {
-        state.networkStatus.loading = true;
-        state.networkStatus.error = null;
-      })
-      .addCase(saveWalletData.fulfilled, (state, action) => {
-        state.networkStatus.loading = false;
-        state.wallet = action.payload;
-      })
-      .addCase(saveWalletData.rejected, (state, action) => {
-        state.networkStatus.loading = false;
-        state.networkStatus.error = action.payload;
-      })
-
       // ✅ createPlayer
       .addCase(createPlayer.pending, (state) => {
         state.networkStatus.loading = true;
@@ -160,13 +227,12 @@ const betsSlice = createSlice({
       })
       .addCase(createPlayer.fulfilled, (state, action) => {
         state.networkStatus.loading = false;
-        state.player = action.payload;
+        state.player = action.payload.player;
       })
       .addCase(createPlayer.rejected, (state, action) => {
         state.networkStatus.loading = false;
         state.networkStatus.error = action.payload;
       })
-
       // ✅ enterGame
       .addCase(enterGame.pending, (state) => {
         state.networkStatus.loading = true;
@@ -174,13 +240,17 @@ const betsSlice = createSlice({
       })
       .addCase(enterGame.fulfilled, (state, action) => {
         state.networkStatus.loading = false;
-        state.currentGame = action.payload; // Store updated game details
+        state.currentGame = action.payload;
       })
       .addCase(enterGame.rejected, (state, action) => {
         state.networkStatus.loading = false;
         state.networkStatus.error = action.payload;
       })
-
+      // ✅ getEnteredPlayers
+      .addCase(getEnteredPlayers.fulfilled, (state, action) => {
+        console.log("Fetched Entered Players from API:", action.payload);
+        state.enteredPlayers = action.payload;
+      })
       // ✅ participateInGame
       .addCase(participateInGame.pending, (state) => {
         state.networkStatus.loading = true;
@@ -188,9 +258,32 @@ const betsSlice = createSlice({
       })
       .addCase(participateInGame.fulfilled, (state, action) => {
         state.networkStatus.loading = false;
-        state.currentGame = action.payload; // Store updated game details
+        state.currentGame = action.payload;
+
+        // ✅ Update Redux participated players list
+        if (!state.participants.some(p => p.walletAddress === action.payload.walletAddress)) {
+          state.participants.push(action.payload);
+        }
       })
       .addCase(participateInGame.rejected, (state, action) => {
+        state.networkStatus.loading = false;
+        state.networkStatus.error = action.payload;
+      })
+      // ✅ getParticipants
+      .addCase(getParticipants.fulfilled, (state, action) => {
+        console.log("Fetched Participants from API:", action.payload);
+        state.participants = action.payload;
+      })
+      // ✅ leaveGame
+      .addCase(leaveGame.pending, (state) => {
+        state.networkStatus.loading = true;
+        state.networkStatus.error = null;
+      })
+      .addCase(leaveGame.fulfilled, (state, action) => {
+        state.networkStatus.loading = false;
+        state.currentGame = action.payload;
+      })
+      .addCase(leaveGame.rejected, (state, action) => {
         state.networkStatus.loading = false;
         state.networkStatus.error = action.payload;
       });
@@ -201,8 +294,8 @@ export const {
   setGames,
   setCurrentGame,
   setPlayers,
-  setParticipatedPlayers,
   setPlayer,
+  updateParticipatedPlayers,
   setNetworkStatus,
 } = betsSlice.actions;
 

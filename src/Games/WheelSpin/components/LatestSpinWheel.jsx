@@ -117,7 +117,7 @@ const SpinWheel = () => {
     setWinner(winnerName);
     setShowWinner(true);
 
-    console.log(`🎉 Winner: ${winnerName} 🎉`); // Log winner to console
+    // console.log(`🎉 Winner: ${winnerName} 🎉`); // Log winner to console
 
     // 🎉 Trigger confetti when winner is determined
     confetti({

@@ -2,12 +2,27 @@ import { gql } from '@apollo/client';
 
 // ✅ Mutation to create a player
 export const CREATE_PLAYER = gql`
-  mutation CreatePlayer($walletAddress: String!, $username: String!) {
-    createPlayer(walletAddress: $walletAddress, username: $username) {
+  mutation CreatePlayer(
+  $walletAddress: String!
+  $username: String!
+  $balance: Float!
+  $currency: String!
+) {
+  createPlayer(
+    walletAddress: $walletAddress
+    username: $username
+    balance: $balance
+    currency: $currency
+  ) {
+    success
+    message
+    player {
       walletAddress
       username
+      balance
     }
   }
+}
 `;
 
 // ✅ Mutation to create a game
@@ -72,11 +87,42 @@ export const PARTICIPATE_IN_GAME = gql`
   }
 `;
 
+export const LEAVE_GAME = gql`
+  mutation LeaveGame($gameId: ID!, $walletAddress: String!) {
+    leaveGame(gameId: $gameId, walletAddress: $walletAddress) {
+      id
+      name
+      type
+      state
+      enteredPlayers {
+        walletAddress
+        username
+      }
+      participants {
+        walletAddress
+        username
+      }
+      spectators {
+        walletAddress
+        username
+      }
+      maxPlayers
+      maxParticipants
+    }
+  }
+`;
 
-// ✅ Mutation to save wallet data
-export const SAVE_WALLET_DATA = gql`
-  mutation SaveWalletData($address: String!, $balance: Float!, $currency: String!) {
-    saveWalletData(address: $address, balance: $balance, currency: $currency) {
+export const PLACE_BET = gql`
+  mutation PlaceBet(
+    $betAmount: Float!
+    $totalPlayerRounds: Int!
+    $currency: String!
+  ) {
+    placeBet(
+      betAmount: $betAmount
+      totalPlayerRounds: $totalPlayerRounds
+      currency: $currency
+    ) {
       success
       message
     }

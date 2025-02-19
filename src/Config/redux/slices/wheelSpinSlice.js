@@ -11,7 +11,7 @@ const initialState = {
     inGameMessage: "",
     playerColor: null,
     serverOutcome: null,
-    
+
 };
 
 const wheelSpinSlice = createSlice({

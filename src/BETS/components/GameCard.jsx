@@ -7,12 +7,15 @@ import styles from "../../styles/BETS/Games.module.css";
 function GameCard({ title, description, imgSrc, path, gameId }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const walletAddress = useSelector((state) => state.bets.wallet.address);
+  const walletAddress = useSelector(
+    (state) => state.bets.player?.walletAddress
+  );
 
   const handleEnterGame = async (e) => {
     e.preventDefault(); // Prevent default navigation initially
 
     if (!walletAddress) {
+      console.log(walletAddress);
       alert("Connect your wallet first!");
       return;
     }
