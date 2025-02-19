@@ -50,6 +50,11 @@
   font-weight: 700;
 }
 
+.players-list-watching {
+  /* padding: 0.5rem; */
+  margin-bottom: 1rem;
+}
+
 /* Renamed from .body to .players-list-body */
 .players-list-body {
   display: -webkit-box;

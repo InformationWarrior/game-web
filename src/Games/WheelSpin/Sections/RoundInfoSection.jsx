@@ -6,9 +6,7 @@ import RoundInfoContentImage from "../components/RoundInfoContentImage";
 import Timer from "../components/Timer";
 
 function RoundInfoSection() {
-  const { gameRound, inGameMessage, totalPlayerRounds } = useSelector(
-    (state) => state.wheelSpin
-  );
+  const participants = useSelector((state) => state.bets.participants) || [];
 
   return (
     <div className={RoundInfo.content}>
@@ -25,8 +23,7 @@ function RoundInfoSection() {
         <div className={RoundInfo.bodyContentGrid}>
           <RoundInfoContentImage headingData={"0"} subHeading={"Prize Pool"} />
           <RoundInfoContent
-            // headingData={`0/500`}
-            headingData={`${totalPlayerRounds}/500`}
+            headingData={`${participants.length}/500`}
             subHeading={"Players"}
           />
           <RoundInfoContentImage
@@ -34,7 +31,11 @@ function RoundInfoSection() {
             subHeading={"Your Entries"}
           />
           <RoundInfoContent
-            headingData={`${((1 / totalPlayerRounds) * 100).toFixed(2)}%`}
+            headingData={
+              participants.length > 0
+                ? `${((1 / participants.length) * 100).toFixed(2)}%`
+                : "---"
+            }
             subHeading={"Your Win Chance"}
           />
         </div>

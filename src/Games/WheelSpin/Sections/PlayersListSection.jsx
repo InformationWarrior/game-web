@@ -5,7 +5,6 @@ import {
   getParticipants,
   updateParticipatedPlayers,
 } from "../../../Config/redux/slices/betsSlice";
-
 import Player from "../components/Player";
 import playerAvatar from "../assets/playerAvatar.png";
 import styles from "../../../styles/WheelSpin/PlayersList.module.css";
@@ -29,14 +28,12 @@ function PlayersListSection() {
     if (gameId && gameState === "BETTING" && participants.length === 0) {
       dispatch(getParticipants(gameId));
     }
-
-    console.log("Participants:", participants);
   }, [dispatch, gameId, gameState, participants]);
 
   // ✅ Reset participants when the game state is "RESET"
   useEffect(() => {
     if (gameState === "RESET") {
-      dispatch(updateParticipatedPlayers([])); 
+      dispatch(updateParticipatedPlayers([]));
     }
   }, [dispatch, gameState]);
 
@@ -45,9 +42,11 @@ function PlayersListSection() {
       {/* Header */}
       <div className={styles["players-list-header"]}>
         <p className={styles["players-list-header-text"]}>
-          {participants.length} Players
+          {participants.length} Player{participants.length > 1 ? "s" : ""}
         </p>
-        <span className="badge text-bg-warning">
+        <span
+          className={`badge text-bg-warning ${styles["players-list-watching"]}`}
+        >
           {enteredPlayers.length} Watching
         </span>
       </div>
@@ -57,7 +56,7 @@ function PlayersListSection() {
         {Array.isArray(participants) && participants.length > 0 ? (
           participants.map((player, index) => (
             <Player
-              key={player.walletAddress || `player-${index}`} 
+              key={player.walletAddress || `player-${index}`}
               avatar={playerAvatar}
               username={player.username}
               points="0"

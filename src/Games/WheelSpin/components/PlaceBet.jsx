@@ -87,8 +87,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { useMutation } from "@apollo/client";
 // import { PLACE_BET } from "../../../NetworkManager/graphql/Operations/mutations";
-import { participateInGame } from "../../../Config/redux/slices/betsSlice";
-import { playerParticipated } from "../../../Config/redux/slices/betsSlice";
+import {
+  participateInGame,
+  playerParticipated,
+} from "../../../Config/redux/slices/betsSlice";
 
 function PlaceBet() {
   const dispatch = useDispatch();

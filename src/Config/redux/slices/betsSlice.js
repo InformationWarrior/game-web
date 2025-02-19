@@ -7,7 +7,7 @@ import {
   PARTICIPATE_IN_GAME,
 } from "../../../NetworkManager/graphql/Operations/mutations"
 import { GET_ENTERED_PLAYERS, GET_PARTICIPANTS } from "../../../NetworkManager/graphql/Operations/queries";
-import { PLAYER_PARTICIPATED_SUBSCRIPTION } from '../../../NetworkManager/graphql/Operations/subscriptions';
+import { PLAYER_ENTERED_SUBSCRIPTION, PLAYER_PARTICIPATED_SUBSCRIPTION } from '../../../NetworkManager/graphql/Operations/subscriptions';
 
 // Async thunk to create a player
 export const createPlayer = createAsyncThunk(
@@ -126,6 +126,35 @@ export const getParticipants = createAsyncThunk(
   }
 );
 
+// ✅ Subscription: Player Entered
+export const playerEntered = (gameId) => (dispatch, getState) => {
+  const { player } = getState().bets; // ✅ Get the player's walletAddress from Redux state
+  if (!player.walletAddress) {
+    console.error("❌ Missing walletAddress for subscription");
+    return;
+  }
+
+  client
+    .subscribe({
+      query: PLAYER_ENTERED_SUBSCRIPTION,
+      variables: { gameId, walletAddress: player.walletAddress }, // ✅ Pass walletAddress
+    })
+    .subscribe({
+      next({ data }) {
+        if (data && data.playerEntered) {
+          console.log("✅ Player Entered:", data.playerEntered);
+
+          // ✅ Update Redux state with new entered players
+          dispatch(getEnteredPlayers(gameId));
+        }
+      },
+      error(err) {
+        console.error("❌ Subscription error:", err);
+      },
+    });
+};
+
+// ✅ Subscription: Player Participated
 export const playerParticipated = (gameId) => (dispatch, getState) => {
   const { player } = getState().bets; // ✅ Get walletAddress from Redux state
   if (!player.walletAddress) {
