@@ -114,17 +114,33 @@ export const LEAVE_GAME = gql`
 
 export const PLACE_BET = gql`
   mutation PlaceBet(
+    $gameId: ID!
+    $walletAddress: String!
     $betAmount: Float!
     $totalPlayerRounds: Int!
     $currency: String!
   ) {
     placeBet(
-      betAmount: $betAmount
+      gameId: $gameId
+      walletAddress: $walletAddress
+      amount: $betAmount
       totalPlayerRounds: $totalPlayerRounds
       currency: $currency
     ) {
-      success
-      message
+      gameId
+      walletAddress
+      amount
+      currency
+      totalPlayerRounds
+      game {
+        id
+        name
+        participants {
+          walletAddress
+          username
+          balance
+        }
+      }
     }
   }
 `;

@@ -5,6 +5,7 @@ import {
   ENTER_GAME,
   LEAVE_GAME,
   PARTICIPATE_IN_GAME,
+  PLACE_BET,
 } from "../../../NetworkManager/graphql/Operations/mutations"
 import { GET_ENTERED_PLAYERS, GET_PARTICIPANTS } from "../../../NetworkManager/graphql/Operations/queries";
 import { PLAYER_ENTERED_SUBSCRIPTION, PLAYER_PARTICIPATED_SUBSCRIPTION } from '../../../NetworkManager/graphql/Operations/subscriptions';
@@ -62,7 +63,7 @@ export const getEnteredPlayers = createAsyncThunk(
         variables: { gameId },
         fetchPolicy: "network-only",
       });
-      console.log("API Response for Entered Players:", response); // Log API response
+      // console.log("API Response for Entered Players:", response); // Log API response
 
       if (!response.data || !response.data.getEnteredPlayers) {
         throw new Error("Failed to fetch entered players.");
@@ -112,7 +113,7 @@ export const getParticipants = createAsyncThunk(
         fetchPolicy: "network-only",
       });
 
-      console.log("API Response for Participants:", response);
+      // console.log("API Response for Participants:", response);
 
       if (!response.data || !response.data.getParticipants) {
         throw new Error("Failed to fetch participants.");
@@ -205,10 +206,27 @@ export const leaveGame = createAsyncThunk(
   }
 );
 
+export const placeBet = createAsyncThunk(
+  "bets/placeBet",
+  async ({ gameId, walletAddress, betAmount, totalPlayerRounds, currency }, { rejectWithValue }) => {
+    try {
+      const { data } = await client.mutate({
+        mutation: PLACE_BET,
+        variables: { gameId, walletAddress, betAmount, totalPlayerRounds, currency },
+      });
+
+      return data.placeBet;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const initialState = {
   games: [],
   currentGame: null,
   gameId: "67b42091dad8e320e611a165",
+
   enteredPlayers: [],
   participants: [],
   spectators: [],
@@ -277,7 +295,7 @@ const betsSlice = createSlice({
       })
       // ✅ getEnteredPlayers
       .addCase(getEnteredPlayers.fulfilled, (state, action) => {
-        console.log("Fetched Entered Players from API:", action.payload);
+        // console.log("Fetched Entered Players from API:", action.payload);
         state.enteredPlayers = action.payload;
       })
       // ✅ participateInGame
@@ -300,7 +318,7 @@ const betsSlice = createSlice({
       })
       // ✅ getParticipants
       .addCase(getParticipants.fulfilled, (state, action) => {
-        console.log("Fetched Participants from API:", action.payload);
+        // console.log("Fetched Participants from API:", action.payload);
         state.participants = action.payload;
       })
       // ✅ leaveGame

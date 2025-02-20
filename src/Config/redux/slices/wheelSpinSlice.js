@@ -1,4 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import client from "../../../NetworkManager/apollo/client";
+import { PLACE_BET } from "../../../NetworkManager/graphql/Operations/mutations";
+
+export const placeBet = createAsyncThunk(
+    "wheelSpin/placeBet",
+    async ({ gameId, walletAddress, betAmount, totalPlayerRounds, currency }, { rejectWithValue }) => {
+        try {
+            const { data } = await client.mutate({
+                mutation: PLACE_BET,
+                variables: { gameId, walletAddress, betAmount, totalPlayerRounds, currency },
+            });
+
+            return data.placeBet;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
 
 const initialState = {
     gameRound: 1,
@@ -11,7 +29,8 @@ const initialState = {
     inGameMessage: "",
     playerColor: null,
     serverOutcome: null,
-
+    isPlacingBet: false, // Track loading state
+    betError: null, // Track errors
 };
 
 const wheelSpinSlice = createSlice({
@@ -58,6 +77,22 @@ const wheelSpinSlice = createSlice({
                 state.remainingTime -= 1;
             }
         },
+    },
+
+    extraReducers: (builder) => {
+        builder
+            .addCase(placeBet.pending, (state) => {
+                state.isPlacingBet = true;
+                state.betError = null;
+            })
+            .addCase(placeBet.fulfilled, (state, action) => {
+                state.isPlacingBet = false;
+                console.log("✅ Bet placed successfully:", action.payload); // Just logging the payload
+            })
+            .addCase(placeBet.rejected, (state, action) => {
+                state.isPlacingBet = false;
+                state.betError = action.payload;
+            });
     },
 });
 
