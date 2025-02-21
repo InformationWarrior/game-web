@@ -15,7 +15,7 @@ const colors = [
   "Cyan",
 ];
 
-const SpinWheel = () => {
+const Wheel = () => {
   const canvasRef = useRef(null);
   const gameState = useSelector((state) => state.wheelSpin.gameState);
   const bets = useSelector((state) => state.wheelSpin.bets);
@@ -193,4 +193,4 @@ const SpinWheel = () => {
   );
 };
 
-export default SpinWheel;
+export default Wheel;
