@@ -2,28 +2,41 @@ import React, { useRef, useState, useEffect } from "react";
 import confetti from "canvas-confetti";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-const participants = [
-  { name: "Red", color: "Red" },
-  { name: "Green", color: "Green" },
-  { name: "Yellow", color: "Yellow" },
-  { name: "Orange", color: "Orange" },
+const colors = [
+  "Red",
+  "Green",
+  "Yellow",
+  "Orange",
+  "Blue",
+  "Purple",
+  "Pink",
+  "Cyan",
 ];
 
 const SpinWheel = () => {
-  const dispatch = useDispatch();
-  const gameState = useSelector((state) => state.wheelSpin.gameState);
   const canvasRef = useRef(null);
+  const gameState = useSelector((state) => state.wheelSpin.gameState);
+  const bets = useSelector((state) => state.wheelSpin.bets);
 
   const [spinning, setSpinning] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [winner, setWinner] = useState(null);
   const [showWinner, setShowWinner] = useState(false);
 
+  // Default yellow wheel if no participants yet
+  const participants =
+    bets.length > 0
+      ? bets.map((bet, index) => ({
+          name: bet?.game?.participants?.[0]?.username || `Player ${index + 1}`, // Extract username safely
+          color: colors[index % colors.length], // Assign color dynamically
+        }))
+      : [{ name: "Waiting...", color: "Yellow" }];
+
   useEffect(() => {
     drawWheel(rotation);
-  }, [rotation]);
+  }, [rotation, participants]);
 
   useEffect(() => {
     if (gameState === "RUNNING") {
@@ -63,14 +76,14 @@ const SpinWheel = () => {
       const textY = (radius / 1.5) * Math.sin(textAngle);
       ctx.save();
       ctx.rotate(textAngle);
-      // ctx.fillText(participant.name, textX, textY);
+      // ctx.fillText(participant.name, textX, textY); // Show player names or "Waiting..."
       ctx.restore();
     });
 
     // Draw Inner Circle (Center)
     ctx.beginPath();
-    ctx.arc(0, 0, radius * 0.65, 0, 2 * Math.PI); // Inner circle is 30% of wheel radius
-    ctx.fillStyle = "black"; // Change color if needed
+    ctx.arc(0, 0, radius * 0.65, 0, 2 * Math.PI);
+    ctx.fillStyle = "black";
     ctx.fill();
     ctx.stroke();
 
@@ -83,15 +96,15 @@ const SpinWheel = () => {
     setWinner(null);
     setShowWinner(false);
 
-    let spinTime = 3000; // 3 seconds
+    let spinTime = 3000;
     let startRotation = rotation;
-    let finalRotation = startRotation + 720 + Math.random() * 360; // At least 2 full spins
+    let finalRotation = startRotation + 720 + Math.random() * 360;
     let startTime = null;
 
     const animate = (timestamp) => {
       if (!startTime) startTime = timestamp;
       let progress = (timestamp - startTime) / spinTime;
-      let easeProgress = progress < 1 ? 1 - Math.pow(1 - progress, 3) : 1; // Smooth easing
+      let easeProgress = progress < 1 ? 1 - Math.pow(1 - progress, 3) : 1;
       let currentRotation =
         startRotation + (finalRotation - startRotation) * easeProgress;
 
@@ -109,6 +122,8 @@ const SpinWheel = () => {
   };
 
   const determineWinner = (finalRotation) => {
+    if (participants.length === 0) return;
+
     const sliceAngle = 360 / participants.length;
     const winningIndex = Math.floor(
       ((360 - (finalRotation % 360)) / sliceAngle) % participants.length
@@ -117,16 +132,12 @@ const SpinWheel = () => {
     setWinner(winnerName);
     setShowWinner(true);
 
-    // console.log(`🎉 Winner: ${winnerName} 🎉`); // Log winner to console
-
-    // 🎉 Trigger confetti when winner is determined
     confetti({
       particleCount: 100,
       spread: 70,
-      origin: { x: 0.5, y: 0.7 }, // Adjusted for right-side celebration
+      origin: { x: 0.5, y: 0.7 },
     });
 
-    // Hide winner announcement after 5 seconds
     setTimeout(() => setShowWinner(false), 5000);
   };
 
@@ -138,14 +149,13 @@ const SpinWheel = () => {
         display: "inline-block",
       }}
     >
-      {/* FontAwesome Pin Icon (Right Side of Wheel) */}
       <FontAwesomeIcon
         icon={faLocationPin}
         style={{
           position: "absolute",
           top: "50%",
-          right: "-35px", // Move pin to the right
-          transform: "translateY(-50%) rotate(90deg)", // Rotate the pin to face left
+          right: "-35px",
+          transform: "translateY(-50%) rotate(90deg)",
           fontSize: "50px",
           color: "red",
           zIndex: 10,
@@ -159,7 +169,6 @@ const SpinWheel = () => {
         style={{ borderRadius: "50%", border: "2px solid black" }}
       />
 
-      {/* Winner Display */}
       {showWinner && winner && (
         <div
           style={{

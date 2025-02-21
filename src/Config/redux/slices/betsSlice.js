@@ -10,6 +10,8 @@ import {
 import { GET_ENTERED_PLAYERS, GET_PARTICIPANTS } from "../../../NetworkManager/graphql/Operations/queries";
 import { PLAYER_ENTERED_SUBSCRIPTION, PLAYER_PARTICIPATED_SUBSCRIPTION } from '../../../NetworkManager/graphql/Operations/subscriptions';
 
+const GAME_ID = process.env.GAME_ID;
+
 // Async thunk to create a player
 export const createPlayer = createAsyncThunk(
   "bets/createPlayer",

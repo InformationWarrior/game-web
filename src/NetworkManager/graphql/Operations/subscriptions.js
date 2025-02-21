@@ -42,3 +42,27 @@ export const PLAYER_PARTICIPATED_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const BET_PLACED_SUBSCRIPTION = gql`
+  subscription BetPlaced($gameId: ID!, $walletAddress: String!) {
+    betPlaced(gameId: $gameId, walletAddress: $walletAddress) {
+      gameId
+      walletAddress
+      amount
+      currency
+      totalPlayerRounds
+      game {
+        id
+        name
+        type
+        state
+        totalBetsAmount
+        participants {
+          walletAddress
+          username
+          balance
+        }
+      }
+    }
+  }
+`;

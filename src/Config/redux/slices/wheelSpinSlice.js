@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import client from "../../../NetworkManager/apollo/client";
 import { PLACE_BET } from "../../../NetworkManager/graphql/Operations/mutations";
+import { BET_PLACED_SUBSCRIPTION } from "../../../NetworkManager/graphql/Operations/subscriptions";
 
+// Place bet mutation
 export const placeBet = createAsyncThunk(
     "wheelSpin/placeBet",
     async ({ gameId, walletAddress, betAmount, totalPlayerRounds, currency }, { rejectWithValue }) => {
@@ -18,6 +20,43 @@ export const placeBet = createAsyncThunk(
     }
 );
 
+// Subscribe to Bet Placed events
+export const betPlaced = createAsyncThunk(
+    "wheelSpin/betPlaced",
+    async ({ gameId, walletAddress }, { dispatch }) => {
+        try {
+            console.log("🟢 Starting BET_PLACED subscription with:", { gameId, walletAddress });
+
+            const observable = client.subscribe({
+                query: BET_PLACED_SUBSCRIPTION,
+                variables: { gameId, walletAddress }, // ✅ Pass required variables
+            });
+
+            observable.subscribe({
+                next({ data }) {
+                    console.log("📢 Bet Placed Subscription Triggered!");
+                    console.log("🔍 Subscription Data Received:", data);
+
+                    if (data && data.betPlaced) {
+                        console.log("✅ Dispatching handleBetPlaced with:", data.betPlaced);
+                        dispatch(handleBetPlaced(data.betPlaced));
+                    } else {
+                        console.warn("⚠️ Unexpected subscription payload:", data);
+                    }
+                },
+                error(err) {
+                    console.error("❌ Subscription error:", err);
+                },
+            });
+
+            console.log("🟢 Subscription successfully started.");
+        } catch (error) {
+            console.error("❌ Error starting subscription:", error);
+        }
+    }
+);
+
+
 const initialState = {
     gameRound: 1,
     totalPlayerRounds: 1,
@@ -29,8 +68,9 @@ const initialState = {
     inGameMessage: "",
     playerColor: null,
     serverOutcome: null,
-    isPlacingBet: false, // Track loading state
-    betError: null, // Track errors
+    isPlacingBet: false,
+    betError: null,
+    bets: [],
 };
 
 const wheelSpinSlice = createSlice({
@@ -50,7 +90,7 @@ const wheelSpinSlice = createSlice({
             state.betAmount = action.payload;
         },
         setWalletAmount(state, action) {
-            state.walletAmount = action.payload;;
+            state.walletAmount = action.payload;
         },
         setInGameMessage(state, action) {
             state.inGameMessage = action.payload;
@@ -77,8 +117,14 @@ const wheelSpinSlice = createSlice({
                 state.remainingTime -= 1;
             }
         },
+        addBet(state, action) {
+            state.bets.push(action.payload);
+        },
+        handleBetPlaced(state, action) {
+            console.log("📢 Bet Placed Subscription Received:", action.payload);
+            state.bets.push(action.payload);
+        },
     },
-
     extraReducers: (builder) => {
         builder
             .addCase(placeBet.pending, (state) => {
@@ -87,7 +133,8 @@ const wheelSpinSlice = createSlice({
             })
             .addCase(placeBet.fulfilled, (state, action) => {
                 state.isPlacingBet = false;
-                console.log("✅ Bet placed successfully:", action.payload); // Just logging the payload
+                console.log("✅ Bet placed successfully:", action.payload);
+                state.bets.push(action.payload);
             })
             .addCase(placeBet.rejected, (state, action) => {
                 state.isPlacingBet = false;
@@ -108,7 +155,9 @@ export const {
     setServerOutcome,
     setGameState,
     updateGameState,
-    decrementTimer
+    decrementTimer,
+    addBet,
+    handleBetPlaced,
 } = wheelSpinSlice.actions;
 
 export default wheelSpinSlice.reducer;
