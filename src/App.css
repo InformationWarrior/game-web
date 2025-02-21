@@ -19,7 +19,8 @@ html {
   width: 80px;
   height: 100%;
   /* Full viewport height */
-  background-color: #000;
+  /* background-color: #000; */
+  background-color: #141c2f;
   /* Darker shade of brown */
   display: flex;
   flex-direction: column;
@@ -45,7 +46,8 @@ html {
   color: white;
   /* Text color */
   overflow: hidden;
-  background-color: #8b4513;
+  /* background-color: #8b4513; */
+  background-color: black;
   /* Brown background */
 }
 
@@ -53,7 +55,8 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #000;
+  /* background-color: #000; */
+  background-color: #141c2f;
   /* Black background */
   color: white;
   /* White text */
@@ -66,10 +69,10 @@ html {
 .content-wrapper {
   flex: 1;
   overflow-y: auto;
-  background-color: darkslategrey;
+  /* background-color: darkslategrey; */
   /* Brown background */
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 @media (max-width: 959px) {

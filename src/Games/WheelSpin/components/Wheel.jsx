@@ -24,6 +24,26 @@ const Wheel = () => {
   const [rotation, setRotation] = useState(0);
   const [winner, setWinner] = useState(null);
   const [showWinner, setShowWinner] = useState(false);
+  const [size, setSize] = useState(400); // Default size for large screens
+
+  useEffect(() => {
+    const updateCanvasSize = () => {
+      const width = window.innerWidth;
+
+      if (width <= 425) {
+        setSize(200); // Mobile screens
+      } else if (width <= 768) {
+        setSize(300); // Tablet screens
+      } else {
+        setSize(400); // Large screens
+      }
+    };
+
+    updateCanvasSize();
+    window.addEventListener("resize", updateCanvasSize);
+
+    return () => window.removeEventListener("resize", updateCanvasSize);
+  }, []);
 
   // Default yellow wheel if no participants yet
   const participants =
@@ -39,7 +59,7 @@ const Wheel = () => {
   }, [rotation, participants]);
 
   useEffect(() => {
-    if (gameState === "RUNNING") {
+    if (gameState === "RUNNING" && bets.length > 1) {
       startSpin();
     }
   }, [gameState]);
@@ -156,7 +176,7 @@ const Wheel = () => {
           top: "50%",
           right: "-35px",
           transform: "translateY(-50%) rotate(90deg)",
-          fontSize: "50px",
+          fontSize: size == 400 ? "60px" : "50px",
           color: "red",
           zIndex: 10,
         }}
@@ -164,8 +184,8 @@ const Wheel = () => {
 
       <canvas
         ref={canvasRef}
-        width={300}
-        height={300}
+        width={size}
+        height={size}
         style={{ borderRadius: "50%", border: "2px solid black" }}
       />
 
@@ -173,7 +193,7 @@ const Wheel = () => {
         <div
           style={{
             position: "fixed",
-            top: "50%",
+            top: size == 400 ? "55%" : "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
             background: "white",

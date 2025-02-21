@@ -1,3 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+
+.font-grotesk {
+  font-family: "Space Grotesk", sans-serif;
+}
+
 /* Header styles */
 .homepage {
   display: flex;
@@ -9,18 +15,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #141c2f;
+  /* background-color: #141c2f; */
   color: #ffffff;
   font-size: 1.5rem;
   font-weight: bold;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 /* Platform Stats */
 .platform-stats {
-  background-color: #000000;
+  /* background-color: #000000; */
+  /* background-color: #141c2f; */
   border-radius: 10px;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .stats-grid {
@@ -43,16 +50,34 @@
   color: #c5ff47;
 }
 
+.stat-card {
+  transition: transform 0.3s ease-in-out;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
 /* Recent Wins */
 .recent-wins {
-  background-color: #000000;
+  /* background-color: #141c2f; */
   border-radius: 10px;
-  padding: 1rem;
+  padding: 1rem 0;
+}
+
+.font12 {
+  font-size: 12px;
 }
 
 .win-amount {
-  color: #c5ff47;
-  font-weight: bold;
+  color: #c5ff47 !important;
+  font-weight: bold !important;
+}
+
+.game-image {
+  height: 2rem;
+  width: 2rem;
+  object-fit: cover;
 }
 
 /* Banner Styles */
@@ -68,6 +93,31 @@
   max-height: 500px;
   object-fit: cover;
   border-radius: 8px;
+}
+
+.banner-image {
+  transition: transform 0.4s ease-in-out;
+  border-radius: 8px;
+}
+
+.banner-image:hover {
+  transform: scale(1.1);
+}
+
+.banner-new img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.wins-table {
+  border-radius: 12px !important;
+}
+
+.grey {
+  color: #9da4ae !important;
 }
 
 /* Media Queries */
@@ -86,10 +136,18 @@
   .banner img {
     max-height: 300px;
   }
+
+  .banner-new img {
+    max-height: 300px;
+  }
 }
 
 @media (min-width: 1024px) {
   .banner img {
+    max-height: 600px;
+  }
+
+  .banner-new img {
     max-height: 600px;
   }
 }

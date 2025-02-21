@@ -41,7 +41,7 @@
 }
 
 .nav-link .icon {
-  font-size: 1rem;
+  font-size: 1.5rem;
   /* Icon size */
   margin-bottom: 5px;
   color: white;
@@ -54,11 +54,16 @@
 }
 
 .nav-link:hover {
-  background-color: darkslategrey;
+  background-color: #242d2d !important;
 }
 
 .nav-link.active {
-  background-color: darkslategrey;
+  /* background-color: darkslategrey; */
+  background-color: #242d2d !important;
+}
+
+.label.active {
+  color: blue !important;
 }
 
 /* Responsive Adjustments */

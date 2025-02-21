@@ -30,7 +30,7 @@ function App() {
         <div className="main-navbar">
           <Navbar title={navbarTitle} />
         </div>
-        <div className="content-wrapper">
+        <div className="content-wrapper container py-3">
           <Routes>
             {routesConfig.map((route, index) => (
               <Route key={index} path={route.path} element={route.element} />

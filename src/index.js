@@ -9,6 +9,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ApolloProvider } from '@apollo/client';
 import client from './NetworkManager/apollo/client';
 import '@rainbow-me/rainbowkit/styles.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import {
   getDefaultConfig,
   RainbowKitProvider,
