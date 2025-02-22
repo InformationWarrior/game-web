@@ -36,7 +36,7 @@ function PlaceBet() {
       console.error("❌ Subscription error:", error.message);
     }
     if (betPlacedData) {
-      console.log("📢 Received bet from subscription:", betPlacedData);
+      console.log("📢 Received bet from subscription: >>>>> ", betPlacedData);
       dispatch(handleBetPlaced(betPlacedData.betPlaced));
     }
   }, [betPlacedData, error, loading, dispatch]);

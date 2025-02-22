@@ -3,7 +3,7 @@ import client from "../../../NetworkManager/apollo/client";
 import { PLACE_BET } from "../../../NetworkManager/graphql/Operations/mutations";
 import { BET_PLACED_SUBSCRIPTION } from "../../../NetworkManager/graphql/Operations/subscriptions";
 
-// Place bet mutation
+// ✅ Place bet mutation
 export const placeBet = createAsyncThunk(
     "wheelSpin/placeBet",
     async ({ gameId, walletAddress, betAmount, totalPlayerRounds, currency }, { rejectWithValue }) => {
@@ -20,7 +20,7 @@ export const placeBet = createAsyncThunk(
     }
 );
 
-// Subscribe to Bet Placed events
+// ✅ Subscribe to Bet Placed events
 export const betPlaced = createAsyncThunk(
     "wheelSpin/betPlaced",
     async ({ gameId, walletAddress }, { dispatch }) => {
@@ -29,7 +29,7 @@ export const betPlaced = createAsyncThunk(
 
             const observable = client.subscribe({
                 query: BET_PLACED_SUBSCRIPTION,
-                variables: { gameId, walletAddress }, // ✅ Pass required variables
+                variables: { gameId, walletAddress },
             });
 
             observable.subscribe({
@@ -55,7 +55,6 @@ export const betPlaced = createAsyncThunk(
         }
     }
 );
-
 
 const initialState = {
     gameRound: 1,
@@ -106,11 +105,21 @@ const wheelSpinSlice = createSlice({
         },
         setGameState(state, action) {
             state.gameState = action.payload;
+
+            // ✅ Clear bets when game state is RESET
+            if (action.payload === "RESET") {
+                state.bets = [];
+            }
         },
         updateGameState(state, action) {
             const { gameState, remainingTime } = action.payload;
             state.gameState = gameState;
             state.remainingTime = remainingTime;
+
+            // ✅ Clear bets when game state is RESET
+            if (gameState === "RESET") {
+                state.bets = [];
+            }
         },
         decrementTimer(state) {
             if (state.remainingTime > 0) {
@@ -120,9 +129,9 @@ const wheelSpinSlice = createSlice({
         addBet(state, action) {
             state.bets.push(action.payload);
         },
-        handleBetPlaced(state, action) {
-            console.log("📢 Bet Placed Subscription Received:", action.payload);
-            state.bets.push(action.payload);
+        resetGame(state) {
+            // ✅ Clear bets when game resets
+            state.bets = [];
         },
     },
     extraReducers: (builder) => {
@@ -134,7 +143,17 @@ const wheelSpinSlice = createSlice({
             .addCase(placeBet.fulfilled, (state, action) => {
                 state.isPlacingBet = false;
                 console.log("✅ Bet placed successfully:", action.payload);
-                state.bets.push(action.payload);
+
+                // ✅ Avoid duplicate bets
+                const isDuplicate = state.bets.some(
+                    (bet) => bet.walletAddress === action.payload.walletAddress && bet.amount === action.payload.amount
+                );
+
+                if (!isDuplicate) {
+                    state.bets.push(action.payload);
+                } else {
+                    console.log("⚠️ Duplicate bet detected from mutation, skipping:", action.payload);
+                }
             })
             .addCase(placeBet.rejected, (state, action) => {
                 state.isPlacingBet = false;
@@ -157,7 +176,25 @@ export const {
     updateGameState,
     decrementTimer,
     addBet,
-    handleBetPlaced,
+    resetGame,
 } = wheelSpinSlice.actions;
 
 export default wheelSpinSlice.reducer;
+
+// ✅ Handle bet placement without duplicates
+export const handleBetPlaced = (betData) => (dispatch, getState) => {
+    const state = getState();
+    const existingBets = state.wheelSpin.bets; // ✅ Ensure accessing correct slice
+
+    // ✅ Check if the bet already exists in Redux
+    const isDuplicate = existingBets.some(
+        (bet) => bet.walletAddress === betData.walletAddress && bet.amount === betData.amount
+    );
+
+    if (!isDuplicate) {
+        console.log("🔥 Dispatching handleBetPlaced:", betData);
+        dispatch(addBet(betData));
+    } else {
+        console.log("⚠️ Duplicate bet detected from subscription, skipping:", betData);
+    }
+};

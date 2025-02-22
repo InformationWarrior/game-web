@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import confetti from "canvas-confetti";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
-
+import { resetGame } from "../../../Config/redux/slices/wheelSpinSlice";
 const colors = [
   "Red",
   "Green",
@@ -16,6 +16,7 @@ const colors = [
 ];
 
 const Wheel = () => {
+  const dispatch = useDispatch();
   const canvasRef = useRef(null);
   const gameState = useSelector((state) => state.wheelSpin.gameState);
   const bets = useSelector((state) => state.wheelSpin.bets);
@@ -45,6 +46,12 @@ const Wheel = () => {
     return () => window.removeEventListener("resize", updateCanvasSize);
   }, []);
 
+  useEffect(() => {
+    if (gameState === "RESET") {
+      dispatch(resetGame());
+    }
+  }, [gameState, dispatch]);
+
   // Default yellow wheel if no participants yet
   const participants =
     bets.length > 0
@@ -55,6 +62,11 @@ const Wheel = () => {
       : [{ name: "Waiting...", color: "Yellow" }];
 
   useEffect(() => {
+    // console.log("Current Bets: >>>>> ", bets);
+  }, [bets]);
+
+  useEffect(() => {
+    // console.log("🔵 Participants Array: >>>>> ", participants);
     drawWheel(rotation);
   }, [rotation, participants]);
 
