@@ -34,14 +34,33 @@ function Rewards() {
 
   return (
     <>
-      <h1 className="page">Check Your Rewards</h1>
+      <div className="d-flex justify-content-center my-4">
+        <div className="btn-group rounded-pill border border-dark overflow-hidden">
+          <input
+            type="radio"
+            className="btn-check"
+            name="options"
+            id="rewards"
+            checked
+          />
+          <label className="btn btn-dark px-4 py-2" for="rewards">
+            Your Rewards
+          </label>
+
+          <input
+            type="radio"
+            className="btn-check"
+            name="options"
+            id="leaderboard"
+          />
+          <label className="btn btn-dark px-4 py-2" for="leaderboard">
+            Leaderboard
+          </label>
+        </div>
+      </div>
 
       {/* Recent Wins */}
       <section className="recent-wins pb-0">
-        <h2 className="mb-3">
-          <SiFireship /> RECENT WINS
-        </h2>
-
         <div className="table-responsive wins-table w-100">
           <table className="table table-dark table-hover w-100">
             <thead>
