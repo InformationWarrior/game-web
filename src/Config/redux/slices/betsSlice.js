@@ -383,7 +383,7 @@ export const leaveGame = createAsyncThunk(
 const initialState = {
   games: [],
   currentGame: null,
-  gameId: "67b42091dad8e320e611a165",
+  gameId: "67bc7e7d1a130ea6b96d5b61",
   enteredPlayers: [],
   participants: [],
   bets: [],

@@ -48,3 +48,13 @@ export const GET_ALL_GAMES = gql`
     }
   }
 `
+
+export const GET_BET_HISTORY_BY_WALLET = gql`
+  query GetBetHistoryByWallet($walletAddress: String!) {
+    getBetHistoryByWallet(walletAddress: $walletAddress) {
+      amount
+      username
+      winAmount
+    }
+  }
+`;

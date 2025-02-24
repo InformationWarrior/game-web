@@ -42,14 +42,14 @@ function PlaceBet() {
       return;
     }
 
-    const betAmount = 10; // Replace with dynamic input
+    const amount = betAmount; // Replace with dynamic input
     const currency = "ETH"; // Replace with selected currency
 
     dispatch(
       placeBetAndParticipate({
         gameId,
         walletAddress: player.walletAddress,
-        betAmount,
+        betAmount: amount,
         currency,
       })
     )
