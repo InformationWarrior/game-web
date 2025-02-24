@@ -1,17 +1,17 @@
 import React from "react";
 import "../styles/Home.css";
 import { SiFireship } from "react-icons/si";
+import game from "../assets/game.webp";
+import Coin from "./Coin";
+import { FaUserCircle } from "react-icons/fa";
 import { ImStatsBars } from "react-icons/im";
 import gamesConfig from "../../Config/routes/gamesConfig";
 import banner from "../assets/Banner.jpeg";
 import banner2 from "../assets/dummyBanner.jpg";
-import game from "../assets/game.webp";
 import GameCard from "../components/GameCard"; // Import GameCard
 import Slider from "react-slick";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
-import Coin from "./Coin";
-import { FaUserCircle } from "react-icons/fa";
 
 const data = [
   {
@@ -156,7 +156,7 @@ const HomePage = () => {
                         alt="game"
                         className="rounded game-image me-2"
                       />
-                      Pocket Pachinko
+                      Wheel Spin
                     </td>
                     <td className="font12 text-start py-3 align-middle">
                       <FaUserCircle size={19} color="green" className="me-2" />

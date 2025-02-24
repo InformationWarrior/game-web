@@ -33,7 +33,7 @@ function Player(props) {
               </div>
 
               <div className={styles["player-points-container"]}>
-                <p className={styles["player-points"]}>500 Pts</p>
+                <p className={styles["player-points"]}>{points}</p>
               </div>
             </div>
 

@@ -3,7 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import confetti from "canvas-confetti";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
-import { resetGame } from "../../../Config/redux/slices/wheelSpinSlice";
+
+import {
+  placeBetAndParticipate,
+  getBets,
+  getParticipants,
+  betPlaced,
+  playerParticipated,
+  resetBets,
+  resetParticipants,
+} from "../../../Config/redux/slices/betsSlice";
+
 const colors = [
   "Red",
   "Green",
@@ -19,7 +29,10 @@ const Wheel = () => {
   const dispatch = useDispatch();
   const canvasRef = useRef(null);
   const gameState = useSelector((state) => state.wheelSpin.gameState);
-  const bets = useSelector((state) => state.wheelSpin.bets);
+  const bets = useSelector((state) => state.bets.bets) || [];
+  const gameId = useSelector((state) => state.bets.gameId);
+  const participatedPlayers =
+    useSelector((state) => state.bets.participants) || [];
 
   const [spinning, setSpinning] = useState(false);
   const [rotation, setRotation] = useState(0);
@@ -46,32 +59,63 @@ const Wheel = () => {
     return () => window.removeEventListener("resize", updateCanvasSize);
   }, []);
 
+  // ✅ Fetch participants only when game state is "BETTING"
+  useEffect(() => {
+    if (gameId && gameState === "BETTING") {
+      dispatch(getParticipants(gameId));
+      dispatch(getBets(gameId)); // ✅ Fetch all bets
+      dispatch(playerParticipated(gameId)); // ✅ Start participant subscription
+      dispatch(betPlaced(gameId)); // ✅ Start bet subscription
+    }
+  }, [dispatch, gameId, gameState]);
+
   useEffect(() => {
     if (gameState === "RESET") {
-      dispatch(resetGame());
+      dispatch(resetParticipants());
+      dispatch(resetBets());
+      resetWheel();
     }
   }, [gameState, dispatch]);
 
+  // ✅ Remove duplicate players based on walletAddress
+  const uniqueParticipants = [
+    ...new Map(
+      participatedPlayers.map((player) => [player.walletAddress, player])
+    ).values(),
+  ];
+
   // Default yellow wheel if no participants yet
-  const participants =
-    bets.length > 0
-      ? bets.map((bet, index) => ({
-          name: bet?.game?.participants?.[0]?.username || `Player ${index + 1}`, // Extract username safely
+  // ✅ Generate participantsBets without duplicates
+  const participantsBets =
+    uniqueParticipants.length > 0
+      ? uniqueParticipants.map((bet, index) => ({
+          name: bet.username,
           color: colors[index % colors.length], // Assign color dynamically
         }))
       : [{ name: "Waiting...", color: "Yellow" }];
 
+  // useEffect(() => {
+  //   console.log("Current Bets: >>>>> ", JSON.stringify(bets, null, 2));
+  // }, [bets]);
+
+  // useEffect(() => {
+  //   console.log("Current participants: >>>>> ", participatedPlayers);
+  // }, [participatedPlayers]);
+
+  // useEffect(() => {
+  //   console.log("Current Bets: >>>>> ", bets);
+  // }, [bets]);
   useEffect(() => {
-    // console.log("Current Bets: >>>>> ", bets);
+    console.log("Participant Bets: >>>>> ", participantsBets);
   }, [bets]);
 
   useEffect(() => {
-    // console.log("🔵 Participants Array: >>>>> ", participants);
+    // console.log("🔵 Participants Array: >>>>> ", participantsBets);
     drawWheel(rotation);
-  }, [rotation, participants]);
+  }, [rotation, participantsBets]);
 
   useEffect(() => {
-    if (gameState === "RUNNING" && bets.length > 1) {
+    if (gameState === "RUNNING" && participantsBets.length > 1) {
       startSpin();
     }
   }, [gameState]);
@@ -80,14 +124,14 @@ const Wheel = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const radius = canvas.width / 2;
-    const sliceAngle = (2 * Math.PI) / participants.length;
+    const sliceAngle = (2 * Math.PI) / participantsBets.length;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.translate(radius, radius);
     ctx.rotate(angle * (Math.PI / 180));
 
-    participants.forEach((participant, i) => {
+    participantsBets.forEach((participant, i) => {
       const startAngle = i * sliceAngle;
       const endAngle = (i + 1) * sliceAngle;
       ctx.beginPath();
@@ -154,13 +198,13 @@ const Wheel = () => {
   };
 
   const determineWinner = (finalRotation) => {
-    if (participants.length === 0) return;
+    if (participantsBets.length === 0) return;
 
-    const sliceAngle = 360 / participants.length;
+    const sliceAngle = 360 / participantsBets.length;
     const winningIndex = Math.floor(
-      ((360 - (finalRotation % 360)) / sliceAngle) % participants.length
+      ((360 - (finalRotation % 360)) / sliceAngle) % participantsBets.length
     );
-    const winnerName = participants[winningIndex].name;
+    const winnerName = participantsBets[winningIndex].name;
     setWinner(winnerName);
     setShowWinner(true);
 
@@ -171,6 +215,13 @@ const Wheel = () => {
     });
 
     setTimeout(() => setShowWinner(false), 5000);
+  };
+
+  const resetWheel = () => {
+    setRotation(0); // Reset rotation
+    setWinner(null); // Clear winner
+    setShowWinner(false); // Hide winner message
+    drawWheel(0); // Redraw wheel in initial position
   };
 
   return (

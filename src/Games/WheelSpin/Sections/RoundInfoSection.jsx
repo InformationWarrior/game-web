@@ -7,7 +7,11 @@ import Timer from "../components/Timer";
 
 function RoundInfoSection() {
   const participants = useSelector((state) => state.bets.participants) || [];
-
+  const uniqueParticipants = [
+    ...new Map(
+      participants.map((player) => [player.walletAddress, player])
+    ).values(),
+  ];
   return (
     <div className={RoundInfo.content}>
       <div className={RoundInfo.head}>
@@ -23,7 +27,7 @@ function RoundInfoSection() {
         <div className={RoundInfo.bodyContentGrid}>
           <RoundInfoContentImage headingData={"0"} subHeading={"Prize Pool"} />
           <RoundInfoContent
-            headingData={`${participants.length}/500`}
+            headingData={`${uniqueParticipants.length}/500`}
             subHeading={"Players"}
           />
           <RoundInfoContentImage
@@ -33,7 +37,7 @@ function RoundInfoSection() {
           <RoundInfoContent
             headingData={
               participants.length > 0
-                ? `${((1 / participants.length) * 100).toFixed(2)}%`
+                ? `${((1 / uniqueParticipants.length) * 100).toFixed(2)}%`
                 : "---"
             }
             subHeading={"Your Win Chance"}

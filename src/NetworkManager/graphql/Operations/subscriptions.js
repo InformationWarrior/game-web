@@ -26,43 +26,68 @@ export const PLAYER_ENTERED_SUBSCRIPTION = gql`
   }
 `;
 
-export const PLAYER_PARTICIPATED_SUBSCRIPTION = gql`
-  subscription PlayerParticipated($gameId: ID!, $walletAddress: String!) {
-    playerParticipated(gameId: $gameId, walletAddress: $walletAddress) {
-      gameId
+// export const PLAYER_PARTICIPATED_SUBSCRIPTION = gql`
+//   subscription PlayerParticipated($gameId: ID!, $walletAddress: String!) {
+//     playerParticipated(gameId: $gameId, walletAddress: $walletAddress) {
+//       gameId
+//       walletAddress
+//       game {
+//         id
+//         participants {
+//           walletAddress
+//           username
+//           profileImage
+//         }
+//       }
+//     }
+//   }
+// `;
+
+// export const BET_PLACED_SUBSCRIPTION = gql`
+//   subscription BetPlaced($gameId: ID!, $walletAddress: String!) {
+//     betPlaced(gameId: $gameId, walletAddress: $walletAddress) {
+//       gameId
+//       walletAddress
+//       amount
+//       currency
+//       totalPlayerRounds
+//       game {
+//         id
+//         name
+//         type
+//         state
+//         totalBetsAmount
+//         participants {
+//           walletAddress
+//           username
+//           balance
+//         }
+//       }
+//     }
+//   }
+// `;
+
+
+export const PLAYER_PARTICIPATED = gql`
+  subscription playerParticipated($gameId: ID!) {
+    playerParticipated(gameId: $gameId) {
       walletAddress
-      game {
-        id
-        participants {
-          walletAddress
-          username
-          profileImage
-        }
-      }
+      username
+      betAmount
+      currency
     }
   }
 `;
 
-export const BET_PLACED_SUBSCRIPTION = gql`
-  subscription BetPlaced($gameId: ID!, $walletAddress: String!) {
-    betPlaced(gameId: $gameId, walletAddress: $walletAddress) {
-      gameId
-      walletAddress
+
+export const BET_PLACED = gql`
+  subscription betPlaced($gameId: ID!) {
+    betPlaced(gameId: $gameId) {
+      player {
+        walletAddress
+      }
       amount
       currency
-      totalPlayerRounds
-      game {
-        id
-        name
-        type
-        state
-        totalBetsAmount
-        participants {
-          walletAddress
-          username
-          balance
-        }
-      }
     }
   }
 `;

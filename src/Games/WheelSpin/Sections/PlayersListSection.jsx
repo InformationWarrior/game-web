@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Player from "../components/Player";
 import {
   getEnteredPlayers,
   getParticipants,
-  updateParticipatedPlayers,
-} from "../../../Config/redux/slices/betsSlice";
-import Player from "../components/Player";
+  getBets,
+  playerParticipated,
+  betPlaced,
+  resetBets,
+  resetParticipants,
+} from "../../../Config/redux/slices/betsSlice"; // Import the action
 import playerAvatar from "../assets/playerAvatar.png";
 import styles from "../../../styles/WheelSpin/PlayersList.module.css";
 
@@ -16,33 +20,46 @@ function PlayersListSection() {
   const participants = useSelector((state) => state.bets.participants) || [];
   const gameState = useSelector((state) => state.wheelSpin.gameState);
 
-  // Fetch entered players only if not already fetched
+  // ✅ Fetch entered players only if not already fetched
   useEffect(() => {
     if (gameId && enteredPlayers.length === 0) {
       dispatch(getEnteredPlayers(gameId));
     }
   }, [dispatch, gameId, enteredPlayers.length]);
 
-  // Fetch participats when the game state is "betting"
+  // ✅ Fetch participants only when game state is "BETTING"
   useEffect(() => {
-    if (gameId && gameState === "BETTING" && participants.length === 0) {
+    if (gameId && gameState === "BETTING") {
       dispatch(getParticipants(gameId));
+      dispatch(getBets(gameId)); // ✅ Fetch all bets
+      dispatch(playerParticipated(gameId)); // ✅ Start participant subscription
+      dispatch(betPlaced(gameId)); // ✅ Start bet subscription
     }
-  }, [dispatch, gameId, gameState, participants]);
+  }, [dispatch, gameId, gameState]);
 
-  // ✅ Reset participants when the game state is "RESET"
+  // ✅ Reset participants and bets when game state is "RESETTING"
   useEffect(() => {
     if (gameState === "RESET") {
-      dispatch(updateParticipatedPlayers([]));
+      console.log("Game state is RESETTING: Clearing participants and bets...");
+      dispatch(resetParticipants());
+      dispatch(resetBets());
     }
-  }, [dispatch, gameState]);
+  }, [gameState, dispatch]);
+
+  // ✅ Remove duplicate players based on walletAddress
+  const uniqueParticipants = [
+    ...new Map(
+      participants.map((player) => [player.walletAddress, player])
+    ).values(),
+  ];
 
   return (
     <div className={styles["players-list-content"]}>
       {/* Header */}
       <div className={styles["players-list-header"]}>
         <p className={styles["players-list-header-text"]}>
-          {participants.length} Player{participants.length > 1 ? "s" : ""}
+          {uniqueParticipants.length} Player
+          {uniqueParticipants.length > 1 ? "s" : ""}
         </p>
         <span
           className={`badge text-bg-warning ${styles["players-list-watching"]}`}
@@ -53,15 +70,15 @@ function PlayersListSection() {
 
       {/* Players List */}
       <div className={styles["players-list-body"]}>
-        {Array.isArray(participants) && participants.length > 0 ? (
-          participants.map((player, index) => (
+        {Array.isArray(uniqueParticipants) && uniqueParticipants.length > 0 ? (
+          uniqueParticipants.map((player, index) => (
             <Player
-              key={player.walletAddress || `player-${index}`}
+              key={player.walletAddress || `player-${player.username || index}`} // Unique key
               avatar={playerAvatar}
               username={player.username}
-              points="0"
+              points={player.betAmount}
               percentage={0}
-              value={0}
+              value={player.currency}
               isWinner={false}
             />
           ))
@@ -71,6 +88,40 @@ function PlayersListSection() {
       </div>
     </div>
   );
+  // return (
+  //   <div className={styles["players-list-content"]}>
+  //     {/* Header */}
+  //     <div className={styles["players-list-header"]}>
+  //       <p className={styles["players-list-header-text"]}>
+  //         {participants.length} Player{participants.length > 1 ? "s" : ""}
+  //       </p>
+  //       <span
+  //         className={`badge text-bg-warning ${styles["players-list-watching"]}`}
+  //       >
+  //         {enteredPlayers.length} Watching
+  //       </span>
+  //     </div>
+
+  //     {/* Players List */}
+  //     <div className={styles["players-list-body"]}>
+  //       {Array.isArray(participants) && participants.length > 0 ? (
+  //         participants.map((player, index) => (
+  //           <Player
+  //             key={player.walletAddress || `player-${index}`}
+  //             avatar={playerAvatar}
+  //             username={player.username}
+  //             points="0"
+  //             percentage={0}
+  //             value={0}
+  //             isWinner={false}
+  //           />
+  //         ))
+  //       ) : (
+  //         <p className={styles["no-players"]}>No players yet.</p>
+  //       )}
+  //     </div>
+  //   </div>
+  // );
 }
 
 export default PlayersListSection;
