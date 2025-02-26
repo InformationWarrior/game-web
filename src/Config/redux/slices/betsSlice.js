@@ -5,10 +5,10 @@ import {
   ENTER_GAME,
   LEAVE_GAME,
   PLACE_BET_AND_PARTICIPATE,
-} from "../../../NetworkManager/graphql/Operations/mutations"
+} from "../../../NetworkManager/graphql/mutations"
 // import { GET_ENTERED_PLAYERS, GET_PARTICIPANTS, GET_BETS, GET_ALL_GAMES, } from "../../../NetworkManager/graphql/Operations/queries";
-import { GET_ENTERED_PLAYERS, GET_PARTICIPANTS, GET_BETS } from "../../../NetworkManager/graphql/Operations/queries";
-import { PLAYER_ENTERED_SUBSCRIPTION, PLAYER_PARTICIPATED, BET_PLACED } from '../../../NetworkManager/graphql/Operations/subscriptions';
+import { GET_ENTERED_PLAYERS, GET_PARTICIPANTS, GET_BETS } from "../../../NetworkManager/graphql/queries";
+import { PLAYER_ENTERED_SUBSCRIPTION, PLAYER_PARTICIPATED, BET_PLACED } from '../../../NetworkManager/graphql/subscriptions';
 import wheelSpinLogo from '../../../Games/WheelSpin/assets/SpinWheelBanner.webp'
 import WheelSpin from '../../../Games/WheelSpin/WheelSpin'
 
