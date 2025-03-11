@@ -39,7 +39,7 @@ function Player(props) {
 
             <div className={styles["player-stats-container"]}>
               <div className={styles["player-chance-container"]}>
-                <p className={styles["player-chance"]}>100%</p>
+                <p className={styles["player-chance"]}>{percentage} %</p>
               </div>
 
               <div className={styles["player-currency-container"]}>

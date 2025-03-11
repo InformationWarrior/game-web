@@ -3,16 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import confetti from "canvas-confetti";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
-
-import {
-  placeBetAndParticipate,
-  getBets,
-  getParticipants,
-  betPlaced,
-  playerParticipated,
-  resetBets,
-  resetParticipants,
-} from "../../../Config/redux/slices/betsSlice";
+import { RoundUpdates } from "../../../Config/redux/slices/betsActions";
 
 const colors = [
   "Red",
@@ -29,10 +20,9 @@ const Wheel = () => {
   const dispatch = useDispatch();
   const canvasRef = useRef(null);
   const gameState = useSelector((state) => state.wheelSpin.gameState);
-  const bets = useSelector((state) => state.bets.bets) || [];
   const gameId = useSelector((state) => state.bets.gameId);
-  const participatedPlayers =
-    useSelector((state) => state.bets.participants) || [];
+  const bets = useSelector((state) => state.bets.bets) || [];
+  const participants = useSelector((state) => state.bets.participants) || [];
 
   const [spinning, setSpinning] = useState(false);
   const [rotation, setRotation] = useState(0);
@@ -59,60 +49,34 @@ const Wheel = () => {
     return () => window.removeEventListener("resize", updateCanvasSize);
   }, []);
 
-  // ✅ Fetch participants only when game state is "BETTING"
   useEffect(() => {
-    if (gameId && gameState === "BETTING") {
-      dispatch(getParticipants(gameId));
-      dispatch(getBets(gameId)); // ✅ Fetch all bets
-      dispatch(playerParticipated(gameId)); // ✅ Start participant subscription
-      dispatch(betPlaced(gameId)); // ✅ Start bet subscription
+    if (gameId) {
+      const unsubscribe = dispatch(RoundUpdates(gameId));
+      return () => {
+        unsubscribe();
+      };
     }
-  }, [dispatch, gameId, gameState]);
+  }, [dispatch, gameId]);
 
   useEffect(() => {
     if (gameState === "RESET") {
-      dispatch(resetParticipants());
-      dispatch(resetBets());
       resetWheel();
     }
   }, [gameState, dispatch]);
 
-  // ✅ Remove duplicate players based on walletAddress
-  const uniqueParticipants = [
-    ...new Map(
-      participatedPlayers.map((player) => [player.walletAddress, player])
-    ).values(),
-  ];
-
-  // Default yellow wheel if no participants yet
-  // ✅ Generate participantsBets without duplicates
   const participantsBets =
-    uniqueParticipants.length > 0
-      ? uniqueParticipants.map((bet, index) => ({
+    participants.length > 0
+      ? participants.map((bet, index) => ({
           name: bet.username,
-          color: colors[index % colors.length], // Assign color dynamically
+          color: colors[index % colors.length],
         }))
       : [{ name: "Waiting...", color: "Yellow" }];
 
-  // useEffect(() => {
-  //   console.log("Current Bets: >>>>> ", JSON.stringify(bets, null, 2));
-  // }, [bets]);
-
-  // useEffect(() => {
-  //   console.log("Current participants: >>>>> ", participatedPlayers);
-  // }, [participatedPlayers]);
-
-  // useEffect(() => {
-  //   console.log("Current Bets: >>>>> ", bets);
-  // }, [bets]);
   useEffect(() => {
-    console.log("Participant Bets: >>>>> ", participantsBets);
-  }, [bets]);
-
-  useEffect(() => {
-    // console.log("🔵 Participants Array: >>>>> ", participantsBets);
+    console.log("🟢 Participants Updated: ", participants);
+    console.log("🟠 Bets Updated: ", bets);
     drawWheel(rotation);
-  }, [rotation, participantsBets]);
+  }, [participants, bets, rotation]);
 
   useEffect(() => {
     if (gameState === "RUNNING" && participantsBets.length > 1) {

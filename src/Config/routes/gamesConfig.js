@@ -4,7 +4,7 @@ const GAME_ID = process.env.GAME_ID;
 
 const gamesConfig = [
   {
-    id: "67bc7e7d1a130ea6b96d5b61", // Temporary ID until backend provides actual ID
+    id: "67c7c5786a43f19451f8dcd9", // Temporary ID until backend provides actual ID
     title: 'Wheel Spin',
     description: 'Spin the Wheel!',
     type: 'multiplayer',

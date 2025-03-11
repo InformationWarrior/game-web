@@ -1,34 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useSubscription } from "@apollo/client";
-import {
-  placeBetAndParticipate,
-  betPlaced,
-  getBets,
-  getParticipants,
-  playerParticipated,
-  setGames,
-  setCurrentGame,
-  setEnteredPlayers,
-  setPlayer,
-  setParticipants,
-  setBets,
-  setNetworkStatus,
-  resetParticipants,
-  resetBets,
-} from "../../../Config/redux/slices/betsSlice";
+import { placeBetAndParticipate } from "../../../Config/redux/slices/betsActions";
 
 function PlaceBet() {
   const dispatch = useDispatch();
   const [betPlaced, setBetPlaced] = useState(false);
-  const { gameState, betAmount, totalPlayerRounds, currency, isPlacingBet } =
-    useSelector((state) => state.wheelSpin);
-  const { gameId, player, networkStatus } = useSelector((state) => state.bets);
-  const walletAddress = useSelector(
-    (state) => state.bets.player?.walletAddress
-  );
-
-  const joiningGame = useSelector((state) => state.bets.networkStatus.loading);
+  const { gameState, betAmount } = useSelector((state) => state.wheelSpin);
+  const { gameId, player } = useSelector((state) => state.bets);
+  const loading = useSelector((state) => state.bets.networkStatus.loading);
 
   useEffect(() => {
     if (gameState === "BETTING" && betPlaced) {
@@ -66,33 +45,17 @@ function PlaceBet() {
     <button
       className="btn btn-primary w-100 rounded py-2"
       onClick={handlePlaceBet}
-      disabled={
-        gameState !== "BETTING" || betPlaced || joiningGame || isPlacingBet
-      }
+      disabled={gameState !== "BETTING" || betPlaced || loading}
     >
       {gameState !== "BETTING"
         ? "Round Closed"
         : betPlaced
         ? "Bet Placed"
-        : joiningGame || isPlacingBet
+        : loading
         ? "Processing..."
         : "Place Bet"}
     </button>
   );
-
-  // return (
-  //   <button
-  //     className="btn btn-primary w-100 rounded py-2"
-  //     onClick={handlePlaceBet}
-  //     disabled={betPlaced || networkStatus.loading}
-  //   >
-  //     {networkStatus.loading
-  //       ? "Processing..."
-  //       : betPlaced
-  //       ? "Bet Placed"
-  //       : "Place Bet"}
-  //   </button>
-  // );
 }
 
 export default PlaceBet;

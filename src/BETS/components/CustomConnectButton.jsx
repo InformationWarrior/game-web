@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useDispatch } from "react-redux";
-import { createPlayer } from "../../Config/redux/slices/betsSlice";
+import { createPlayer } from "../../Config/redux/slices/betsActions";
 import { useAccount, useBalance } from "wagmi";
 
 const CustomConnectButton = () => {

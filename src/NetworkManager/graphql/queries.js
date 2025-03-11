@@ -3,37 +3,42 @@ import { gql } from "@apollo/client";
 export const GET_ENTERED_PLAYERS = gql`
   query GetEnteredPlayers($gameId: ID!) {
     getEnteredPlayers(gameId: $gameId) {
+      gameId  
       walletAddress
       username
-      profileImage
     }
   }
 `;
 
-export const GET_PARTICIPANTS = gql`
-  query getParticipants($gameId: ID!) {
-    getParticipants(gameId: $gameId) {
+export const GET_PARTICIPANTS_AND_BETS = gql`
+query GetParticipantsAndBets($gameId: ID!) {
+  getParticipantsAndBets(gameId: $gameId) {
+    participants {
       walletAddress
       username
       betAmount
       currency
     }
-  }
-`;
-
-
-export const GET_BETS = gql`
-  query getBets($gameId: ID!) {
-  getBets(gameId: $gameId) {
-    player {
-      walletAddress
+    bets {
+      id
+      game
+      amount
+      currency
+      player {
+        walletAddress
+        username
+      }
+      betOption
+      usdEquivalent
+      exchangeRate
+      transactionHash
+      timestamp
+      multiBet
+      strategy
     }
-    amount
-    currency
   }
 }
 `;
-
 
 export const GET_ALL_GAMES = gql`
   query GetAllGames {
@@ -57,4 +62,40 @@ export const GET_BET_HISTORY_BY_WALLET = gql`
       winAmount
     }
   }
+`;
+
+export const GET_ROUND = gql`
+  query GetRound($gameId: ID!, $walletAddress: String!) {
+  getRound(gameId: $gameId, walletAddress: $walletAddress) {
+    _id
+    gameId
+    roundNumber
+    totalBetAmount
+    winningChance
+    participants {
+      walletAddress
+      username
+      betAmount
+      currency
+    }
+    bets {
+      id
+      game
+      player {
+        walletAddress
+        username
+      }
+      amount
+      currency
+      betOption
+      usdEquivalent
+      exchangeRate
+      transactionHash
+      timestamp
+      multiBet
+      strategy
+    }
+    startedAt
+  }
+}
 `;

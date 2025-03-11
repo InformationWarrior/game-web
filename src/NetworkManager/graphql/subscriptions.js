@@ -1,14 +1,5 @@
 import { gql } from "@apollo/client";
 
-export const GAME_STATUS_SUBSCRIPTION = gql`
-  subscription {
-    gameStatusUpdated {
-      gameState
-      remainingTime
-    }
-  }
-`;
-
 export const PLAYER_ENTERED_SUBSCRIPTION = gql`
   subscription PlayerEntered($gameId: ID!, $walletAddress: String!) {
     playerEntered(gameId: $gameId, walletAddress: $walletAddress) {
@@ -26,68 +17,51 @@ export const PLAYER_ENTERED_SUBSCRIPTION = gql`
   }
 `;
 
-// export const PLAYER_PARTICIPATED_SUBSCRIPTION = gql`
-//   subscription PlayerParticipated($gameId: ID!, $walletAddress: String!) {
-//     playerParticipated(gameId: $gameId, walletAddress: $walletAddress) {
-//       gameId
-//       walletAddress
-//       game {
-//         id
-//         participants {
-//           walletAddress
-//           username
-//           profileImage
-//         }
-//       }
-//     }
-//   }
-// `;
-
-// export const BET_PLACED_SUBSCRIPTION = gql`
-//   subscription BetPlaced($gameId: ID!, $walletAddress: String!) {
-//     betPlaced(gameId: $gameId, walletAddress: $walletAddress) {
-//       gameId
-//       walletAddress
-//       amount
-//       currency
-//       totalPlayerRounds
-//       game {
-//         id
-//         name
-//         type
-//         state
-//         totalBetsAmount
-//         participants {
-//           walletAddress
-//           username
-//           balance
-//         }
-//       }
-//     }
-//   }
-// `;
-
-
-export const PLAYER_PARTICIPATED = gql`
-  subscription playerParticipated($gameId: ID!) {
-    playerParticipated(gameId: $gameId) {
-      walletAddress
-      username
-      betAmount
-      currency
+export const GAME_STATUS_SUBSCRIPTION = gql`
+  subscription GameStatusUpdated{
+    gameStatusUpdated {
+      gameState
+      remainingTime
     }
   }
 `;
 
-
-export const BET_PLACED = gql`
-  subscription betPlaced($gameId: ID!) {
-    betPlaced(gameId: $gameId) {
-      player {
+export const ROUND_UPDATED_SUBSCRIPTION = gql`
+  subscription roundUpdated($gameId: ID!) {
+    roundUpdated(gameId: $gameId) {
+      _id
+      gameId
+      roundNumber
+      totalBetAmount
+      participants {
         walletAddress
+        username
+        betAmount
+        currency
+        winningChance
       }
-      amount
-      currency
+      bets {
+        id
+        game
+        player {
+          walletAddress
+          username
+        }
+        amount
+        currency
+        betOption
+        usdEquivalent
+        exchangeRate
+        transactionHash
+        timestamp
+        multiBet
+        strategy
+      }
+      winner {
+        walletAddress
+        username
+      }
+      startedAt
     }
   }
 `;

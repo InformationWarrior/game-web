@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { enterGame } from "../../Config/redux/slices/betsSlice";
+import { enterGame } from "../../Config/redux/slices/betsActions";
 import styles from "../../styles/BETS/Games.module.css";
 
 function GameCard({ title, description, imgSrc, path, gameId }) {
