@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSubscription } from "@apollo/client";
 import { useDispatch, useSelector } from "react-redux";
-import { GAME_STATUS_SUBSCRIPTION } from "../../../NetworkManager/graphql/subscriptions";
+import { GAME_STATUS_SUBSCRIPTION } from "../../../GraphQL/operations/subscriptions";
 import {
   updateGameState,
   decrementTimer,

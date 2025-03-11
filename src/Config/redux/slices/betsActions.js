@@ -1,13 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import client from '../../../NetworkManager/apollo/client';
+import client from '../../../GraphQL/apollo/client';
 import {
   CREATE_PLAYER,
   ENTER_GAME,
   LEAVE_GAME,
   PLACE_BET_AND_PARTICIPATE,
-} from '../../../NetworkManager/graphql/mutations';
-import { GET_ROUND, GET_ENTERED_PLAYERS, GET_PARTICIPANTS_AND_BETS } from '../../../NetworkManager/graphql/queries';
-import { PLAYER_ENTERED_SUBSCRIPTION, ROUND_UPDATED_SUBSCRIPTION } from '../../../NetworkManager/graphql/subscriptions';
+} from '../../../GraphQL/operations/mutations';
+import { GET_ROUND, GET_ENTERED_PLAYERS, GET_PARTICIPANTS_AND_BETS } from '../../../GraphQL/operations/queries';
+import { PLAYER_ENTERED_SUBSCRIPTION, ROUND_UPDATED_SUBSCRIPTION } from '../../../GraphQL/operations/subscriptions';
 import { setEnteredPlayers, setParticipants, setBets, setRound, setError } from './betsSlice';
 import wheelSpinLogo from '../../../Games/WheelSpin/assets/SpinWheelBanner.webp'
 import WheelSpin from '../../../Games/WheelSpin/WheelSpin'

@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import client from "../../../NetworkManager/apollo/client"
+import client from "../../../GraphQL/apollo/client"
 import {
   CREATE_PLAYER,
   ENTER_GAME,
   LEAVE_GAME,
   PLACE_BET_AND_PARTICIPATE,
-} from "../../../NetworkManager/graphql/mutations"
-// import { GET_ENTERED_PLAYERS, GET_PARTICIPANTS, GET_BETS, GET_ALL_GAMES, } from "../../../NetworkManager/graphql/Operations/queries";
-import { GET_ENTERED_PLAYERS, GET_PARTICIPANTS, GET_BETS } from "../../../NetworkManager/graphql/queries";
-import { PLAYER_ENTERED_SUBSCRIPTION, PLAYER_PARTICIPATED, BET_PLACED } from '../../../NetworkManager/graphql/subscriptions';
+} from "../../../GraphQL/operations/mutations"
+// import { GET_ENTERED_PLAYERS, GET_PARTICIPANTS, GET_BETS, GET_ALL_GAMES, } from "../../../GraphQL/operations/Operations/queries";
+import { GET_ENTERED_PLAYERS, GET_PARTICIPANTS, GET_BETS } from "../../../GraphQL/operations/queries";
+import { PLAYER_ENTERED_SUBSCRIPTION, PLAYER_PARTICIPATED, BET_PLACED } from '../../../GraphQL/operations/subscriptions';
 import wheelSpinLogo from '../../../Games/WheelSpin/assets/SpinWheelBanner.webp'
 import WheelSpin from '../../../Games/WheelSpin/WheelSpin'
 

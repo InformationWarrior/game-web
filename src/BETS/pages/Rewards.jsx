@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_BET_HISTORY_BY_WALLET } from "../../NetworkManager/graphql/queries";
+import { GET_BET_HISTORY_BY_WALLET } from "../../GraphQL/operations/queries";
 import { useSelector } from "react-redux";
 import { FaUserCircle } from "react-icons/fa";
 import game from "../assets/game.webp";
