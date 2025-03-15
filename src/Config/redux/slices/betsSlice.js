@@ -21,6 +21,7 @@ const initialState = {
   bets: [],
   spectators: [],
   round: null,
+  winner: null,
   player: {
     walletAddress: null,
     username: null,
@@ -78,6 +79,12 @@ const betsSlice = createSlice({
     },
     setError(state, action) {
       state.networkStatus.error = action.payload;
+    },
+    setWinner: (state, action) => {
+      state.winner = action.payload;
+    },
+    resetWinner: (state) => {
+      state.winner = null;
     },
   },
   extraReducers: (builder) => {
@@ -203,6 +210,8 @@ export const {
   setLoading,
   setError,
   setParticipantsAndBets,
+  setWinner,
+  resetWinner,
 } = betsSlice.actions;
 
 export default betsSlice.reducer;

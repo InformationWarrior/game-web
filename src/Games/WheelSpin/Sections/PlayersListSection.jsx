@@ -52,9 +52,9 @@ function PlayersListSection() {
               key={player.walletAddress || `player-${player.username || index}`}
               avatar={playerAvatar}
               username={player.username}
-              points={player.betAmount}
+              color={player.color}
+              betAmount={player.betAmount}
               percentage={player.winningChance}
-              value={player.currency}
               isWinner={false}
             />
           ))
@@ -62,6 +62,29 @@ function PlayersListSection() {
           <p className={styles["no-players"]}>No players yet.</p>
         )}
       </div>
+
+      {/* For Testing */}
+
+      {/* <div className={styles["players-list-body"]}>
+        <Player
+          avatar={playerAvatar}
+          username={"Ritu"}
+          color={"yellow"}
+          points={10}
+          percentage={50}
+          value={0.01}
+          isWinner={false}
+        />
+        <Player
+          avatar={playerAvatar}
+          username={"Ritu"}
+          color={"yellow"}
+          points={10}
+          percentage={50}
+          value={0.01 }
+          isWinner={false}
+        />
+      </div> */}
     </div>
   );
 }

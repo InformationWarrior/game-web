@@ -67,6 +67,7 @@ export const PLACE_BET_AND_PARTICIPATE = gql`
       participants {
         walletAddress
         username
+        color
         betAmount
         currency
       }
@@ -78,6 +79,7 @@ export const PLACE_BET_AND_PARTICIPATE = gql`
         player {
           walletAddress
           username
+          color
         }
         betOption
         usdEquivalent

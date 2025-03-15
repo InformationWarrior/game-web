@@ -6,9 +6,24 @@ import {
   LEAVE_GAME,
   PLACE_BET_AND_PARTICIPATE,
 } from '../../../GraphQL/operations/mutations';
-import { GET_ROUND, GET_ENTERED_PLAYERS, GET_PARTICIPANTS_AND_BETS } from '../../../GraphQL/operations/queries';
-import { PLAYER_ENTERED_SUBSCRIPTION, ROUND_UPDATED_SUBSCRIPTION } from '../../../GraphQL/operations/subscriptions';
-import { setEnteredPlayers, setParticipants, setBets, setRound, setError } from './betsSlice';
+import {
+  GET_ROUND,
+  GET_ENTERED_PLAYERS,
+  GET_PARTICIPANTS_AND_BETS
+} from '../../../GraphQL/operations/queries';
+import {
+  PLAYER_ENTERED_SUBSCRIPTION,
+  ROUND_UPDATED_SUBSCRIPTION,
+  WINNER_DETERMINED_SUBSCRIPTION
+} from '../../../GraphQL/operations/subscriptions';
+import {
+  setWinner,
+  setEnteredPlayers,
+  setParticipants,
+  setBets,
+  setRound,
+  setError
+} from './betsSlice';
 import wheelSpinLogo from '../../../Games/WheelSpin/assets/SpinWheelBanner.webp'
 import WheelSpin from '../../../Games/WheelSpin/WheelSpin'
 
@@ -218,7 +233,27 @@ export const RoundUpdates = (gameId) => (dispatch) => {
   };
 };
 
+export const winnerDetermined = (gameId) => (dispatch) => {
+  const subscription = client.subscribe({
+    query: WINNER_DETERMINED_SUBSCRIPTION,
+    variables: { gameId },
+  }).subscribe({
+    next({ data }) {
+      if (data?.winnerDetermined) {
+        console.log("🏆 Winner determined:", data.winnerDetermined);
+        dispatch(setWinner(data.winnerDetermined));
+      }
+    },
+    error(error) {
+      console.error("❌ Subscription error:", error);
+    },
+  });
 
+  return () => {
+    subscription.unsubscribe();
+    console.log("🔴 Winner subscription unsubscribed");
+  };
+};
 
 export const leaveGame = createAsyncThunk(
   "bets/leaveGame",

@@ -1,5 +1,4 @@
 import React from "react";
-import "../styles/Player.css";
 import { FaEthereum } from "react-icons/fa";
 import styles from "../../../styles/WheelSpin/PlayersList.module.css";
 import playerAvatar from "../assets/playerAvatar.png";
@@ -7,44 +6,38 @@ function Player(props) {
   const {
     avatar,
     username,
-    points,
+    color,
+    betAmount,
     percentage,
-    value,
     isWinner,
-    borderColorClass,
   } = props;
 
   return (
-    <div className={styles["player-item"]}>
-      <div className={styles["player-item-content"]}>
-        <div className={styles["player-card"]}>
-          <div className={styles["player-avatar-container"]}>
-            <div className="player-avatar">
-              <img src={playerAvatar} alt={username} />
-            </div>
+    <div className={styles["player-wrapper"]}>
+      <div className={styles["player"]}>
+        <div className={styles["player-card"]} style={{ borderRightColor: color }}>
+          <div className={styles[".player-img-wrap"]}>
+            <img
+              src={playerAvatar}
+              alt={username}
+              className={styles["player-img"]}
+            />
           </div>
 
-          <div className={styles["player-info-container"]}>
+          <div className={styles["player-info"]}>
             <div className={styles["player-details"]}>
-              <div className={styles["player-name-container"]}>
-                <div className={styles["player-name-wrapper"]}>
-                  <p className={styles["player-name"]}>{username}</p>
+              <div className={styles["name-wrap"]}>
+                <div className={styles["player-name"]}>
+                  <div className={styles["name-text"]}>{username}</div>
                 </div>
               </div>
-
-              <div className={styles["player-points-container"]}>
-                <p className={styles["player-points"]}>{points}</p>
-              </div>
             </div>
-
-            <div className={styles["player-stats-container"]}>
-              <div className={styles["player-chance-container"]}>
-                <p className={styles["player-chance"]}>{percentage} %</p>
+            <div className={styles["player-stats"]}>
+              <div className={styles["win-chance-wrap"]}>
+                <div className={styles["win-chance"]}>{percentage} %</div>
               </div>
-
-              <div className={styles["player-currency-container"]}>
-                <p className={styles["player-currency"]}>{value}</p>
-                {/* <FaEthereum className={styles["player-currency-icon"]} /> */}
+              <div className={styles["bet-wrap"]}>
+                <div className={styles["bet-text"]}>{betAmount} ETH</div>
               </div>
             </div>
           </div>

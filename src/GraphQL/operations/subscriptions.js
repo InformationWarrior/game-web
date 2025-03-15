@@ -36,6 +36,7 @@ export const ROUND_UPDATED_SUBSCRIPTION = gql`
       participants {
         walletAddress
         username
+        color
         betAmount
         currency
         winningChance
@@ -46,6 +47,7 @@ export const ROUND_UPDATED_SUBSCRIPTION = gql`
         player {
           walletAddress
           username
+          color
         }
         amount
         currency
@@ -62,6 +64,20 @@ export const ROUND_UPDATED_SUBSCRIPTION = gql`
         username
       }
       startedAt
+    }
+  }
+`;
+
+export const WINNER_DETERMINED_SUBSCRIPTION = gql`
+  subscription WinnerDetermined($gameId: ID!) {
+    winnerDetermined(gameId: $gameId) {
+      gameId
+      roundNumber
+      winner {
+        _id
+        username
+        walletAddress
+      }
     }
   }
 `;
